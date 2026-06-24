@@ -503,10 +503,8 @@ function simulate(inputs) {
         maxRate,
         parecer,
         comissaoTableText,
-        comissaoRate,
         // Detailed breakdown vectors for UI representation
-        dates,
-        consolidatedCashFlows
+        dates
     };
 }
 
