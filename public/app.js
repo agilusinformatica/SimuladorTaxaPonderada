@@ -159,7 +159,7 @@ function updateUI(results) {
     document.getElementById("out-max-rate").innerText = formatPercentage(results.maxRate);
     
     document.getElementById("out-comissao").innerText = results.comissaoTableText
-        ? `${results.comissaoTableText} (${formatPercentage(results.comissaoRate)})`
+        ? `${results.comissaoTableText}`
         : "Sem comissionamento / Não Favorável";
         
     document.getElementById("out-iof").innerText = formatCurrency(results.totalIof);
