@@ -168,20 +168,4 @@ function updateUI(results) {
     // Populate Cash Flow details table
     const tableBody = document.getElementById("flow-table-body");
     tableBody.innerHTML = ""; // Clear
-    
-    results.consolidatedCashFlows.forEach((flow, idx) => {
-        const tr = document.createElement("tr");
-        
-        // Date formatting
-        const rawDate = results.dates[idx];
-        const dateObj = new Date(rawDate + 'T00:00:00');
-        const formattedDate = dateObj.toLocaleDateString('pt-BR');
-        
-        tr.innerHTML = `
-            <td>${idx}</td>
-            <td>${formattedDate}</td>
-            <td>${formatCurrency(flow)}</td>
-        `;
-        tableBody.appendChild(tr);
-    });
 }
