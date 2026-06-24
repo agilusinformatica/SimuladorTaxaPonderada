@@ -40,7 +40,13 @@ app.post('/api/simulate', (req, res) => {
         }));
         
         const results = simulate(inputs);
+
+        delete results.theoreticalK3
+        delete results.d3
+        delete results.trocos
+        
         res.json(results);
+
     } catch (error) {
         console.error("Simulation error:", error);
         res.status(500).json({ error: "Erro interno no cálculo da simulação. Verifique os dados inseridos." });
