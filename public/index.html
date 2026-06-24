@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Taxa Ponderada</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-logo">
+                <span class="logo-icon">📊</span>
+                <div>
+                    <h1>Simulador de Taxa Ponderada</h1>
+                    <p class="subtitle">Conversão do Modelo de Portabilidade & Refinanciamento (v.9)</p>
+                </div>
+            </div>
+            <div class="header-badge">Node.js Engine v1.0</div>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="app-main">
+            <!-- Left Side: Inputs -->
+            <section class="panel-inputs">
+                <h2 class="panel-title">Valores Entrada</h2>
+                
+                <form id="simulator-form" onsubmit="event.preventDefault(); runSimulation();">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="convenio">Convênio</label>
+                            <select id="convenio" required>
+                                <option value="SEPLAG MG" selected>SEPLAG MG</option>
+                                <option value="Bombeiros MG">Bombeiros MG</option>
+                                <option value="Def. Pública MG">Def. Pública MG</option>
+                                <option value="Estado BA">Estado BA</option>
+                                <option value="Estado MS">Estado MS</option>
+                                <option value="Estado SC">Estado SC</option>
+                                <option value="Grupo I Governos">Grupo I Governos</option>
+                                <option value="Grupo II Prefeituras">Grupo II Prefeituras</option>
+                                <option value="INSS">INSS</option>
+                                <option value="IPSEMG">IPSEMG</option>
+                                <option value="IPSM">IPSM</option>
+                                <option value="Pref. Contagem">Pref. Contagem</option>
+                                <option value="Pref. Goiânia">Pref. Goiânia</option>
+                                <option value="Pref. SP">Pref. SP</option>
+                                <option value="Tribunais Estaduais">Tribunais Estaduais</option>
+                                <option value="SPPrev">SPPrev</option>
+                                <option value="PMMG">PMMG</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="produto">Produto</label>
+                            <select id="produto" required>
+                                <option value="Refin da Port" selected>Refin da Port</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="comSeguro">Com Seguro?</label>
+                            <select id="comSeguro" required>
+                                <option value="Não" selected>Não</option>
+                                <option value="Sim">Sim</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dataContrato">Data do Contrato</label>
+                            <input type="date" id="dataContrato" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="primeiroVencimento">Primeiro Vencimento Estimado</label>
+                            <input type="date" id="primeiroVencimento" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prazoRefin">Prazo Refin (Meses)</label>
+                            <input type="number" id="prazoRefin" value="120" min="1" max="360" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="taxaRefin">Taxa Refin (% a.m.)</label>
+                            <input type="number" id="taxaRefin" value="2.25" step="0.0001" min="0" max="100" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pmtRefin">PMT Refin (R$)</label>
+                            <input type="number" id="pmtRefin" value="3000" min="0" step="0.01" required>
+                        </div>
+                    </div>
+
+                    <!-- Contracts Section -->
+                    <div class="contracts-section">
+                        <div class="section-header">
+                            <h3>Contratos Portados (Resultados Estimados)</h3>
+                            <button type="button" class="btn-secondary" onclick="addContractRow()">+ Adicionar Contrato</button>
+                        </div>
+                        <div id="contracts-list" class="contracts-list">
+                            <!-- Contracts will be added here -->
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Calcular Simulador</button>
+                </form>
+            </section>
+
+            <!-- Right Side: Results -->
+            <section class="panel-outputs">
+                <h2 class="panel-title">Resultados Saída + Parecer</h2>
+                
+                <div class="results-card">
+                    <!-- Parecer Badge -->
+                    <div class="parecer-container">
+                        <span class="parecer-label">PARECER DO SIMULADOR</span>
+                        <div id="parecer-badge" class="badge-pending">AGUARDANDO CÁLCULO</div>
+                    </div>
+
+                    <div class="output-grid">
+                        <div class="output-item header-styled">
+                            <span class="out-label">Troco Estimado</span>
+                            <span id="out-troco" class="out-value">R$ 0,00</span>
+                        </div>
+
+                        <div class="output-item header-styled">
+                            <span class="out-label">Taxa Ponderada da Operação</span>
+                            <span id="out-taxa" class="out-value">0,00%</span>
+                        </div>
+                        
+                        <div class="output-item">
+                            <span class="out-label">Limites Regulares do Convênio</span>
+                            <div class="out-limits">
+                                <span>Mín: <strong id="out-min-rate">0,00%</strong></span>
+                                <span>Máx: <strong id="out-max-rate">0,00%</strong></span>
+                            </div>
+                        </div>
+
+                        <div class="output-item">
+                            <span class="out-label">Comissionamento Mapeado</span>
+                            <span id="out-comissao" class="out-value-small">-</span>
+                        </div>
+
+                        <div class="output-item">
+                            <span class="out-label">Encargos Fiscais (IOF Estimado)</span>
+                            <span id="out-iof" class="out-value-small">R$ 0,00</span>
+                        </div>
+
+                        <div class="output-item">
+                            <span class="out-label">Prêmio Seguro Mapeado (Prestamista)</span>
+                            <span id="out-seguro" class="out-value-small">R$ 0,00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Alert -->
+                <div class="info-alert">
+                    <span class="info-icon">ℹ️</span>
+                    <p>A carência (dias corridos até o primeiro vencimento) impacta o cálculo da amortização e o cálculo da taxa ponderada de forma direta.</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Cash Flow Toggle Section -->
+        <footer class="app-footer" style="display: none">
+            <details class="flow-details">
+                <summary>📊 Visualizar Fluxo de Caixa Consolidado (Tabela de Apoio)</summary>
+                <div class="flow-table-container">
+                    <table id="flow-table">
+                        <thead>
+                            <tr>
+                                <th>Período (N)</th>
+                                <th>Data Estimada</th>
+                                <th>Fluxo de Caixa Consolidado (R$)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="flow-table-body">
+                            <tr>
+                                <td colspan="3" class="text-center">Nenhum cálculo efetuado ainda.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+        </footer>
+    </div>
+
+    <!-- Client app script -->
+    <script src="app.js"></script>
+</body>
+</html>

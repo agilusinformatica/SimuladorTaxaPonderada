@@ -1,0 +1,21 @@
+{
+  "name": "simulador-taxa-ponderada",
+  "version": "1.0.0",
+  "description": "Conversão do simulador de taxa ponderada Excel para Node.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "cli": "node cli.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "keywords": [
+    "simulador",
+    "taxa-ponderada",
+    "consignado",
+    "financeiro"
+  ],
+  "author": "",
+  "license": "ISC"
+}
