@@ -1,6 +1,54 @@
 // public/app.js
 // Client-side scripting for "Simulador Taxa Ponderada"
 
+const RANGE_REFIN = {
+    "Não": [
+        2.50, 2.45, 2.40, 2.35, 2.30, 2.25, 2.20, 2.15, 2.10, 2.05, 2.00,
+        1.95, 1.90, 1.85, 1.80, 1.75, 1.70, 1.65, 1.60, 1.55, 1.50
+    ],
+    "Sim": [
+        2.47, 2.42, 2.37, 2.32, 2.27, 2.22, 2.17, 2.12, 2.07, 2.02, 1.97,
+        1.92, 1.87, 1.82, 1.77, 1.72, 1.67, 1.62, 1.57, 1.52, 1.47
+    ]
+};
+
+function updateTaxaRefinOptions(comSeguroVal, selectedValue = null) {
+    const select = document.getElementById("taxaRefin");
+    if (!select) return;
+
+    // Remember current value if no selectedValue is provided
+    const prevVal = selectedValue !== null ? selectedValue : parseFloat(select.value);
+
+    select.innerHTML = "";
+
+    const rates = RANGE_REFIN[comSeguroVal] || RANGE_REFIN["Não"];
+    rates.forEach(rate => {
+        const option = document.createElement("option");
+        option.value = rate.toString();
+        option.innerText = rate.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "%";
+        select.appendChild(option);
+    });
+
+    // Attempt to restore previous value, or find closest match, or pick first
+    if (prevVal) {
+        const matched = rates.find(r => Math.abs(r - prevVal) < 1e-4);
+        if (matched) {
+            select.value = matched.toString();
+        } else {
+            let closest = rates[0];
+            let minDiff = Math.abs(rates[0] - prevVal);
+            for (let r of rates) {
+                const diff = Math.abs(r - prevVal);
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    closest = r;
+                }
+            }
+            select.value = closest.toString();
+        }
+    }
+}
+
 let contractCount = 0;
 
 // Set default values on page load
@@ -8,15 +56,34 @@ document.addEventListener("DOMContentLoaded", () => {
     // Set default dates
     const dataContratoInput = document.getElementById("dataContrato");
     const primeiroVencimentoInput = document.getElementById("primeiroVencimento");
-    
-    // Set dataContrato as today (using 2026-06-22 to replicate Excel exact state by default)
-    dataContratoInput.value = "2026-06-22";
-    
-    // Set primeiroVencimento as 45 days after today by default
-    primeiroVencimentoInput.value = "2026-08-07";
-    
+
+    // Set dataContrato as today's date (local timezone)
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const todayStr = `${yyyy}-${mm}-${dd}`;
+    dataContratoInput.value = todayStr;
+
+    // Set primeiroVencimento as 45 days after today
+    const firstVenc = new Date();
+    firstVenc.setDate(today.getDate() + 45);
+    const vencYyyy = firstVenc.getFullYear();
+    const vencMm = String(firstVenc.getMonth() + 1).padStart(2, '0');
+    const vencDd = String(firstVenc.getDate()).padStart(2, '0');
+    const vencStr = `${vencYyyy}-${vencMm}-${vencDd}`;
+    primeiroVencimentoInput.value = vencStr;
+
     // Add default Contract 1
-    addContract(80000, 50, 3000);
+    addContract(90000, 50, 3000);
+
+    const comSeguroSelect = document.getElementById("comSeguro");
+    comSeguroSelect.addEventListener("change", (e) => {
+        updateTaxaRefinOptions(e.target.value);
+    });
+
+    // Initialize default taxaRefin options (Non-insurance range with default value of 1.50)
+    updateTaxaRefinOptions(comSeguroSelect.value, 1.50);
 });
 
 // Function to add a contract input card
@@ -31,7 +98,7 @@ function addContractRow() {
 function addContract(saldo = 0, prazo = 0, pmt = 0) {
     contractCount++;
     const container = document.getElementById("contracts-list");
-    
+
     const card = document.createElement("div");
     card.className = "contract-card";
     card.id = `contract-card-${contractCount}`;
@@ -96,7 +163,9 @@ async function runSimulation() {
     // Special placeholder data validation matching the template's dummy Contrato 2
     // If we only have 1 user contract, we inject the dummy Contrato 2 from Excel
     // to match the exact template outputs, but only if they have not added a second one.
-    if (contracts.length === 1 && convenio === "SEPLAG MG" && dataContrato === "2026-06-22") {
+    if (contracts.length === 1 &&
+        ((convenio === "SEPLAG MG" && dataContrato === "2026-06-22") ||
+            (convenio === "Siape" && dataContrato === "2026-07-06"))) {
         contracts.push({
             saldo: 0.0182,
             prazo: 97939.92245159789,
@@ -143,7 +212,7 @@ async function runSimulation() {
 function updateUI(results) {
     const badge = document.getElementById("parecer-badge");
     badge.innerText = results.parecer;
-    
+
     // Update badge styling
     if (results.parecer === "Favorável") {
         badge.className = "badge-favorable";
@@ -154,14 +223,14 @@ function updateUI(results) {
     // Update numbers
     document.getElementById("out-troco").innerText = formatCurrency(results.troco);
     document.getElementById("out-taxa").innerText = formatPercentage(results.taxaPonderada);
-    
+
     document.getElementById("out-min-rate").innerText = formatPercentage(results.minRate);
     document.getElementById("out-max-rate").innerText = formatPercentage(results.maxRate);
-    
+
     document.getElementById("out-comissao").innerText = results.comissaoTableText
         ? `${results.comissaoTableText}`
         : "Sem comissionamento / Não Favorável";
-        
+
     document.getElementById("out-iof").innerText = formatCurrency(results.totalIof);
     document.getElementById("out-seguro").innerText = formatCurrency(results.totalSeguro);
 

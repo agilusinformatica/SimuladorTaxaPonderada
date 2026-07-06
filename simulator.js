@@ -18,137 +18,771 @@ const CONVENIO_DE_X_PARA = {
     "SEPLAG MG": "Estado MG",
     "Tribunais Estaduais": "Tribunais Estaduais",
     "SPPrev": "SPPrev",
-    "PMMG": "PMMG"
+    "PMMG": "PMMG",
+    "Siape": "Siape",
+    "Aeronáutica": "Aeronáutica",
+    "Marinha": "Marinha",
+    "Exército": "Exército",
+    "Tribunais Federais": "Tribunais Federais"
 };
 
 const APOIO_RATES = {
-    "Bombeiros MG": { min: 0.0225, max: 0.05 },
-    "Def. Pública MG": { min: 0.0225, max: 0.05 },
-    "Estado BA": { min: 0.0202, max: 0.05 },
-    "Estado MS": { min: 0.0188, max: 0.05 },
-    "Estado SC": { min: 0.02, max: 0.05 },
-    "Grupo I Governos": { min: 0.0219, max: 0.05 },
-    "Grupo II Prefeituras": { min: 0.0212, max: 0.05 },
-    "INSS": { min: 0.0178, max: 0.0185 },
-    "IPSEMG": { min: 0.0225, max: 0.05 },
-    "IPSM": { min: 0.0225, max: 0.05 },
-    "Pref. Contagem": { min: 0.0197, max: 0.05 },
-    "Pref. Goiânia": { min: 0.0204, max: 0.05 },
-    "Pref. SP": { min: 0.0176, max: 0.05 },
-    "SEPLAG MG": { min: 0.0225, max: 0.05 },
-    "Tribunais Estaduais": { min: 0.0192, max: 0.05 },
-    "SPPrev": { min: 0.0174, max: 0.05 },
-    "PMMG": { min: 0.0217, max: 0.05 }
+    "Bombeiros MG": {
+        "min": 0.0225,
+        "max": 0.05
+    },
+    "Def. Pública MG": {
+        "min": 0.0225,
+        "max": 0.05
+    },
+    "Estado BA": {
+        "min": 0.0191,
+        "max": 0.05
+    },
+    "Estado MS": {
+        "min": 0.0188,
+        "max": 0.05
+    },
+    "Estado SC": {
+        "min": 0.02,
+        "max": 0.05
+    },
+    "Grupo I Governos": {
+        "min": 0.0219,
+        "max": 0.05
+    },
+    "Grupo II Prefeituras": {
+        "min": 0.0212,
+        "max": 0.05
+    },
+    "INSS": {
+        "min": 0.0178,
+        "max": 0.0185
+    },
+    "IPSEMG": {
+        "min": 0.0225,
+        "max": 0.05
+    },
+    "IPSM": {
+        "min": 0.0225,
+        "max": 0.05
+    },
+    "Pref. Contagem": {
+        "min": 0.0197,
+        "max": 0.05
+    },
+    "Pref. Goiânia": {
+        "min": 0.0204,
+        "max": 0.05
+    },
+    "Pref. SP": {
+        "min": 0.0176,
+        "max": 0.05
+    },
+    "SEPLAG MG": {
+        "min": 0.0225,
+        "max": 0.05
+    },
+    "Tribunais Estaduais": {
+        "min": 0.0192,
+        "max": 0.05
+    },
+    "SPPrev": {
+        "min": 0.0174,
+        "max": 0.05
+    },
+    "PMMG": {
+        "min": 0.0217,
+        "max": 0.05
+    },
+    "Siape": {
+        "min": 0.0167,
+        "max": 0.018
+    },
+    "Aeronáutica": {
+        "min": 0.0193,
+        "max": 0.05
+    },
+    "Marinha": {
+        "min": 0.0188,
+        "max": 0.0204
+    },
+    "Exército": {
+        "min": 0.0176,
+        "max": 0.0204
+    },
+    "Tribunais Federais": {
+        "min": 0.0201,
+        "max": 0.05
+    }
 };
 
 const COMMISSION_TABLES = {
     "Estado MG": [
-        { limit: 0.0225, table: "Tabela 1", rate: 0.005 },
-        { limit: 0.0226, table: "Tabela 2", rate: 0.01 },
-        { limit: 0.0228, table: "Tabela 3", rate: 0.015 },
-        { limit: 0.0229, table: "Tabela 4", rate: 0.02 },
-        { limit: 0.0230, table: "Tabela 5", rate: 0.025 },
-        { limit: 0.0232, table: "Tabela 6", rate: 0.03 },
-        { limit: 0.0500, table: "Tabela 6", rate: 0.03 }
+        {
+            "limit": 0.0225,
+            "table": "Tabela 1",
+            "rate": 0.005
+        },
+        {
+            "limit": 0.0226,
+            "table": "Tabela 2",
+            "rate": 0.01
+        },
+        {
+            "limit": 0.0228,
+            "table": "Tabela 3",
+            "rate": 0.015
+        },
+        {
+            "limit": 0.0229,
+            "table": "Tabela 4",
+            "rate": 0.02
+        },
+        {
+            "limit": 0.023,
+            "table": "Tabela 5",
+            "rate": 0.025
+        },
+        {
+            "limit": 0.0232,
+            "table": "Tabela 6",
+            "rate": 0.03
+        },
+        {
+            "limit": 0.05,
+            "table": "Tabela 6",
+            "rate": 0.03
+        }
+    ],
+    "Grupo II Prefeituras": [
+        {
+            "limit": 0.0212,
+            "table": "Tabela 1",
+            "rate": 0.005
+        },
+        {
+            "limit": 0.0214,
+            "table": "Tabela 2",
+            "rate": 0.01
+        },
+        {
+            "limit": 0.0215,
+            "table": "Tabela 3",
+            "rate": 0.015
+        },
+        {
+            "limit": 0.0217,
+            "table": "Tabela 4",
+            "rate": 0.02
+        },
+        {
+            "limit": 0.0219,
+            "table": "Tabela 5",
+            "rate": 0.025
+        },
+        {
+            "limit": 0.022,
+            "table": "Tabela 6",
+            "rate": 0.03
+        },
+        {
+            "limit": 0.05,
+            "table": "Tabela 6",
+            "rate": 0.03
+        }
     ],
     "INSS": [
-        { limit: 0.0178, table: "Tabela 1", rate: 0.005 },
-        { limit: 0.0179, table: "Tabela 2", rate: 0.01 },
-        { limit: 0.0181, table: "Tabela 3", rate: 0.015 },
-        { limit: 0.0182, table: "Tabela 4", rate: 0.02 },
-        { limit: 0.0183, table: "Tabela 5", rate: 0.025 },
-        { limit: 0.0185, table: "Tabela 6", rate: 0.03 },
-        { limit: 0.0500, table: "Tabela 6", rate: 0.03 }
+        {
+            "limit": 0.0178,
+            "table": "Tabela 1",
+            "rate": 0.005
+        },
+        {
+            "limit": 0.0179,
+            "table": "Tabela 2",
+            "rate": 0.01
+        },
+        {
+            "limit": 0.0181,
+            "table": "Tabela 3",
+            "rate": 0.015
+        },
+        {
+            "limit": 0.0182,
+            "table": "Tabela 4",
+            "rate": 0.02
+        },
+        {
+            "limit": 0.0183,
+            "table": "Tabela 5",
+            "rate": 0.025
+        },
+        {
+            "limit": 0.0185,
+            "table": "Tabela 6",
+            "rate": 0.03
+        },
+        {
+            "limit": 0.05,
+            "table": "Tabela 6",
+            "rate": 0.03
+        }
     ],
     "Pref. Contagem": [
-        { limit: 0.0197, table: "Tabela 1", rate: 0.005 },
-        { limit: 0.0198, table: "Tabela 2", rate: 0.01 },
-        { limit: 0.0200, table: "Tabela 3", rate: 0.015 },
-        { limit: 0.0201, table: "Tabela 4", rate: 0.02 },
-        { limit: 0.0203, table: "Tabela 5", rate: 0.025 },
-        { limit: 0.0205, table: "Tabela 6", rate: 0.03 },
-        { limit: 0.0500, table: "Tabela 6", rate: 0.03 }
+        {
+            "limit": 0.0197,
+            "table": "Tabela 1",
+            "rate": 0.005
+        },
+        {
+            "limit": 0.0198,
+            "table": "Tabela 2",
+            "rate": 0.01
+        },
+        {
+            "limit": 0.02,
+            "table": "Tabela 3",
+            "rate": 0.015
+        },
+        {
+            "limit": 0.0201,
+            "table": "Tabela 4",
+            "rate": 0.02
+        },
+        {
+            "limit": 0.0203,
+            "table": "Tabela 5",
+            "rate": 0.025
+        },
+        {
+            "limit": 0.0205,
+            "table": "Tabela 6",
+            "rate": 0.03
+        },
+        {
+            "limit": 0.05,
+            "table": "Tabela 6",
+            "rate": 0.03
+        }
     ],
     "Pref. Goiânia": [
-        { limit: 0.0204, table: "Tabela 1", rate: 0.005 },
-        { limit: 0.0206, table: "Tabela 2", rate: 0.01 },
-        { limit: 0.0208, table: "Tabela 3", rate: 0.015 },
-        { limit: 0.0209, table: "Tabela 4", rate: 0.02 },
-        { limit: 0.0211, table: "Tabela 5", rate: 0.025 },
-        { limit: 0.0213, table: "Tabela 6", rate: 0.03 },
-        { limit: 0.0500, table: "Tabela 6", rate: 0.03 }
+        {
+            "limit": 0.0204,
+            "table": "Tabela 1",
+            "rate": 0.005
+        },
+        {
+            "limit": 0.0206,
+            "table": "Tabela 2",
+            "rate": 0.01
+        },
+        {
+            "limit": 0.0208,
+            "table": "Tabela 3",
+            "rate": 0.015
+        },
+        {
+            "limit": 0.0209,
+            "table": "Tabela 4",
+            "rate": 0.02
+        },
+        {
+            "limit": 0.0211,
+            "table": "Tabela 5",
+            "rate": 0.025
+        },
+        {
+            "limit": 0.0213,
+            "table": "Tabela 6",
+            "rate": 0.03
+        },
+        {
+            "limit": 0.05,
+            "table": "Tabela 6",
+            "rate": 0.03
+        }
     ],
     "Pref. SP": [
-        { limit: 0.0176, table: "Tabela 1", rate: 0.005 },
-        { limit: 0.0177, table: "Tabela 2", rate: 0.01 },
-        { limit: 0.0179, table: "Tabela 3", rate: 0.015 },
-        { limit: 0.0180, table: "Tabela 4", rate: 0.02 },
-        { limit: 0.0182, table: "Tabela 5", rate: 0.025 },
-        { limit: 0.0183, table: "Tabela 6", rate: 0.03 },
-        { limit: 0.0500, table: "Tabela 6", rate: 0.03 }
+        {
+            "limit": 0.0176,
+            "table": "Tabela 1",
+            "rate": 0.005
+        },
+        {
+            "limit": 0.0177,
+            "table": "Tabela 2",
+            "rate": 0.01
+        },
+        {
+            "limit": 0.0179,
+            "table": "Tabela 3",
+            "rate": 0.015
+        },
+        {
+            "limit": 0.018,
+            "table": "Tabela 4",
+            "rate": 0.02
+        },
+        {
+            "limit": 0.0182,
+            "table": "Tabela 5",
+            "rate": 0.025
+        },
+        {
+            "limit": 0.0183,
+            "table": "Tabela 6",
+            "rate": 0.03
+        },
+        {
+            "limit": 0.05,
+            "table": "Tabela 6",
+            "rate": 0.03
+        }
     ],
     "SPPrev": [
-        { limit: 0.0174, table: "Tabela 1", rate: 0.005 },
-        { limit: 0.0175, table: "Tabela 2", rate: 0.01 },
-        { limit: 0.0177, table: "Tabela 3", rate: 0.015 },
-        { limit: 0.0178, table: "Tabela 4", rate: 0.02 },
-        { limit: 0.0179, table: "Tabela 5", rate: 0.025 },
-        { limit: 0.0181, table: "Tabela 6", rate: 0.03 },
-        { limit: 0.0500, table: "Tabela 6", rate: 0.03 }
+        {
+            "limit": 0.0174,
+            "table": "Tabela 1",
+            "rate": 0.005
+        },
+        {
+            "limit": 0.0175,
+            "table": "Tabela 2",
+            "rate": 0.01
+        },
+        {
+            "limit": 0.0177,
+            "table": "Tabela 3",
+            "rate": 0.015
+        },
+        {
+            "limit": 0.0178,
+            "table": "Tabela 4",
+            "rate": 0.02
+        },
+        {
+            "limit": 0.0179,
+            "table": "Tabela 5",
+            "rate": 0.025
+        },
+        {
+            "limit": 0.0181,
+            "table": "Tabela 6",
+            "rate": 0.03
+        },
+        {
+            "limit": 0.05,
+            "table": "Tabela 6",
+            "rate": 0.03
+        }
     ],
     "Estado MS": [
-        { limit: 0.0188, table: "Tabela 1", rate: 0.005 },
-        { limit: 0.0189, table: "Tabela 2", rate: 0.01 },
-        { limit: 0.0191, table: "Tabela 3", rate: 0.015 },
-        { limit: 0.0192, table: "Tabela 4", rate: 0.02 },
-        { limit: 0.0193, table: "Tabela 5", rate: 0.025 },
-        { limit: 0.0194, table: "Tabela 6", rate: 0.03 },
-        { limit: 0.0500, table: "Tabela 6", rate: 0.03 }
+        {
+            "limit": 0.0188,
+            "table": "Tabela 1",
+            "rate": 0.005
+        },
+        {
+            "limit": 0.0189,
+            "table": "Tabela 2",
+            "rate": 0.01
+        },
+        {
+            "limit": 0.0191,
+            "table": "Tabela 3",
+            "rate": 0.015
+        },
+        {
+            "limit": 0.0192,
+            "table": "Tabela 4",
+            "rate": 0.02
+        },
+        {
+            "limit": 0.0193,
+            "table": "Tabela 5",
+            "rate": 0.025
+        },
+        {
+            "limit": 0.0194,
+            "table": "Tabela 6",
+            "rate": 0.03
+        },
+        {
+            "limit": 0.05,
+            "table": "Tabela 6",
+            "rate": 0.03
+        }
     ],
     "Estado BA": [
-        { limit: 0.0202, table: "Tabela 1", rate: 0.005 },
-        { limit: 0.0204, table: "Tabela 2", rate: 0.01 },
-        { limit: 0.0205, table: "Tabela 3", rate: 0.015 },
-        { limit: 0.0206, table: "Tabela 4", rate: 0.02 },
-        { limit: 0.0208, table: "Tabela 5", rate: 0.025 },
-        { limit: 0.0209, table: "Tabela 6", rate: 0.03 },
-        { limit: 0.0500, table: "Tabela 6", rate: 0.03 }
+        {
+            "limit": 0.0202,
+            "table": "Tabela 1",
+            "rate": 0.005
+        },
+        {
+            "limit": 0.0204,
+            "table": "Tabela 2",
+            "rate": 0.01
+        },
+        {
+            "limit": 0.0205,
+            "table": "Tabela 3",
+            "rate": 0.015
+        },
+        {
+            "limit": 0.0206,
+            "table": "Tabela 4",
+            "rate": 0.02
+        },
+        {
+            "limit": 0.0208,
+            "table": "Tabela 5",
+            "rate": 0.025
+        },
+        {
+            "limit": 0.0209,
+            "table": "Tabela 6",
+            "rate": 0.03
+        },
+        {
+            "limit": 0.05,
+            "table": "Tabela 6",
+            "rate": 0.03
+        }
     ],
     "Estado SC": [
-        { limit: 0.0200, table: "Tabela 1", rate: 0.005 },
-        { limit: 0.0201, table: "Tabela 2", rate: 0.01 },
-        { limit: 0.0203, table: "Tabela 3", rate: 0.015 },
-        { limit: 0.0204, table: "Tabela 4", rate: 0.02 },
-        { limit: 0.0205, table: "Tabela 5", rate: 0.025 },
-        { limit: 0.0207, table: "Tabela 6", rate: 0.03 },
-        { limit: 0.0500, table: "Tabela 6", rate: 0.03 }
+        {
+            "limit": 0.02,
+            "table": "Tabela 1",
+            "rate": 0.005
+        },
+        {
+            "limit": 0.0201,
+            "table": "Tabela 2",
+            "rate": 0.01
+        },
+        {
+            "limit": 0.0203,
+            "table": "Tabela 3",
+            "rate": 0.015
+        },
+        {
+            "limit": 0.0204,
+            "table": "Tabela 4",
+            "rate": 0.02
+        },
+        {
+            "limit": 0.0205,
+            "table": "Tabela 5",
+            "rate": 0.025
+        },
+        {
+            "limit": 0.0207,
+            "table": "Tabela 6",
+            "rate": 0.03
+        },
+        {
+            "limit": 0.05,
+            "table": "Tabela 6",
+            "rate": 0.03
+        }
     ],
     "Grupo I Governos": [
-        { limit: 0.0200, table: "Tabela 1", rate: 0.005 },
-        { limit: 0.0201, table: "Tabela 2", rate: 0.01 },
-        { limit: 0.0203, table: "Tabela 3", rate: 0.015 },
-        { limit: 0.0204, table: "Tabela 4", rate: 0.02 },
-        { limit: 0.0205, table: "Tabela 5", rate: 0.025 },
-        { limit: 0.0207, table: "Tabela 6", rate: 0.03 },
-        { limit: 0.0500, table: "Tabela 6", rate: 0.03 }
+        {
+            "limit": 0.02,
+            "table": "Tabela 1",
+            "rate": 0.005
+        },
+        {
+            "limit": 0.0201,
+            "table": "Tabela 2",
+            "rate": 0.01
+        },
+        {
+            "limit": 0.0203,
+            "table": "Tabela 3",
+            "rate": 0.015
+        },
+        {
+            "limit": 0.0204,
+            "table": "Tabela 4",
+            "rate": 0.02
+        },
+        {
+            "limit": 0.0205,
+            "table": "Tabela 5",
+            "rate": 0.025
+        },
+        {
+            "limit": 0.0207,
+            "table": "Tabela 6",
+            "rate": 0.03
+        },
+        {
+            "limit": 0.05,
+            "table": "Tabela 6",
+            "rate": 0.03
+        }
     ],
     "PMMG": [
-        { limit: 0.0217, table: "Tabela 1", rate: 0.005 },
-        { limit: 0.0219, table: "Tabela 2", rate: 0.01 },
-        { limit: 0.0220, table: "Tabela 3", rate: 0.015 },
-        { limit: 0.0221, table: "Tabela 4", rate: 0.02 },
-        { limit: 0.0223, table: "Tabela 5", rate: 0.025 },
-        { limit: 0.0224, table: "Tabela 6", rate: 0.03 },
-        { limit: 0.0500, table: "Tabela 6", rate: 0.03 }
+        {
+            "limit": 0.0217,
+            "table": "Tabela 1",
+            "rate": 0.005
+        },
+        {
+            "limit": 0.0219,
+            "table": "Tabela 2",
+            "rate": 0.01
+        },
+        {
+            "limit": 0.022,
+            "table": "Tabela 3",
+            "rate": 0.015
+        },
+        {
+            "limit": 0.0221,
+            "table": "Tabela 4",
+            "rate": 0.02
+        },
+        {
+            "limit": 0.0223,
+            "table": "Tabela 5",
+            "rate": 0.025
+        },
+        {
+            "limit": 0.0224,
+            "table": "Tabela 6",
+            "rate": 0.03
+        },
+        {
+            "limit": 0.05,
+            "table": "Tabela 6",
+            "rate": 0.03
+        }
     ],
     "Tribunais Estaduais": [
-        { limit: 0.0192, table: "Tabela 1", rate: 0.005 },
-        { limit: 0.0194, table: "Tabela 2", rate: 0.01 },
-        { limit: 0.0195, table: "Tabela 3", rate: 0.015 },
-        { limit: 0.0196, table: "Tabela 4", rate: 0.02 },
-        { limit: 0.0197, table: "Tabela 5", rate: 0.025 },
-        { limit: 0.0199, table: "Tabela 6", rate: 0.03 },
-        { limit: 0.0500, table: "Tabela 6", rate: 0.03 }
+        {
+            "limit": 0.0192,
+            "table": "Tabela 1",
+            "rate": 0.005
+        },
+        {
+            "limit": 0.0194,
+            "table": "Tabela 2",
+            "rate": 0.01
+        },
+        {
+            "limit": 0.0195,
+            "table": "Tabela 3",
+            "rate": 0.015
+        },
+        {
+            "limit": 0.0196,
+            "table": "Tabela 4",
+            "rate": 0.02
+        },
+        {
+            "limit": 0.0197,
+            "table": "Tabela 5",
+            "rate": 0.025
+        },
+        {
+            "limit": 0.0199,
+            "table": "Tabela 6",
+            "rate": 0.03
+        },
+        {
+            "limit": 0.05,
+            "table": "Tabela 6",
+            "rate": 0.03
+        }
+    ],
+    "Siape": [
+        {
+            "limit": 0.016719164483922862,
+            "table": "Tabela 1",
+            "rate": 0.005
+        },
+        {
+            "limit": 0.016817895149469873,
+            "table": "Tabela 2",
+            "rate": 0.01
+        },
+        {
+            "limit": 0.01691663832931919,
+            "table": "Tabela 3",
+            "rate": 0.015
+        },
+        {
+            "limit": 0.0170183618035614,
+            "table": "Tabela 4",
+            "rate": 0.02
+        },
+        {
+            "limit": 0.017217549188030423,
+            "table": "Tabela 5",
+            "rate": 0.025
+        },
+        {
+            "limit": 0.01731629920097239,
+            "table": "Tabela 6",
+            "rate": 0.03
+        },
+        {
+            "limit": 0.05,
+            "table": "Tabela 6",
+            "rate": 0.03
+        }
+    ],
+    "Aeronáutica": [
+        {
+            "limit": 0.019290326619804243,
+            "table": "Tabela 1",
+            "rate": 0.005
+        },
+        {
+            "limit": 0.01938819063420339,
+            "table": "Tabela 2",
+            "rate": 0.01
+        },
+        {
+            "limit": 0.019486094531427686,
+            "table": "Tabela 3",
+            "rate": 0.015
+        },
+        {
+            "limit": 0.01958403757153086,
+            "table": "Tabela 4",
+            "rate": 0.02
+        },
+        {
+            "limit": 0.019682019032141385,
+            "table": "Tabela 5",
+            "rate": 0.025
+        },
+        {
+            "limit": 0.01978003818512583,
+            "table": "Tabela 6",
+            "rate": 0.03
+        },
+        {
+            "limit": 0.05,
+            "table": "Tabela 6",
+            "rate": 0.03
+        }
+    ],
+    "Marinha": [
+        {
+            "limit": 0.018758598492000934,
+            "table": "Tabela 1",
+            "rate": 0.005
+        },
+        {
+            "limit": 0.018947641930760005,
+            "table": "Tabela 2",
+            "rate": 0.01
+        },
+        {
+            "limit": 0.01913632000988589,
+            "table": "Tabela 3",
+            "rate": 0.015
+        },
+        {
+            "limit": 0.01932463650438214,
+            "table": "Tabela 4",
+            "rate": 0.02
+        },
+        {
+            "limit": 0.019512595141244257,
+            "table": "Tabela 5",
+            "rate": 0.025
+        },
+        {
+            "limit": 0.01970019960025163,
+            "table": "Tabela 6",
+            "rate": 0.03
+        },
+        {
+            "limit": 0.05,
+            "table": "Tabela 6",
+            "rate": 0.03
+        }
+    ],
+    "Exército": [
+        {
+            "limit": 0.01755158929483586,
+            "table": "Tabela 1",
+            "rate": 0.005
+        },
+        {
+            "limit": 0.017653681907108046,
+            "table": "Tabela 2",
+            "rate": 0.01
+        },
+        {
+            "limit": 0.01775186392429524,
+            "table": "Tabela 3",
+            "rate": 0.015
+        },
+        {
+            "limit": 0.017850083402981665,
+            "table": "Tabela 4",
+            "rate": 0.02
+        },
+        {
+            "limit": 0.01794833961045546,
+            "table": "Tabela 5",
+            "rate": 0.025
+        },
+        {
+            "limit": 0.0180466318319073,
+            "table": "Tabela 6",
+            "rate": 0.03
+        },
+        {
+            "limit": 0.05,
+            "table": "Tabela 6",
+            "rate": 0.03
+        }
+    ],
+    "Tribunais Federais": [
+        {
+            "limit": 0.020118923359078254,
+            "table": "Tabela 1",
+            "rate": 0.005
+        },
+        {
+            "limit": 0.02022630297362854,
+            "table": "Tabela 2",
+            "rate": 0.01
+        },
+        {
+            "limit": 0.020333585864420578,
+            "table": "Tabela 3",
+            "rate": 0.015
+        },
+        {
+            "limit": 0.020426445286614768,
+            "table": "Tabela 4",
+            "rate": 0.02
+        },
+        {
+            "limit": 0.02053364087643327,
+            "table": "Tabela 5",
+            "rate": 0.025
+        },
+        {
+            "limit": 0.02065138326232519,
+            "table": "Tabela 6",
+            "rate": 0.03
+        },
+        {
+            "limit": 0.05,
+            "table": "Tabela 6",
+            "rate": 0.03
+        }
     ]
 };
 
@@ -308,12 +942,12 @@ function simulate(inputs) {
         if (k === 0) {
             // Contrato 1 Refin cash flow logic
             const pmtPort1 = c.pmt;
-            const pmtRefin1 = hasOtherContracts ? pmtPort1 : pmtRefin;
+            const pmtRefin1 = pmtRefin;
             const prazoRemanescente1 = c.prazo;
             
             for (let t = 1; t <= totalPeriods; t++) {
                 if (hasOtherContracts) {
-                    ac_k.push((t > prazoRemanescente1 && t <= totalPeriods) ? pmtPort1 : 0.0);
+                    ac_k.push((t > prazoRemanescente1 && t <= totalPeriods) ? pmtRefin1 : 0.0);
                 } else {
                     if (t > prazoRemanescente1 && t <= totalPeriods) {
                         ac_k.push(pmtRefin1);
@@ -503,6 +1137,7 @@ function simulate(inputs) {
         maxRate,
         parecer,
         comissaoTableText,
+        comissaoRate,
         // Detailed breakdown vectors for UI representation
         dates
     };

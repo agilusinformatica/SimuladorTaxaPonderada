@@ -18,7 +18,7 @@
                 <span class="logo-icon">📊</span>
                 <div>
                     <h1>Simulador de Taxa Ponderada</h1>
-                    <p class="subtitle">Conversão do Modelo de Portabilidade & Refinanciamento (v.9)</p>
+                    <p class="subtitle">Conversão do Modelo de Portabilidade & Refinanciamento (v.10)</p>
                 </div>
             </div>
         </header>
@@ -34,23 +34,28 @@
                         <div class="form-group">
                             <label for="convenio">Convênio</label>
                             <select id="convenio" required>
-                                <option value="SEPLAG MG" selected>SEPLAG MG</option>
+                                <option value="Aeronáutica">Aeronáutica</option>
                                 <option value="Bombeiros MG">Bombeiros MG</option>
                                 <option value="Def. Pública MG">Def. Pública MG</option>
                                 <option value="Estado BA">Estado BA</option>
                                 <option value="Estado MS">Estado MS</option>
                                 <option value="Estado SC">Estado SC</option>
+                                <option value="Exército">Exército</option>
                                 <option value="Grupo I Governos">Grupo I Governos</option>
                                 <option value="Grupo II Prefeituras">Grupo II Prefeituras</option>
                                 <option value="INSS">INSS</option>
                                 <option value="IPSEMG">IPSEMG</option>
                                 <option value="IPSM">IPSM</option>
+                                <option value="Marinha">Marinha</option>
+                                <option value="PMMG">PMMG</option>
                                 <option value="Pref. Contagem">Pref. Contagem</option>
                                 <option value="Pref. Goiânia">Pref. Goiânia</option>
                                 <option value="Pref. SP">Pref. SP</option>
-                                <option value="Tribunais Estaduais">Tribunais Estaduais</option>
+                                <option value="SEPLAG MG">SEPLAG MG</option>
+                                <option value="Siape" selected>Siape</option>
                                 <option value="SPPrev">SPPrev</option>
-                                <option value="PMMG">PMMG</option>
+                                <option value="Tribunais Estaduais">Tribunais Estaduais</option>
+                                <option value="Tribunais Federais">Tribunais Federais</option>
                             </select>
                         </div>
 
@@ -86,7 +91,7 @@
 
                         <div class="form-group">
                             <label for="taxaRefin">Taxa Refin (% a.m.)</label>
-                            <input type="number" id="taxaRefin" value="2.25" step="0.0001" min="0" max="100" required>
+                            <select id="taxaRefin" required></select>
                         </div>
 
                         <div class="form-group">
