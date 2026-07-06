@@ -790,36 +790,36 @@ const COMMISSION_TABLES = {
 function days360(date1, date2) {
     const d1 = new Date(date1 + 'T00:00:00');
     const d2 = new Date(date2 + 'T00:00:00');
-    
+
     let y1 = d1.getFullYear();
     let m1 = d1.getMonth() + 1;
     let dt1 = d1.getDate();
-    
+
     let y2 = d2.getFullYear();
     let m2 = d2.getMonth() + 1;
     let dt2 = d2.getDate();
-    
+
     if (dt1 === 31) dt1 = 30;
     if (dt2 === 31) {
         if (dt1 >= 30) {
             dt2 = 30;
         }
     }
-    
+
     const isLastDayFeb = (y, m, d) => {
         if (m !== 2) return false;
         const isLeap = (y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0));
         const lastD = isLeap ? 29 : 28;
         return d === lastD;
     };
-    
+
     if (isLastDayFeb(y1, m1, dt1)) {
         dt1 = 30;
         if (isLastDayFeb(y2, m2, dt2)) {
             dt2 = 30;
         }
     }
-    
+
     return (y2 - y1) * 360 + (m2 - m1) * 30 + (dt2 - dt1);
 }
 
@@ -829,11 +829,11 @@ function addMonths(startDateStr, months) {
     let y = d.getFullYear();
     let m = d.getMonth() + 1;
     let dt = d.getDate();
-    
+
     let mNew = m + months;
     let yNew = y + Math.floor((mNew - 1) / 12);
     mNew = ((mNew - 1) % 12 + 1);
-    
+
     let maxD;
     if (mNew === 2) {
         const isLeap = (yNew % 4 === 0 && (yNew % 100 !== 0 || yNew % 400 === 0));
@@ -843,7 +843,7 @@ function addMonths(startDateStr, months) {
     } else {
         maxD = 31;
     }
-    
+
     let dtNew = Math.min(dt, maxD);
     const pad = (n) => String(n).padStart(2, '0');
     return `${yNew}-${pad(mNew)}-${pad(dtNew)}`;
@@ -854,11 +854,11 @@ function xirr(cashflows, datesStr, guess = 0.1) {
     const dates = datesStr.map(d => new Date(d + 'T00:00:00'));
     const t0 = dates[0].getTime();
     const t = dates.map(d => (d.getTime() - t0) / (1000 * 60 * 60 * 24 * 365));
-    
+
     let r = guess;
     const maxIter = 1000;
     const tol = 1e-11;
-    
+
     for (let i = 0; i < maxIter; i++) {
         let f = 0;
         let df = 0;
@@ -874,7 +874,7 @@ function xirr(cashflows, datesStr, guess = 0.1) {
         if (Math.abs(nextR - r) < tol) return nextR;
         r = nextR;
     }
-    
+
     // Bisection
     let low = -0.999;
     let high = 10.0;
@@ -938,13 +938,13 @@ function simulate(inputs) {
     for (let k = 0; k < 4; k++) {
         const c = contracts[k];
         const ac_k = [];
-        
+
         if (k === 0) {
             // Contrato 1 Refin cash flow logic
             const pmtPort1 = c.pmt;
             const pmtRefin1 = pmtRefin;
             const prazoRemanescente1 = c.prazo;
-            
+
             for (let t = 1; t <= totalPeriods; t++) {
                 if (hasOtherContracts) {
                     ac_k.push((t > prazoRemanescente1 && t <= totalPeriods) ? pmtRefin1 : 0.0);
@@ -968,12 +968,12 @@ function simulate(inputs) {
         // Discounted flow (AD, AG, AJ, AM)
         const ad_k = [];
         for (let t = 1; t <= totalPeriods; t++) {
-            const discFactor = Math.pow(1 + taxaRefinAnnualized, aa[t-1] / 360.0);
-            ad_k.push(ac_k[t-1] / discFactor);
+            const discFactor = Math.pow(1 + taxaRefinAnnualized, aa[t - 1] / 360.0);
+            ad_k.push(ac_k[t - 1] / discFactor);
         }
-        
+
         const troco_k = c.saldo > 0 || k === 0 ? ad_k.reduce((s, x) => s + x, 0) : 0.0;
-        
+
         trocos.push(troco_k);
         refinFlows.push(ac_k);
     }
@@ -985,7 +985,7 @@ function simulate(inputs) {
         for (let k = 0; k < 4; k++) {
             const c = contracts[k];
             const ab_k_t = (c.saldo > 0 && t <= c.prazo) ? c.pmt : 0.0;
-            const ac_k_t = refinFlows[k][t-1];
+            const ac_k_t = refinFlows[k][t - 1];
             totalPmtT += ab_k_t + ac_k_t;
         }
         anFlow.push(totalPmtT);
@@ -1003,7 +1003,7 @@ function simulate(inputs) {
 
     // Compute IRR (Taxa Ponderada)
     const xirrAnnual = xirr(consolidatedCashFlows, dates);
-    const ratePonderadaRaw = Math.pow(1 + xirrAnnual, 1/12.0) - 1;
+    const ratePonderadaRaw = Math.pow(1 + xirrAnnual, 1 / 12.0) - 1;
     const taxaPonderada = Number(ratePonderadaRaw.toFixed(4)); // ROUND(..., 4)
 
     // --- AMORTIZATION AND IOF ---
@@ -1137,7 +1137,6 @@ function simulate(inputs) {
         maxRate,
         parecer,
         comissaoTableText,
-        comissaoRate,
         // Detailed breakdown vectors for UI representation
         dates
     };
