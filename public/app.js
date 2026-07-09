@@ -1,51 +1,47 @@
 // public/app.js
 // Client-side scripting for "Simulador Taxa Ponderada"
 
-const RANGE_REFIN = {
-    "Não": [
-        2.50, 2.45, 2.40, 2.35, 2.30, 2.25, 2.20, 2.15, 2.10, 2.05, 2.00,
-        1.95, 1.90, 1.85, 1.80, 1.75, 1.70, 1.65, 1.60, 1.55, 1.50
-    ],
-    "Sim": [
-        2.47, 2.42, 2.37, 2.32, 2.27, 2.22, 2.17, 2.12, 2.07, 2.02, 1.97,
-        1.92, 1.87, 1.82, 1.77, 1.72, 1.67, 1.62, 1.57, 1.52, 1.47
-    ]
-};
-
-function updateTaxaRefinOptions(comSeguroVal, selectedValue = null) {
+async function updateTaxaRefinOptions(convenioVal, comSeguroVal, selectedValue = null) {
     const select = document.getElementById("taxaRefin");
     if (!select) return;
 
     // Remember current value if no selectedValue is provided
     const prevVal = selectedValue !== null ? selectedValue : parseFloat(select.value);
 
-    select.innerHTML = "";
+    try {
+        const response = await fetch(`/api/refin-range?convenio=${encodeURIComponent(convenioVal)}&comSeguro=${encodeURIComponent(comSeguroVal)}`);
+        if (!response.ok) throw new Error("Failed to fetch rates");
+        const rates = await response.json();
 
-    const rates = RANGE_REFIN[comSeguroVal] || RANGE_REFIN["Não"];
-    rates.forEach(rate => {
-        const option = document.createElement("option");
-        option.value = rate.toString();
-        option.innerText = rate.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "%";
-        select.appendChild(option);
-    });
+        select.innerHTML = "";
 
-    // Attempt to restore previous value, or find closest match, or pick first
-    if (prevVal) {
-        const matched = rates.find(r => Math.abs(r - prevVal) < 1e-4);
-        if (matched) {
-            select.value = matched.toString();
-        } else {
-            let closest = rates[0];
-            let minDiff = Math.abs(rates[0] - prevVal);
-            for (let r of rates) {
-                const diff = Math.abs(r - prevVal);
-                if (diff < minDiff) {
-                    minDiff = diff;
-                    closest = r;
+        rates.forEach(rate => {
+            const option = document.createElement("option");
+            option.value = rate.toString();
+            option.innerText = rate.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "%";
+            select.appendChild(option);
+        });
+
+        // Attempt to restore previous value, or find closest match, or pick first
+        if (prevVal && rates.length > 0) {
+            const matched = rates.find(r => Math.abs(r - prevVal) < 1e-4);
+            if (matched) {
+                select.value = matched.toString();
+            } else {
+                let closest = rates[0];
+                let minDiff = Math.abs(rates[0] - prevVal);
+                for (let r of rates) {
+                    const diff = Math.abs(r - prevVal);
+                    if (diff < minDiff) {
+                        minDiff = diff;
+                        closest = r;
+                    }
                 }
+                select.value = closest.toString();
             }
-            select.value = closest.toString();
         }
+    } catch (err) {
+        console.error("Error updating refin options:", err);
     }
 }
 
@@ -77,13 +73,19 @@ document.addEventListener("DOMContentLoaded", () => {
     // Add default Contract 1
     addContract(90000, 50, 3000);
 
+    const convenioSelect = document.getElementById("convenio");
     const comSeguroSelect = document.getElementById("comSeguro");
-    comSeguroSelect.addEventListener("change", (e) => {
-        updateTaxaRefinOptions(e.target.value);
+
+    convenioSelect.addEventListener("change", () => {
+        updateTaxaRefinOptions(convenioSelect.value, comSeguroSelect.value);
     });
 
-    // Initialize default taxaRefin options (Non-insurance range with default value of 1.50)
-    updateTaxaRefinOptions(comSeguroSelect.value, 1.50);
+    comSeguroSelect.addEventListener("change", () => {
+        updateTaxaRefinOptions(convenioSelect.value, comSeguroSelect.value);
+    });
+
+    // Initialize default taxaRefin options (with default value of 1.50)
+    updateTaxaRefinOptions(convenioSelect.value, comSeguroSelect.value, 1.50);
 });
 
 // Function to add a contract input card

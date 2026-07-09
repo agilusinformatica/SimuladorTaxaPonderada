@@ -120,666 +120,792 @@ const APOIO_RATES = {
 const COMMISSION_TABLES = {
     "Estado MG": [
         {
-            "limit": 0.0225,
+            "limit_s_seg": 0.0225,
+            "limit_c_seg": 0.0222,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit": 0.0226,
+            "limit_s_seg": 0.0226,
+            "limit_c_seg": 0.0223,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit": 0.0228,
+            "limit_s_seg": 0.0228,
+            "limit_c_seg": 0.0225,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit": 0.0229,
+            "limit_s_seg": 0.0229,
+            "limit_c_seg": 0.0226,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit": 0.023,
+            "limit_s_seg": 0.023,
+            "limit_c_seg": 0.0227,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit": 0.0232,
+            "limit_s_seg": 0.0232,
+            "limit_c_seg": 0.0229,
             "table": "Tabela 6",
             "rate": 0.03
         },
         {
-            "limit": 0.05,
+            "limit_s_seg": 0.05,
+            "limit_c_seg": 0.05,
             "table": "Tabela 6",
             "rate": 0.03
         }
     ],
     "Grupo II Prefeituras": [
         {
-            "limit": 0.0212,
+            "limit_s_seg": 0.0212,
+            "limit_c_seg": 0.0209,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit": 0.0214,
+            "limit_s_seg": 0.0214,
+            "limit_c_seg": 0.0211,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit": 0.0215,
+            "limit_s_seg": 0.0215,
+            "limit_c_seg": 0.0212,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit": 0.0217,
+            "limit_s_seg": 0.0217,
+            "limit_c_seg": 0.0214,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit": 0.0219,
+            "limit_s_seg": 0.0219,
+            "limit_c_seg": 0.0216,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit": 0.022,
+            "limit_s_seg": 0.022,
+            "limit_c_seg": 0.0217,
             "table": "Tabela 6",
             "rate": 0.03
         },
         {
-            "limit": 0.05,
+            "limit_s_seg": 0.05,
+            "limit_c_seg": 0.05,
             "table": "Tabela 6",
             "rate": 0.03
         }
     ],
     "INSS": [
         {
-            "limit": 0.0178,
+            "limit_s_seg": 0.0178,
+            "limit_c_seg": 0.0175,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit": 0.0179,
+            "limit_s_seg": 0.0179,
+            "limit_c_seg": 0.0176,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit": 0.0181,
+            "limit_s_seg": 0.0181,
+            "limit_c_seg": 0.0178,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit": 0.0182,
+            "limit_s_seg": 0.0182,
+            "limit_c_seg": 0.0179,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit": 0.0183,
+            "limit_s_seg": 0.0183,
+            "limit_c_seg": 0.018,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit": 0.0185,
+            "limit_s_seg": 0.0185,
+            "limit_c_seg": 0.0182,
             "table": "Tabela 6",
             "rate": 0.03
         },
         {
-            "limit": 0.05,
+            "limit_s_seg": 0.05,
+            "limit_c_seg": 0.05,
             "table": "Tabela 6",
             "rate": 0.03
         }
     ],
     "Pref. Contagem": [
         {
-            "limit": 0.0197,
+            "limit_s_seg": 0.0197,
+            "limit_c_seg": 0.0194,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit": 0.0198,
+            "limit_s_seg": 0.0198,
+            "limit_c_seg": 0.0195,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit": 0.02,
+            "limit_s_seg": 0.02,
+            "limit_c_seg": 0.0197,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit": 0.0201,
+            "limit_s_seg": 0.0201,
+            "limit_c_seg": 0.0198,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit": 0.0203,
+            "limit_s_seg": 0.0203,
+            "limit_c_seg": 0.02,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit": 0.0205,
+            "limit_s_seg": 0.0205,
+            "limit_c_seg": 0.0202,
             "table": "Tabela 6",
             "rate": 0.03
         },
         {
-            "limit": 0.05,
+            "limit_s_seg": 0.05,
+            "limit_c_seg": 0.05,
             "table": "Tabela 6",
             "rate": 0.03
         }
     ],
     "Pref. Goiânia": [
         {
-            "limit": 0.0204,
+            "limit_s_seg": 0.0204,
+            "limit_c_seg": 0.0201,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit": 0.0206,
+            "limit_s_seg": 0.0206,
+            "limit_c_seg": 0.0203,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit": 0.0208,
+            "limit_s_seg": 0.0208,
+            "limit_c_seg": 0.0205,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit": 0.0209,
+            "limit_s_seg": 0.0209,
+            "limit_c_seg": 0.0206,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit": 0.0211,
+            "limit_s_seg": 0.0211,
+            "limit_c_seg": 0.0208,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit": 0.0213,
+            "limit_s_seg": 0.0213,
+            "limit_c_seg": 0.021,
             "table": "Tabela 6",
             "rate": 0.03
         },
         {
-            "limit": 0.05,
+            "limit_s_seg": 0.05,
+            "limit_c_seg": 0.05,
             "table": "Tabela 6",
             "rate": 0.03
         }
     ],
     "Pref. SP": [
         {
-            "limit": 0.0176,
+            "limit_s_seg": 0.0176,
+            "limit_c_seg": 0.0173,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit": 0.0177,
+            "limit_s_seg": 0.0177,
+            "limit_c_seg": 0.0174,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit": 0.0179,
+            "limit_s_seg": 0.0179,
+            "limit_c_seg": 0.0176,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit": 0.018,
+            "limit_s_seg": 0.018,
+            "limit_c_seg": 0.0177,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit": 0.0182,
+            "limit_s_seg": 0.0182,
+            "limit_c_seg": 0.0179,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit": 0.0183,
+            "limit_s_seg": 0.0183,
+            "limit_c_seg": 0.018,
             "table": "Tabela 6",
             "rate": 0.03
         },
         {
-            "limit": 0.05,
+            "limit_s_seg": 0.05,
+            "limit_c_seg": 0.05,
             "table": "Tabela 6",
             "rate": 0.03
         }
     ],
     "SPPrev": [
         {
-            "limit": 0.0174,
+            "limit_s_seg": 0.0174,
+            "limit_c_seg": 0.0171,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit": 0.0175,
+            "limit_s_seg": 0.0175,
+            "limit_c_seg": 0.0172,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit": 0.0177,
+            "limit_s_seg": 0.0177,
+            "limit_c_seg": 0.0174,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit": 0.0178,
+            "limit_s_seg": 0.0178,
+            "limit_c_seg": 0.0175,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit": 0.0179,
+            "limit_s_seg": 0.0179,
+            "limit_c_seg": 0.0176,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit": 0.0181,
+            "limit_s_seg": 0.0181,
+            "limit_c_seg": 0.0178,
             "table": "Tabela 6",
             "rate": 0.03
         },
         {
-            "limit": 0.05,
+            "limit_s_seg": 0.05,
+            "limit_c_seg": 0.05,
             "table": "Tabela 6",
             "rate": 0.03
         }
     ],
     "Estado MS": [
         {
-            "limit": 0.0188,
+            "limit_s_seg": 0.0188,
+            "limit_c_seg": 0.0185,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit": 0.0189,
+            "limit_s_seg": 0.0189,
+            "limit_c_seg": 0.0186,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit": 0.0191,
+            "limit_s_seg": 0.0191,
+            "limit_c_seg": 0.0188,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit": 0.0192,
+            "limit_s_seg": 0.0192,
+            "limit_c_seg": 0.0189,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit": 0.0193,
+            "limit_s_seg": 0.0193,
+            "limit_c_seg": 0.019,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit": 0.0194,
+            "limit_s_seg": 0.0194,
+            "limit_c_seg": 0.0191,
             "table": "Tabela 6",
             "rate": 0.03
         },
         {
-            "limit": 0.05,
+            "limit_s_seg": 0.05,
+            "limit_c_seg": 0.05,
             "table": "Tabela 6",
             "rate": 0.03
         }
     ],
     "Estado BA": [
         {
-            "limit": 0.0202,
+            "limit_s_seg": 0.019106,
+            "limit_c_seg": 0.018806,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit": 0.0204,
+            "limit_s_seg": 0.019206,
+            "limit_c_seg": 0.018906,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit": 0.0205,
+            "limit_s_seg": 0.019306,
+            "limit_c_seg": 0.019006,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit": 0.0206,
+            "limit_s_seg": 0.019406,
+            "limit_c_seg": 0.019106,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit": 0.0208,
+            "limit_s_seg": 0.019506,
+            "limit_c_seg": 0.019206,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit": 0.0209,
+            "limit_s_seg": 0.019606,
+            "limit_c_seg": 0.019306,
             "table": "Tabela 6",
             "rate": 0.03
         },
         {
-            "limit": 0.05,
+            "limit_s_seg": 0.05,
+            "limit_c_seg": 0.05,
             "table": "Tabela 6",
             "rate": 0.03
         }
     ],
     "Estado SC": [
         {
-            "limit": 0.02,
+            "limit_s_seg": 0.02,
+            "limit_c_seg": 0.0197,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit": 0.0201,
+            "limit_s_seg": 0.0201,
+            "limit_c_seg": 0.0198,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit": 0.0203,
+            "limit_s_seg": 0.0203,
+            "limit_c_seg": 0.02,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit": 0.0204,
+            "limit_s_seg": 0.0204,
+            "limit_c_seg": 0.0201,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit": 0.0205,
+            "limit_s_seg": 0.0205,
+            "limit_c_seg": 0.0202,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit": 0.0207,
+            "limit_s_seg": 0.0207,
+            "limit_c_seg": 0.0204,
             "table": "Tabela 6",
             "rate": 0.03
         },
         {
-            "limit": 0.05,
+            "limit_s_seg": 0.05,
+            "limit_c_seg": 0.05,
             "table": "Tabela 6",
             "rate": 0.03
         }
     ],
     "Grupo I Governos": [
         {
-            "limit": 0.02,
+            "limit_s_seg": 0.021926,
+            "limit_c_seg": 0.021626,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit": 0.0201,
+            "limit_s_seg": 0.022064,
+            "limit_c_seg": 0.021764,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit": 0.0203,
+            "limit_s_seg": 0.022201,
+            "limit_c_seg": 0.021901,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit": 0.0204,
+            "limit_s_seg": 0.022337,
+            "limit_c_seg": 0.022037,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit": 0.0205,
+            "limit_s_seg": 0.022443,
+            "limit_c_seg": 0.022143,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit": 0.0207,
+            "limit_s_seg": 0.022601,
+            "limit_c_seg": 0.022301,
             "table": "Tabela 6",
             "rate": 0.03
         },
         {
-            "limit": 0.05,
+            "limit_s_seg": 0.05,
+            "limit_c_seg": 0.05,
             "table": "Tabela 6",
             "rate": 0.03
         }
     ],
     "PMMG": [
         {
-            "limit": 0.0217,
+            "limit_s_seg": 0.0217,
+            "limit_c_seg": 0.0214,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit": 0.0219,
+            "limit_s_seg": 0.0219,
+            "limit_c_seg": 0.0216,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit": 0.022,
+            "limit_s_seg": 0.022,
+            "limit_c_seg": 0.0217,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit": 0.0221,
+            "limit_s_seg": 0.0221,
+            "limit_c_seg": 0.0218,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit": 0.0223,
+            "limit_s_seg": 0.0223,
+            "limit_c_seg": 0.022,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit": 0.0224,
+            "limit_s_seg": 0.0224,
+            "limit_c_seg": 0.0221,
             "table": "Tabela 6",
             "rate": 0.03
         },
         {
-            "limit": 0.05,
+            "limit_s_seg": 0.05,
+            "limit_c_seg": 0.05,
             "table": "Tabela 6",
             "rate": 0.03
         }
     ],
     "Tribunais Estaduais": [
         {
-            "limit": 0.0192,
+            "limit_s_seg": 0.0192,
+            "limit_c_seg": 0.0189,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit": 0.0194,
+            "limit_s_seg": 0.0194,
+            "limit_c_seg": 0.0191,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit": 0.0195,
+            "limit_s_seg": 0.0195,
+            "limit_c_seg": 0.0192,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit": 0.0196,
+            "limit_s_seg": 0.0196,
+            "limit_c_seg": 0.0193,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit": 0.0197,
+            "limit_s_seg": 0.0197,
+            "limit_c_seg": 0.0194,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit": 0.0199,
+            "limit_s_seg": 0.0199,
+            "limit_c_seg": 0.0196,
             "table": "Tabela 6",
             "rate": 0.03
         },
         {
-            "limit": 0.05,
+            "limit_s_seg": 0.05,
+            "limit_c_seg": 0.05,
             "table": "Tabela 6",
             "rate": 0.03
         }
     ],
     "Siape": [
         {
-            "limit": 0.016719164483922862,
+            "limit_s_seg": 0.016719,
+            "limit_c_seg": 0.016419,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit": 0.016817895149469873,
+            "limit_s_seg": 0.016818,
+            "limit_c_seg": 0.016518,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit": 0.01691663832931919,
+            "limit_s_seg": 0.016917,
+            "limit_c_seg": 0.016617,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit": 0.0170183618035614,
+            "limit_s_seg": 0.017018,
+            "limit_c_seg": 0.016718,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit": 0.017217549188030423,
+            "limit_s_seg": 0.017218,
+            "limit_c_seg": 0.016918,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit": 0.01731629920097239,
+            "limit_s_seg": 0.017316,
+            "limit_c_seg": 0.017016,
             "table": "Tabela 6",
             "rate": 0.03
         },
         {
-            "limit": 0.05,
+            "limit_s_seg": 0.05,
+            "limit_c_seg": 0.05,
             "table": "Tabela 6",
             "rate": 0.03
         }
     ],
     "Aeronáutica": [
         {
-            "limit": 0.019290326619804243,
+            "limit_s_seg": 0.01929,
+            "limit_c_seg": null,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit": 0.01938819063420339,
+            "limit_s_seg": 0.019388,
+            "limit_c_seg": null,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit": 0.019486094531427686,
+            "limit_s_seg": 0.019486,
+            "limit_c_seg": null,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit": 0.01958403757153086,
+            "limit_s_seg": 0.019584,
+            "limit_c_seg": null,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit": 0.019682019032141385,
+            "limit_s_seg": 0.019682,
+            "limit_c_seg": null,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit": 0.01978003818512583,
+            "limit_s_seg": 0.01978,
+            "limit_c_seg": null,
             "table": "Tabela 6",
             "rate": 0.03
         },
         {
-            "limit": 0.05,
+            "limit_s_seg": 0.05,
+            "limit_c_seg": 0.05,
             "table": "Tabela 6",
             "rate": 0.03
         }
     ],
     "Marinha": [
         {
-            "limit": 0.018758598492000934,
+            "limit_s_seg": 0.018759,
+            "limit_c_seg": null,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit": 0.018947641930760005,
+            "limit_s_seg": 0.018948,
+            "limit_c_seg": null,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit": 0.01913632000988589,
+            "limit_s_seg": 0.019136,
+            "limit_c_seg": null,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit": 0.01932463650438214,
+            "limit_s_seg": 0.019325,
+            "limit_c_seg": null,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit": 0.019512595141244257,
+            "limit_s_seg": 0.019513,
+            "limit_c_seg": null,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit": 0.01970019960025163,
+            "limit_s_seg": 0.0197,
+            "limit_c_seg": null,
             "table": "Tabela 6",
             "rate": 0.03
         },
         {
-            "limit": 0.05,
+            "limit_s_seg": 0.05,
+            "limit_c_seg": 0.05,
             "table": "Tabela 6",
             "rate": 0.03
         }
     ],
     "Exército": [
         {
-            "limit": 0.01755158929483586,
+            "limit_s_seg": 0.017552,
+            "limit_c_seg": null,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit": 0.017653681907108046,
+            "limit_s_seg": 0.017654,
+            "limit_c_seg": null,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit": 0.01775186392429524,
+            "limit_s_seg": 0.017752,
+            "limit_c_seg": null,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit": 0.017850083402981665,
+            "limit_s_seg": 0.01785,
+            "limit_c_seg": null,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit": 0.01794833961045546,
+            "limit_s_seg": 0.017948,
+            "limit_c_seg": null,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit": 0.0180466318319073,
+            "limit_s_seg": 0.018047,
+            "limit_c_seg": null,
             "table": "Tabela 6",
             "rate": 0.03
         },
         {
-            "limit": 0.05,
+            "limit_s_seg": 0.05,
+            "limit_c_seg": 0.05,
             "table": "Tabela 6",
             "rate": 0.03
         }
     ],
     "Tribunais Federais": [
         {
-            "limit": 0.020118923359078254,
+            "limit_s_seg": 0.020119,
+            "limit_c_seg": 0.019819,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit": 0.02022630297362854,
+            "limit_s_seg": 0.020226,
+            "limit_c_seg": 0.019926,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit": 0.020333585864420578,
+            "limit_s_seg": 0.020334,
+            "limit_c_seg": 0.020034,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit": 0.020426445286614768,
+            "limit_s_seg": 0.020426,
+            "limit_c_seg": 0.020126,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit": 0.02053364087643327,
+            "limit_s_seg": 0.020534,
+            "limit_c_seg": 0.020234,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit": 0.02065138326232519,
+            "limit_s_seg": 0.020651,
+            "limit_c_seg": 0.020351,
             "table": "Tabela 6",
             "rate": 0.03
         },
         {
-            "limit": 0.05,
+            "limit_s_seg": 0.05,
+            "limit_c_seg": 0.05,
             "table": "Tabela 6",
             "rate": 0.03
         }
@@ -1094,24 +1220,44 @@ function simulate(inputs) {
 
     // Lookups in Apoio
     const rateLimits = APOIO_RATES[convenio] || { min: 0.0225, max: 0.05 };
-    const minRate = rateLimits.min;
-    const maxRate = rateLimits.max;
+    let minRate = rateLimits.min;
+    let maxRate = rateLimits.max;
+
+    const hasSeguro = (comSeguro === "Sim" || comSeguro === true);
+    if (hasSeguro) {
+        minRate = Math.max(0, minRate - 0.0003);
+        maxRate = Math.max(0, maxRate - 0.0003);
+    }
 
     const parecerFavoravel = (taxaPonderada >= minRate && taxaPonderada <= maxRate);
-    const parecer = parecerFavoravel ? "Favorável" : "Não Favorável";
+    
+    const isMilitary = ["Marinha", "Exército", "Aeronáutica"].includes(convenio);
+    let parecer = "";
+    if (isMilitary && hasSeguro) {
+        parecer = "Não Favorável - Seguro não disponível";
+    } else {
+        parecer = parecerFavoravel ? "Favorável" : "Não Favorável";
+    }
 
     // Commission table lookup
     const mappedGroup = CONVENIO_DE_X_PARA[convenio];
     let comissaoTableText = "";
     let comissaoRate = 0.0;
 
-    if (parecerFavoravel && mappedGroup) {
+    if (parecer === "Favorável" && mappedGroup) {
         const table = COMMISSION_TABLES[mappedGroup];
         if (table) {
-            const sorted = [...table].sort((a, b) => a.limit - b.limit);
+            const hasSeguro = (comSeguro === "Sim" || comSeguro === true);
+            const getLimit = (entry) => hasSeguro ? entry.limit_c_seg : entry.limit_s_seg;
+            
+            // Filter out entries that don't have a valid limit for the active insurance selection
+            const validEntries = table.filter(entry => getLimit(entry) !== null && getLimit(entry) !== undefined);
+            
+            const sorted = [...validEntries].sort((a, b) => getLimit(a) - getLimit(b));
             let matchedEntry = null;
             for (let entry of sorted) {
-                if (taxaPonderada <= entry.limit) {
+                const limit = getLimit(entry);
+                if (taxaPonderada <= limit) {
                     matchedEntry = entry;
                     break;
                 }
@@ -1142,11 +1288,35 @@ function simulate(inputs) {
     };
 }
 
+function getRefinRange(convenio, comSeguro) {
+    let maxRate;
+    if (convenio === "Siape") {
+        maxRate = 0.0180;
+    } else if (convenio === "INSS") {
+        maxRate = 0.0185;
+    } else {
+        maxRate = 0.0300;
+    }
+
+    const rates = [];
+    let current = maxRate;
+    const hasSeguro = (comSeguro === "Sim" || comSeguro === true);
+
+    while (current >= 0.0150 - 1e-9) {
+        const rateVal = Math.round(current * 10000) / 10000;
+        const finalRate = hasSeguro ? Math.round((rateVal - 0.0003) * 10000) / 10000 : rateVal;
+        rates.push(finalRate);
+        current -= 0.0005;
+    }
+    return rates;
+}
+
 module.exports = {
     days360,
     addMonths,
     xirr,
     simulate,
+    getRefinRange,
     CONVENIO_DE_X_PARA,
     APOIO_RATES,
     COMMISSION_TABLES
