@@ -55,3 +55,32 @@ console.log(`Comissão Tabela:   ${results2.comissaoTableText || "Nenhuma"}`);
 console.log(`Taxa Ponderada matches: ${Math.abs(results2.taxaPonderada - 0.025202) < 1e-5 ? "YES" : "NO"}`);
 console.log(`Troco matches:          ${Math.abs(results2.troco - 22302.79) < 1e-1 ? "YES" : "NO"}`);
 console.log(`Parecer matches:        ${results2.parecer === "Não Favorável" ? "YES" : "NO"}`);
+
+// Test Case 3: Siape (v12 default baseline)
+const inputs3 = {
+    convenio: "Siape",
+    produto: "Refin da Port",
+    comSeguro: "Não",
+    dataContrato: "2026-07-22",
+    primeiroVencimento: "2026-08-07",
+    prazoRefin: 120,
+    taxaRefin: 0.028,
+    pmtRefin: 3000,
+    contracts: [
+        { saldo: 90000.0, prazo: 50, pmt: 3000.0 },
+        { saldo: 0.0182, prazo: 97939.92245159789, pmt: 0.0 },
+        { saldo: 0.0, prazo: 0, pmt: 0.0 },
+        { saldo: 0.0, prazo: 0, pmt: 0.0 }
+    ]
+};
+
+console.log("\nRUNNING TEST CASE 3: Siape (v12 Default)");
+const results3 = simulate(inputs3);
+console.log(`Taxa Ponderada:    ${(results3.taxaPonderada * 100).toFixed(2)}% (${results3.taxaPonderada})`);
+console.log(`Troco Final:       R$ ${results3.troco.toFixed(2)}`);
+console.log(`Parecer:           ${results3.parecer}`);
+console.log(`Comissão Tabela:   ${results3.comissaoTableText || "Nenhuma"}`);
+console.log(`Taxa Ponderada matches: ${Math.abs(results3.taxaPonderada - 0.0255) < 1e-4 ? "YES" : "NO"}`);
+console.log(`Troco matches:          ${Math.abs(results3.troco - 22578.33) < 1e-1 ? "YES" : "NO"}`);
+console.log(`Parecer matches:        ${results3.parecer === "Não Favorável" ? "YES" : "NO"}`);
+

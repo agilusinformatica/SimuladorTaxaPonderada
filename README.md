@@ -1,6 +1,6 @@
-# Simulador de Taxa Ponderada - Portabilidade & Refinanciamento (v.11)
+# Simulador de Taxa Ponderada - Portabilidade & Refinanciamento (v.12)
 
-Este projeto é uma conversão completa e fiel do modelo de cálculo financeiro contido no arquivo Excel `Simulador Taxa Ponderada v.11.xlsx` para um programa feito em **Node.js** usando **Javascript** puro.
+Este projeto é uma conversão completa e fiel do modelo de cálculo financeiro contido no arquivo Excel `Simulador_Taxa_Ponderada_v.12.xlsx` para um programa feito em **Node.js** usando **Javascript** puro.
 
 O simulador calcula a **Taxa Ponderada** da operação consolidada através do cálculo do **TIR mensal** (baseado no XIRR anual das datas exatas dos fluxos de caixa), estima o **Troco Líquido** do cliente deduzindo encargos fiscais (**IOF**) e prêmio de **Seguro Prestamista** (opcional), e emite um **Parecer** e a indicação da **Tabela de Comissionamento** aplicável.
 

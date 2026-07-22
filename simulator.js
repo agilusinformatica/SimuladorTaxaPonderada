@@ -96,19 +96,19 @@ const APOIO_RATES = {
         "max": 0.05
     },
     "Siape": {
-        "min": 0.0167,
+        "min": 0.0163,
         "max": 0.018
     },
     "Aeronáutica": {
-        "min": 0.0193,
+        "min": 0.0185,
         "max": 0.05
     },
     "Marinha": {
-        "min": 0.0188,
+        "min": 0.0183,
         "max": 0.0204
     },
     "Exército": {
-        "min": 0.0176,
+        "min": 0.017,
         "max": 0.0204
     },
     "Tribunais Federais": {
@@ -692,38 +692,38 @@ const COMMISSION_TABLES = {
     ],
     "Siape": [
         {
-            "limit_s_seg": 0.016719,
-            "limit_c_seg": 0.016419,
+            "limit_s_seg": 0.016336,
+            "limit_c_seg": 0.016036,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit_s_seg": 0.016818,
-            "limit_c_seg": 0.016518,
+            "limit_s_seg": 0.016459,
+            "limit_c_seg": 0.016159,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit_s_seg": 0.016917,
-            "limit_c_seg": 0.016617,
+            "limit_s_seg": 0.016582,
+            "limit_c_seg": 0.016282,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit_s_seg": 0.017018,
-            "limit_c_seg": 0.016718,
+            "limit_s_seg": 0.016704,
+            "limit_c_seg": 0.016404,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit_s_seg": 0.017218,
-            "limit_c_seg": 0.016918,
+            "limit_s_seg": 0.016827,
+            "limit_c_seg": 0.016527,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit_s_seg": 0.017316,
-            "limit_c_seg": 0.017016,
+            "limit_s_seg": 0.016949,
+            "limit_c_seg": 0.016649,
             "table": "Tabela 6",
             "rate": 0.03
         },
@@ -736,37 +736,37 @@ const COMMISSION_TABLES = {
     ],
     "Aeronáutica": [
         {
-            "limit_s_seg": 0.01929,
+            "limit_s_seg": 0.01847,
             "limit_c_seg": null,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit_s_seg": 0.019388,
+            "limit_s_seg": 0.018619,
             "limit_c_seg": null,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit_s_seg": 0.019486,
+            "limit_s_seg": 0.018768,
             "limit_c_seg": null,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit_s_seg": 0.019584,
+            "limit_s_seg": 0.018917,
             "limit_c_seg": null,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit_s_seg": 0.019682,
+            "limit_s_seg": 0.019065,
             "limit_c_seg": null,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit_s_seg": 0.01978,
+            "limit_s_seg": 0.019214,
             "limit_c_seg": null,
             "table": "Tabela 6",
             "rate": 0.03
@@ -780,37 +780,37 @@ const COMMISSION_TABLES = {
     ],
     "Marinha": [
         {
-            "limit_s_seg": 0.018759,
+            "limit_s_seg": 0.018325,
             "limit_c_seg": null,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit_s_seg": 0.018948,
+            "limit_s_seg": 0.018515,
             "limit_c_seg": null,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit_s_seg": 0.019136,
+            "limit_s_seg": 0.018705,
             "limit_c_seg": null,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit_s_seg": 0.019325,
+            "limit_s_seg": 0.018895,
             "limit_c_seg": null,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit_s_seg": 0.019513,
+            "limit_s_seg": 0.019084,
             "limit_c_seg": null,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit_s_seg": 0.0197,
+            "limit_s_seg": 0.019272,
             "limit_c_seg": null,
             "table": "Tabela 6",
             "rate": 0.03
@@ -824,37 +824,37 @@ const COMMISSION_TABLES = {
     ],
     "Exército": [
         {
-            "limit_s_seg": 0.017552,
+            "limit_s_seg": 0.016963,
             "limit_c_seg": null,
             "table": "Tabela 1",
             "rate": 0.005
         },
         {
-            "limit_s_seg": 0.017654,
+            "limit_s_seg": 0.017112,
             "limit_c_seg": null,
             "table": "Tabela 2",
             "rate": 0.01
         },
         {
-            "limit_s_seg": 0.017752,
+            "limit_s_seg": 0.017261,
             "limit_c_seg": null,
             "table": "Tabela 3",
             "rate": 0.015
         },
         {
-            "limit_s_seg": 0.01785,
+            "limit_s_seg": 0.01741,
             "limit_c_seg": null,
             "table": "Tabela 4",
             "rate": 0.02
         },
         {
-            "limit_s_seg": 0.017948,
+            "limit_s_seg": 0.017558,
             "limit_c_seg": null,
             "table": "Tabela 5",
             "rate": 0.025
         },
         {
-            "limit_s_seg": 0.018047,
+            "limit_s_seg": 0.017706,
             "limit_c_seg": null,
             "table": "Tabela 6",
             "rate": 0.03
