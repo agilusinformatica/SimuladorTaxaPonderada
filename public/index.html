@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,11 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="app-container">
         <!-- Header -->
@@ -18,7 +21,7 @@
                 <span class="logo-icon">📊</span>
                 <div>
                     <h1>Simulador de Taxa Ponderada</h1>
-                    <p class="subtitle">Conversão do Modelo de Portabilidade & Refinanciamento (v.12)</p>
+                    <p class="subtitle">Conversão do Modelo de Portabilidade & Refinanciamento (v.13)</p>
                 </div>
             </div>
         </header>
@@ -28,7 +31,7 @@
             <!-- Left Side: Inputs -->
             <section class="panel-inputs">
                 <h2 class="panel-title">Valores Entrada</h2>
-                
+
                 <form id="simulator-form" onsubmit="event.preventDefault(); runSimulation();">
                     <div class="form-grid">
                         <div class="form-group">
@@ -104,7 +107,8 @@
                     <div class="contracts-section">
                         <div class="section-header">
                             <h3>Contratos Portados (Resultados Estimados)</h3>
-                            <button type="button" class="btn-secondary" onclick="addContractRow()">+ Adicionar Contrato</button>
+                            <button type="button" class="btn-secondary" onclick="addContractRow()">+ Adicionar
+                                Contrato</button>
                         </div>
                         <div id="contracts-list" class="contracts-list">
                             <!-- Contracts will be added here -->
@@ -118,7 +122,7 @@
             <!-- Right Side: Results -->
             <section class="panel-outputs">
                 <h2 class="panel-title">Resultados Saída + Parecer</h2>
-                
+
                 <div class="results-card">
                     <!-- Parecer Badge -->
                     <div class="parecer-container">
@@ -136,7 +140,7 @@
                             <span class="out-label">Taxa Ponderada da Operação</span>
                             <span id="out-taxa" class="out-value">0,00%</span>
                         </div>
-                        
+
                         <div class="output-item">
                             <span class="out-label">Limites Regulares do Convênio</span>
                             <div class="out-limits">
@@ -165,7 +169,8 @@
                 <!-- Info Alert -->
                 <div class="info-alert">
                     <span class="info-icon">ℹ️</span>
-                    <p>A carência (dias corridos até o primeiro vencimento) impacta o cálculo da amortização e o cálculo da taxa ponderada de forma direta.</p>
+                    <p>A carência (dias corridos até o primeiro vencimento) impacta o cálculo da amortização e o cálculo
+                        da taxa ponderada de forma direta.</p>
                 </div>
             </section>
         </main>
@@ -197,4 +202,5 @@
     <!-- Client app script -->
     <script src="app.js"></script>
 </body>
+
 </html>
