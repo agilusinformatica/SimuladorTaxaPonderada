@@ -1,6 +1,6 @@
 {
   "name": "simulador-taxa-ponderada",
-  "version": "1.0.10",
+  "version": "1.0.13",
   "description": "Simulador de taxa ponderada",
   "main": "server.js",
   "scripts": {

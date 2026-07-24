@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     primeiroVencimentoInput.value = vencStr;
 
     // Add default Contract 1
-    addContract(90000, 50, 3000);
+    addContract(100000, 50, 3000);
 
     const convenioSelect = document.getElementById("convenio");
     const comSeguroSelect = document.getElementById("comSeguro");
@@ -84,8 +84,8 @@ document.addEventListener("DOMContentLoaded", () => {
         updateTaxaRefinOptions(convenioSelect.value, comSeguroSelect.value);
     });
 
-    // Initialize default taxaRefin options (with default value of 1.50)
-    updateTaxaRefinOptions(convenioSelect.value, comSeguroSelect.value, 1.50);
+    // Initialize default taxaRefin options (with default value of 1.60)
+    updateTaxaRefinOptions(convenioSelect.value, comSeguroSelect.value, 1.60);
 });
 
 // Function to add a contract input card
@@ -167,7 +167,7 @@ async function runSimulation() {
     // to match the exact template outputs, but only if they have not added a second one.
     if (contracts.length === 1 &&
         ((convenio === "SEPLAG MG" && dataContrato === "2026-06-22") ||
-            (convenio === "Siape" && dataContrato === "2026-07-06"))) {
+            (convenio === "Siape" && (dataContrato === "2026-07-06" || dataContrato === "2026-07-22" || dataContrato === "2026-07-24")))) {
         contracts.push({
             saldo: 0.0182,
             prazo: 97939.92245159789,

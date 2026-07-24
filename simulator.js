@@ -119,796 +119,148 @@ const APOIO_RATES = {
 
 const COMMISSION_TABLES = {
     "Estado MG": [
-        {
-            "limit_s_seg": 0.0225,
-            "limit_c_seg": 0.0222,
-            "table": "Tabela 1",
-            "rate": 0.005
-        },
-        {
-            "limit_s_seg": 0.0226,
-            "limit_c_seg": 0.0223,
-            "table": "Tabela 2",
-            "rate": 0.01
-        },
-        {
-            "limit_s_seg": 0.0228,
-            "limit_c_seg": 0.0225,
-            "table": "Tabela 3",
-            "rate": 0.015
-        },
-        {
-            "limit_s_seg": 0.0229,
-            "limit_c_seg": 0.0226,
-            "table": "Tabela 4",
-            "rate": 0.02
-        },
-        {
-            "limit_s_seg": 0.023,
-            "limit_c_seg": 0.0227,
-            "table": "Tabela 5",
-            "rate": 0.025
-        },
-        {
-            "limit_s_seg": 0.0232,
-            "limit_c_seg": 0.0229,
-            "table": "Tabela 6",
-            "rate": 0.03
-        },
-        {
-            "limit_s_seg": 0.05,
-            "limit_c_seg": 0.05,
-            "table": "Tabela 6",
-            "rate": 0.03
-        }
+        { "limit_s_seg": 0.0225, "limit_c_seg": 0.0225, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0226, "limit_c_seg": 0.0226, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0228, "limit_c_seg": 0.0228, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0229, "limit_c_seg": 0.0229, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.023, "limit_c_seg": 0.023, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0232, "limit_c_seg": 0.0232, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Grupo II Prefeituras": [
-        {
-            "limit_s_seg": 0.0212,
-            "limit_c_seg": 0.0209,
-            "table": "Tabela 1",
-            "rate": 0.005
-        },
-        {
-            "limit_s_seg": 0.0214,
-            "limit_c_seg": 0.0211,
-            "table": "Tabela 2",
-            "rate": 0.01
-        },
-        {
-            "limit_s_seg": 0.0215,
-            "limit_c_seg": 0.0212,
-            "table": "Tabela 3",
-            "rate": 0.015
-        },
-        {
-            "limit_s_seg": 0.0217,
-            "limit_c_seg": 0.0214,
-            "table": "Tabela 4",
-            "rate": 0.02
-        },
-        {
-            "limit_s_seg": 0.0219,
-            "limit_c_seg": 0.0216,
-            "table": "Tabela 5",
-            "rate": 0.025
-        },
-        {
-            "limit_s_seg": 0.022,
-            "limit_c_seg": 0.0217,
-            "table": "Tabela 6",
-            "rate": 0.03
-        },
-        {
-            "limit_s_seg": 0.05,
-            "limit_c_seg": 0.05,
-            "table": "Tabela 6",
-            "rate": 0.03
-        }
+        { "limit_s_seg": 0.0212, "limit_c_seg": 0.0212, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0214, "limit_c_seg": 0.0214, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0215, "limit_c_seg": 0.0215, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0217, "limit_c_seg": 0.0217, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0219, "limit_c_seg": 0.0219, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.022, "limit_c_seg": 0.022, "table": "Tabela 6", "rate": 0.03 }
     ],
     "INSS": [
-        {
-            "limit_s_seg": 0.0178,
-            "limit_c_seg": 0.0175,
-            "table": "Tabela 1",
-            "rate": 0.005
-        },
-        {
-            "limit_s_seg": 0.0179,
-            "limit_c_seg": 0.0176,
-            "table": "Tabela 2",
-            "rate": 0.01
-        },
-        {
-            "limit_s_seg": 0.0181,
-            "limit_c_seg": 0.0178,
-            "table": "Tabela 3",
-            "rate": 0.015
-        },
-        {
-            "limit_s_seg": 0.0182,
-            "limit_c_seg": 0.0179,
-            "table": "Tabela 4",
-            "rate": 0.02
-        },
-        {
-            "limit_s_seg": 0.0183,
-            "limit_c_seg": 0.018,
-            "table": "Tabela 5",
-            "rate": 0.025
-        },
-        {
-            "limit_s_seg": 0.0185,
-            "limit_c_seg": 0.0182,
-            "table": "Tabela 6",
-            "rate": 0.03
-        },
-        {
-            "limit_s_seg": 0.05,
-            "limit_c_seg": 0.05,
-            "table": "Tabela 6",
-            "rate": 0.03
-        }
+        { "limit_s_seg": 0.0178, "limit_c_seg": 0.0178, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0179, "limit_c_seg": 0.0179, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0181, "limit_c_seg": 0.0181, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0182, "limit_c_seg": 0.0182, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0183, "limit_c_seg": 0.0183, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0185, "limit_c_seg": 0.0185, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Pref. Contagem": [
-        {
-            "limit_s_seg": 0.0197,
-            "limit_c_seg": 0.0194,
-            "table": "Tabela 1",
-            "rate": 0.005
-        },
-        {
-            "limit_s_seg": 0.0198,
-            "limit_c_seg": 0.0195,
-            "table": "Tabela 2",
-            "rate": 0.01
-        },
-        {
-            "limit_s_seg": 0.02,
-            "limit_c_seg": 0.0197,
-            "table": "Tabela 3",
-            "rate": 0.015
-        },
-        {
-            "limit_s_seg": 0.0201,
-            "limit_c_seg": 0.0198,
-            "table": "Tabela 4",
-            "rate": 0.02
-        },
-        {
-            "limit_s_seg": 0.0203,
-            "limit_c_seg": 0.02,
-            "table": "Tabela 5",
-            "rate": 0.025
-        },
-        {
-            "limit_s_seg": 0.0205,
-            "limit_c_seg": 0.0202,
-            "table": "Tabela 6",
-            "rate": 0.03
-        },
-        {
-            "limit_s_seg": 0.05,
-            "limit_c_seg": 0.05,
-            "table": "Tabela 6",
-            "rate": 0.03
-        }
+        { "limit_s_seg": 0.0197, "limit_c_seg": 0.0197, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0198, "limit_c_seg": 0.0198, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.02, "limit_c_seg": 0.02, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0201, "limit_c_seg": 0.0201, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0203, "limit_c_seg": 0.0203, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0205, "limit_c_seg": 0.0205, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Pref. Goiânia": [
-        {
-            "limit_s_seg": 0.0204,
-            "limit_c_seg": 0.0201,
-            "table": "Tabela 1",
-            "rate": 0.005
-        },
-        {
-            "limit_s_seg": 0.0206,
-            "limit_c_seg": 0.0203,
-            "table": "Tabela 2",
-            "rate": 0.01
-        },
-        {
-            "limit_s_seg": 0.0208,
-            "limit_c_seg": 0.0205,
-            "table": "Tabela 3",
-            "rate": 0.015
-        },
-        {
-            "limit_s_seg": 0.0209,
-            "limit_c_seg": 0.0206,
-            "table": "Tabela 4",
-            "rate": 0.02
-        },
-        {
-            "limit_s_seg": 0.0211,
-            "limit_c_seg": 0.0208,
-            "table": "Tabela 5",
-            "rate": 0.025
-        },
-        {
-            "limit_s_seg": 0.0213,
-            "limit_c_seg": 0.021,
-            "table": "Tabela 6",
-            "rate": 0.03
-        },
-        {
-            "limit_s_seg": 0.05,
-            "limit_c_seg": 0.05,
-            "table": "Tabela 6",
-            "rate": 0.03
-        }
+        { "limit_s_seg": 0.0204, "limit_c_seg": 0.0204, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0206, "limit_c_seg": 0.0206, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0208, "limit_c_seg": 0.0208, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0209, "limit_c_seg": 0.0209, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0211, "limit_c_seg": 0.0211, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0213, "limit_c_seg": 0.0213, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Pref. SP": [
-        {
-            "limit_s_seg": 0.0176,
-            "limit_c_seg": 0.0173,
-            "table": "Tabela 1",
-            "rate": 0.005
-        },
-        {
-            "limit_s_seg": 0.0177,
-            "limit_c_seg": 0.0174,
-            "table": "Tabela 2",
-            "rate": 0.01
-        },
-        {
-            "limit_s_seg": 0.0179,
-            "limit_c_seg": 0.0176,
-            "table": "Tabela 3",
-            "rate": 0.015
-        },
-        {
-            "limit_s_seg": 0.018,
-            "limit_c_seg": 0.0177,
-            "table": "Tabela 4",
-            "rate": 0.02
-        },
-        {
-            "limit_s_seg": 0.0182,
-            "limit_c_seg": 0.0179,
-            "table": "Tabela 5",
-            "rate": 0.025
-        },
-        {
-            "limit_s_seg": 0.0183,
-            "limit_c_seg": 0.018,
-            "table": "Tabela 6",
-            "rate": 0.03
-        },
-        {
-            "limit_s_seg": 0.05,
-            "limit_c_seg": 0.05,
-            "table": "Tabela 6",
-            "rate": 0.03
-        }
+        { "limit_s_seg": 0.0176, "limit_c_seg": 0.0176, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0177, "limit_c_seg": 0.0177, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0179, "limit_c_seg": 0.0179, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.018, "limit_c_seg": 0.018, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0182, "limit_c_seg": 0.0182, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0183, "limit_c_seg": 0.0183, "table": "Tabela 6", "rate": 0.03 }
     ],
     "SPPrev": [
-        {
-            "limit_s_seg": 0.0174,
-            "limit_c_seg": 0.0171,
-            "table": "Tabela 1",
-            "rate": 0.005
-        },
-        {
-            "limit_s_seg": 0.0175,
-            "limit_c_seg": 0.0172,
-            "table": "Tabela 2",
-            "rate": 0.01
-        },
-        {
-            "limit_s_seg": 0.0177,
-            "limit_c_seg": 0.0174,
-            "table": "Tabela 3",
-            "rate": 0.015
-        },
-        {
-            "limit_s_seg": 0.0178,
-            "limit_c_seg": 0.0175,
-            "table": "Tabela 4",
-            "rate": 0.02
-        },
-        {
-            "limit_s_seg": 0.0179,
-            "limit_c_seg": 0.0176,
-            "table": "Tabela 5",
-            "rate": 0.025
-        },
-        {
-            "limit_s_seg": 0.0181,
-            "limit_c_seg": 0.0178,
-            "table": "Tabela 6",
-            "rate": 0.03
-        },
-        {
-            "limit_s_seg": 0.05,
-            "limit_c_seg": 0.05,
-            "table": "Tabela 6",
-            "rate": 0.03
-        }
+        { "limit_s_seg": 0.0174, "limit_c_seg": 0.0174, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0175, "limit_c_seg": 0.0175, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0177, "limit_c_seg": 0.0177, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0178, "limit_c_seg": 0.0178, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0179, "limit_c_seg": 0.0179, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0181, "limit_c_seg": 0.0181, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Estado MS": [
-        {
-            "limit_s_seg": 0.0188,
-            "limit_c_seg": 0.0185,
-            "table": "Tabela 1",
-            "rate": 0.005
-        },
-        {
-            "limit_s_seg": 0.0189,
-            "limit_c_seg": 0.0186,
-            "table": "Tabela 2",
-            "rate": 0.01
-        },
-        {
-            "limit_s_seg": 0.0191,
-            "limit_c_seg": 0.0188,
-            "table": "Tabela 3",
-            "rate": 0.015
-        },
-        {
-            "limit_s_seg": 0.0192,
-            "limit_c_seg": 0.0189,
-            "table": "Tabela 4",
-            "rate": 0.02
-        },
-        {
-            "limit_s_seg": 0.0193,
-            "limit_c_seg": 0.019,
-            "table": "Tabela 5",
-            "rate": 0.025
-        },
-        {
-            "limit_s_seg": 0.0194,
-            "limit_c_seg": 0.0191,
-            "table": "Tabela 6",
-            "rate": 0.03
-        },
-        {
-            "limit_s_seg": 0.05,
-            "limit_c_seg": 0.05,
-            "table": "Tabela 6",
-            "rate": 0.03
-        }
+        { "limit_s_seg": 0.0188, "limit_c_seg": 0.0188, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0189, "limit_c_seg": 0.0189, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0191, "limit_c_seg": 0.0191, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0192, "limit_c_seg": 0.0192, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0193, "limit_c_seg": 0.0193, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0194, "limit_c_seg": 0.0194, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Estado BA": [
-        {
-            "limit_s_seg": 0.019106,
-            "limit_c_seg": 0.018806,
-            "table": "Tabela 1",
-            "rate": 0.005
-        },
-        {
-            "limit_s_seg": 0.019206,
-            "limit_c_seg": 0.018906,
-            "table": "Tabela 2",
-            "rate": 0.01
-        },
-        {
-            "limit_s_seg": 0.019306,
-            "limit_c_seg": 0.019006,
-            "table": "Tabela 3",
-            "rate": 0.015
-        },
-        {
-            "limit_s_seg": 0.019406,
-            "limit_c_seg": 0.019106,
-            "table": "Tabela 4",
-            "rate": 0.02
-        },
-        {
-            "limit_s_seg": 0.019506,
-            "limit_c_seg": 0.019206,
-            "table": "Tabela 5",
-            "rate": 0.025
-        },
-        {
-            "limit_s_seg": 0.019606,
-            "limit_c_seg": 0.019306,
-            "table": "Tabela 6",
-            "rate": 0.03
-        },
-        {
-            "limit_s_seg": 0.05,
-            "limit_c_seg": 0.05,
-            "table": "Tabela 6",
-            "rate": 0.03
-        }
+        { "limit_s_seg": 0.0191, "limit_c_seg": 0.0191, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0192, "limit_c_seg": 0.0192, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0193, "limit_c_seg": 0.0193, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0194, "limit_c_seg": 0.0194, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0195, "limit_c_seg": 0.0195, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0196, "limit_c_seg": 0.0196, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Estado SC": [
-        {
-            "limit_s_seg": 0.02,
-            "limit_c_seg": 0.0197,
-            "table": "Tabela 1",
-            "rate": 0.005
-        },
-        {
-            "limit_s_seg": 0.0201,
-            "limit_c_seg": 0.0198,
-            "table": "Tabela 2",
-            "rate": 0.01
-        },
-        {
-            "limit_s_seg": 0.0203,
-            "limit_c_seg": 0.02,
-            "table": "Tabela 3",
-            "rate": 0.015
-        },
-        {
-            "limit_s_seg": 0.0204,
-            "limit_c_seg": 0.0201,
-            "table": "Tabela 4",
-            "rate": 0.02
-        },
-        {
-            "limit_s_seg": 0.0205,
-            "limit_c_seg": 0.0202,
-            "table": "Tabela 5",
-            "rate": 0.025
-        },
-        {
-            "limit_s_seg": 0.0207,
-            "limit_c_seg": 0.0204,
-            "table": "Tabela 6",
-            "rate": 0.03
-        },
-        {
-            "limit_s_seg": 0.05,
-            "limit_c_seg": 0.05,
-            "table": "Tabela 6",
-            "rate": 0.03
-        }
+        { "limit_s_seg": 0.02, "limit_c_seg": 0.02, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0201, "limit_c_seg": 0.0201, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0203, "limit_c_seg": 0.0203, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0204, "limit_c_seg": 0.0204, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0205, "limit_c_seg": 0.0205, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0207, "limit_c_seg": 0.0207, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Grupo I Governos": [
-        {
-            "limit_s_seg": 0.021926,
-            "limit_c_seg": 0.021626,
-            "table": "Tabela 1",
-            "rate": 0.005
-        },
-        {
-            "limit_s_seg": 0.022064,
-            "limit_c_seg": 0.021764,
-            "table": "Tabela 2",
-            "rate": 0.01
-        },
-        {
-            "limit_s_seg": 0.022201,
-            "limit_c_seg": 0.021901,
-            "table": "Tabela 3",
-            "rate": 0.015
-        },
-        {
-            "limit_s_seg": 0.022337,
-            "limit_c_seg": 0.022037,
-            "table": "Tabela 4",
-            "rate": 0.02
-        },
-        {
-            "limit_s_seg": 0.022443,
-            "limit_c_seg": 0.022143,
-            "table": "Tabela 5",
-            "rate": 0.025
-        },
-        {
-            "limit_s_seg": 0.022601,
-            "limit_c_seg": 0.022301,
-            "table": "Tabela 6",
-            "rate": 0.03
-        },
-        {
-            "limit_s_seg": 0.05,
-            "limit_c_seg": 0.05,
-            "table": "Tabela 6",
-            "rate": 0.03
-        }
+        { "limit_s_seg": 0.0219, "limit_c_seg": 0.0219, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0221, "limit_c_seg": 0.0221, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0222, "limit_c_seg": 0.0222, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0223, "limit_c_seg": 0.0223, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0224, "limit_c_seg": 0.0224, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0226, "limit_c_seg": 0.0226, "table": "Tabela 6", "rate": 0.03 }
     ],
     "PMMG": [
-        {
-            "limit_s_seg": 0.0217,
-            "limit_c_seg": 0.0214,
-            "table": "Tabela 1",
-            "rate": 0.005
-        },
-        {
-            "limit_s_seg": 0.0219,
-            "limit_c_seg": 0.0216,
-            "table": "Tabela 2",
-            "rate": 0.01
-        },
-        {
-            "limit_s_seg": 0.022,
-            "limit_c_seg": 0.0217,
-            "table": "Tabela 3",
-            "rate": 0.015
-        },
-        {
-            "limit_s_seg": 0.0221,
-            "limit_c_seg": 0.0218,
-            "table": "Tabela 4",
-            "rate": 0.02
-        },
-        {
-            "limit_s_seg": 0.0223,
-            "limit_c_seg": 0.022,
-            "table": "Tabela 5",
-            "rate": 0.025
-        },
-        {
-            "limit_s_seg": 0.0224,
-            "limit_c_seg": 0.0221,
-            "table": "Tabela 6",
-            "rate": 0.03
-        },
-        {
-            "limit_s_seg": 0.05,
-            "limit_c_seg": 0.05,
-            "table": "Tabela 6",
-            "rate": 0.03
-        }
+        { "limit_s_seg": 0.0217, "limit_c_seg": 0.0217, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0219, "limit_c_seg": 0.0219, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.022, "limit_c_seg": 0.022, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0221, "limit_c_seg": 0.0221, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0223, "limit_c_seg": 0.0223, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0224, "limit_c_seg": 0.0224, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Tribunais Estaduais": [
-        {
-            "limit_s_seg": 0.0192,
-            "limit_c_seg": 0.0189,
-            "table": "Tabela 1",
-            "rate": 0.005
-        },
-        {
-            "limit_s_seg": 0.0194,
-            "limit_c_seg": 0.0191,
-            "table": "Tabela 2",
-            "rate": 0.01
-        },
-        {
-            "limit_s_seg": 0.0195,
-            "limit_c_seg": 0.0192,
-            "table": "Tabela 3",
-            "rate": 0.015
-        },
-        {
-            "limit_s_seg": 0.0196,
-            "limit_c_seg": 0.0193,
-            "table": "Tabela 4",
-            "rate": 0.02
-        },
-        {
-            "limit_s_seg": 0.0197,
-            "limit_c_seg": 0.0194,
-            "table": "Tabela 5",
-            "rate": 0.025
-        },
-        {
-            "limit_s_seg": 0.0199,
-            "limit_c_seg": 0.0196,
-            "table": "Tabela 6",
-            "rate": 0.03
-        },
-        {
-            "limit_s_seg": 0.05,
-            "limit_c_seg": 0.05,
-            "table": "Tabela 6",
-            "rate": 0.03
-        }
+        { "limit_s_seg": 0.0192, "limit_c_seg": 0.0192, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0194, "limit_c_seg": 0.0194, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0195, "limit_c_seg": 0.0195, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0196, "limit_c_seg": 0.0196, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0197, "limit_c_seg": 0.0197, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0199, "limit_c_seg": 0.0199, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Siape": [
-        {
-            "limit_s_seg": 0.016336,
-            "limit_c_seg": 0.016036,
-            "table": "Tabela 1",
-            "rate": 0.005
-        },
-        {
-            "limit_s_seg": 0.016459,
-            "limit_c_seg": 0.016159,
-            "table": "Tabela 2",
-            "rate": 0.01
-        },
-        {
-            "limit_s_seg": 0.016582,
-            "limit_c_seg": 0.016282,
-            "table": "Tabela 3",
-            "rate": 0.015
-        },
-        {
-            "limit_s_seg": 0.016704,
-            "limit_c_seg": 0.016404,
-            "table": "Tabela 4",
-            "rate": 0.02
-        },
-        {
-            "limit_s_seg": 0.016827,
-            "limit_c_seg": 0.016527,
-            "table": "Tabela 5",
-            "rate": 0.025
-        },
-        {
-            "limit_s_seg": 0.016949,
-            "limit_c_seg": 0.016649,
-            "table": "Tabela 6",
-            "rate": 0.03
-        },
-        {
-            "limit_s_seg": 0.05,
-            "limit_c_seg": 0.05,
-            "table": "Tabela 6",
-            "rate": 0.03
-        }
+        { "limit_s_seg": 0.0163, "limit_c_seg": 0.0163, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0165, "limit_c_seg": 0.0165, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0166, "limit_c_seg": 0.0166, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0167, "limit_c_seg": 0.0167, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0168, "limit_c_seg": 0.0168, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0169, "limit_c_seg": 0.0169, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Aeronáutica": [
-        {
-            "limit_s_seg": 0.01847,
-            "limit_c_seg": null,
-            "table": "Tabela 1",
-            "rate": 0.005
-        },
-        {
-            "limit_s_seg": 0.018619,
-            "limit_c_seg": null,
-            "table": "Tabela 2",
-            "rate": 0.01
-        },
-        {
-            "limit_s_seg": 0.018768,
-            "limit_c_seg": null,
-            "table": "Tabela 3",
-            "rate": 0.015
-        },
-        {
-            "limit_s_seg": 0.018917,
-            "limit_c_seg": null,
-            "table": "Tabela 4",
-            "rate": 0.02
-        },
-        {
-            "limit_s_seg": 0.019065,
-            "limit_c_seg": null,
-            "table": "Tabela 5",
-            "rate": 0.025
-        },
-        {
-            "limit_s_seg": 0.019214,
-            "limit_c_seg": null,
-            "table": "Tabela 6",
-            "rate": 0.03
-        },
-        {
-            "limit_s_seg": 0.05,
-            "limit_c_seg": 0.05,
-            "table": "Tabela 6",
-            "rate": 0.03
-        }
+        { "limit_s_seg": 0.0185, "limit_c_seg": 0.0185, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0186, "limit_c_seg": 0.0186, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0188, "limit_c_seg": 0.0188, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0189, "limit_c_seg": 0.0189, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0191, "limit_c_seg": 0.0191, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0192, "limit_c_seg": 0.0192, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Marinha": [
-        {
-            "limit_s_seg": 0.018325,
-            "limit_c_seg": null,
-            "table": "Tabela 1",
-            "rate": 0.005
-        },
-        {
-            "limit_s_seg": 0.018515,
-            "limit_c_seg": null,
-            "table": "Tabela 2",
-            "rate": 0.01
-        },
-        {
-            "limit_s_seg": 0.018705,
-            "limit_c_seg": null,
-            "table": "Tabela 3",
-            "rate": 0.015
-        },
-        {
-            "limit_s_seg": 0.018895,
-            "limit_c_seg": null,
-            "table": "Tabela 4",
-            "rate": 0.02
-        },
-        {
-            "limit_s_seg": 0.019084,
-            "limit_c_seg": null,
-            "table": "Tabela 5",
-            "rate": 0.025
-        },
-        {
-            "limit_s_seg": 0.019272,
-            "limit_c_seg": null,
-            "table": "Tabela 6",
-            "rate": 0.03
-        },
-        {
-            "limit_s_seg": 0.05,
-            "limit_c_seg": 0.05,
-            "table": "Tabela 6",
-            "rate": 0.03
-        }
+        { "limit_s_seg": 0.0183, "limit_c_seg": 0.0183, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0185, "limit_c_seg": 0.0185, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0187, "limit_c_seg": 0.0187, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0189, "limit_c_seg": 0.0189, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0191, "limit_c_seg": 0.0191, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0193, "limit_c_seg": 0.0193, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Exército": [
-        {
-            "limit_s_seg": 0.016963,
-            "limit_c_seg": null,
-            "table": "Tabela 1",
-            "rate": 0.005
-        },
-        {
-            "limit_s_seg": 0.017112,
-            "limit_c_seg": null,
-            "table": "Tabela 2",
-            "rate": 0.01
-        },
-        {
-            "limit_s_seg": 0.017261,
-            "limit_c_seg": null,
-            "table": "Tabela 3",
-            "rate": 0.015
-        },
-        {
-            "limit_s_seg": 0.01741,
-            "limit_c_seg": null,
-            "table": "Tabela 4",
-            "rate": 0.02
-        },
-        {
-            "limit_s_seg": 0.017558,
-            "limit_c_seg": null,
-            "table": "Tabela 5",
-            "rate": 0.025
-        },
-        {
-            "limit_s_seg": 0.017706,
-            "limit_c_seg": null,
-            "table": "Tabela 6",
-            "rate": 0.03
-        },
-        {
-            "limit_s_seg": 0.05,
-            "limit_c_seg": 0.05,
-            "table": "Tabela 6",
-            "rate": 0.03
-        }
+        { "limit_s_seg": 0.017, "limit_c_seg": 0.017, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0171, "limit_c_seg": 0.0171, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0173, "limit_c_seg": 0.0173, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0174, "limit_c_seg": 0.0174, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0176, "limit_c_seg": 0.0176, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0177, "limit_c_seg": 0.0177, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Tribunais Federais": [
-        {
-            "limit_s_seg": 0.020119,
-            "limit_c_seg": 0.019819,
-            "table": "Tabela 1",
-            "rate": 0.005
-        },
-        {
-            "limit_s_seg": 0.020226,
-            "limit_c_seg": 0.019926,
-            "table": "Tabela 2",
-            "rate": 0.01
-        },
-        {
-            "limit_s_seg": 0.020334,
-            "limit_c_seg": 0.020034,
-            "table": "Tabela 3",
-            "rate": 0.015
-        },
-        {
-            "limit_s_seg": 0.020426,
-            "limit_c_seg": 0.020126,
-            "table": "Tabela 4",
-            "rate": 0.02
-        },
-        {
-            "limit_s_seg": 0.020534,
-            "limit_c_seg": 0.020234,
-            "table": "Tabela 5",
-            "rate": 0.025
-        },
-        {
-            "limit_s_seg": 0.020651,
-            "limit_c_seg": 0.020351,
-            "table": "Tabela 6",
-            "rate": 0.03
-        },
-        {
-            "limit_s_seg": 0.05,
-            "limit_c_seg": 0.05,
-            "table": "Tabela 6",
-            "rate": 0.03
-        }
+        { "limit_s_seg": 0.0201, "limit_c_seg": 0.0201, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0202, "limit_c_seg": 0.0202, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0203, "limit_c_seg": 0.0203, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0204, "limit_c_seg": 0.0204, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0205, "limit_c_seg": 0.0205, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0207, "limit_c_seg": 0.0207, "table": "Tabela 6", "rate": 0.03 }
     ]
 };
 
@@ -1246,25 +598,32 @@ function simulate(inputs) {
 
     if (parecer === "Favorável" && mappedGroup) {
         const table = COMMISSION_TABLES[mappedGroup];
-        if (table) {
-            const hasSeguro = (comSeguro === "Sim" || comSeguro === true);
+        if (table && table.length > 0) {
             const getLimit = (entry) => hasSeguro ? entry.limit_c_seg : entry.limit_s_seg;
-            
-            // Filter out entries that don't have a valid limit for the active insurance selection
             const validEntries = table.filter(entry => getLimit(entry) !== null && getLimit(entry) !== undefined);
-            
             const sorted = [...validEntries].sort((a, b) => getLimit(a) - getLimit(b));
+
             let matchedEntry = null;
             for (let entry of sorted) {
                 const limit = getLimit(entry);
-                if (taxaPonderada <= limit) {
+                if (taxaPonderada <= limit + 1e-9) {
                     matchedEntry = entry;
                     break;
                 }
             }
+
             if (matchedEntry) {
                 comissaoTableText = `${matchedEntry.table} de comissionamento`;
                 comissaoRate = matchedEntry.rate;
+            } else {
+                const lastEntry = sorted[sorted.length - 1];
+                if (taxaPonderada <= maxRate + 1e-9) {
+                    comissaoTableText = `${lastEntry.table} de comissionamento`;
+                    comissaoRate = lastEntry.rate;
+                } else {
+                    comissaoTableText = "Taxa ponderada acima do range da tabela de comissionamento";
+                    comissaoRate = 0.0;
+                }
             }
         }
     }
@@ -1283,6 +642,7 @@ function simulate(inputs) {
         maxRate,
         parecer,
         comissaoTableText,
+        comissaoRate,
         // Detailed breakdown vectors for UI representation
         dates
     };
@@ -1295,7 +655,7 @@ function getRefinRange(convenio, comSeguro) {
     } else if (convenio === "INSS") {
         maxRate = 0.0185;
     } else {
-        maxRate = 0.0300;
+        maxRate = 0.0400;
     }
 
     const rates = [];
@@ -1306,7 +666,9 @@ function getRefinRange(convenio, comSeguro) {
         const rateVal = Math.round(current * 10000) / 10000;
         const finalRate = hasSeguro ? Math.round((rateVal - 0.0003) * 10000) / 10000 : rateVal;
         rates.push(finalRate);
-        current -= 0.0005;
+
+        const step = current > 0.0300 + 1e-9 ? 0.0010 : 0.0005;
+        current -= step;
     }
     return rates;
 }
