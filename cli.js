@@ -133,6 +133,7 @@ function run() {
     
     // Print results
     console.log("\n=== RESULTADOS DE SAÍDA ===");
+    console.log(`Tabela Refin:         ${results.refinTableLabel}`);
     console.log(`Troco:                R$ ${results.troco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`);
     console.log(`Taxa Ponderada:       ${(results.taxaPonderada * 100).toFixed(2)}% (${(results.taxaPonderada * 100).toFixed(2)}% a.m.)`);
     console.log(`Taxa Ponderada Mín:   ${(results.minRate * 100).toFixed(2)}%`);

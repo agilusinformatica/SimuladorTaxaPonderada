@@ -374,9 +374,44 @@ function xirr(cashflows, datesStr, guess = 0.1) {
     return (low + high) / 2;
 }
 
+// Rate to Table Name mapping
+function getRefinTableLabel(rate) {
+    const r = Math.round(rate * 10000) / 10000;
+    if (r <= 0.0300 + 1e-9) {
+        const idx = Math.round((r - 0.0150) / 0.0005) + 1;
+        return `Tabela Refin ${idx}`;
+    } else {
+        const idx = 31 + Math.round((r - 0.0300) / 0.0010);
+        return `Tabela Refin ${idx}`;
+    }
+}
+
+// Table Name to Rate mapping
+function getRefinRateFromLabel(label) {
+    if (typeof label === 'number') return label;
+    if (!label) return 0.0150;
+    
+    // If it's a numeric string like "0.018" or "1.8%"
+    const labelStr = label.toString().trim();
+    if (!isNaN(parseFloat(labelStr)) && !labelStr.includes("Tabela")) {
+        let val = parseFloat(labelStr);
+        if (val > 1.0) val = val / 100.0;
+        return val;
+    }
+    
+    const match = labelStr.match(/\d+/);
+    if (!match) return 0.0150;
+    const idx = parseInt(match[0]);
+    if (idx <= 31) {
+        return Math.round((0.0150 + (idx - 1) * 0.0005) * 10000) / 10000;
+    } else {
+        return Math.round((0.0300 + (idx - 31) * 0.0010) * 10000) / 10000;
+    }
+}
+
 // Perform the full Excel simulation
 function simulate(inputs) {
-    const {
+    let {
         convenio,
         produto,
         comSeguro,
@@ -387,6 +422,10 @@ function simulate(inputs) {
         pmtRefin,
         contracts // Array of 4 objects { saldo, prazo, pmt }
     } = inputs;
+
+    // Support taxaRefin passed as label (e.g. "Tabela Refin 7") or decimal number
+    const taxaRefinNum = getRefinRateFromLabel(taxaRefin);
+    const refinTableLabel = getRefinTableLabel(taxaRefinNum);
 
     const carenciaReal = days360(dataContrato, primeiroVencimento);
     const activeContracts = contracts.filter(c => c.saldo > 0);
@@ -411,7 +450,7 @@ function simulate(inputs) {
     const trocos = [];
 
     // Refin rates for all contracts. Default to operation refin rate.
-    const taxaRefinAnnualized = Math.pow(1 + taxaRefin, 12) - 1;
+    const taxaRefinAnnualized = Math.pow(1 + taxaRefinNum, 12) - 1;
 
     for (let k = 0; k < 4; k++) {
         const c = contracts[k];
@@ -638,6 +677,8 @@ function simulate(inputs) {
         trocos,
         troco,
         taxaPonderada,
+        taxaRefinNum,
+        refinTableLabel,
         minRate,
         maxRate,
         parecer,
@@ -651,7 +692,7 @@ function simulate(inputs) {
 function getRefinRange(convenio, comSeguro) {
     let maxRate;
     if (convenio === "Siape") {
-        maxRate = 0.0180;
+        maxRate = 0.0300; // Updated in v13_botao to 3.00%
     } else if (convenio === "INSS") {
         maxRate = 0.0185;
     } else {
@@ -673,12 +714,75 @@ function getRefinRange(convenio, comSeguro) {
     return rates;
 }
 
+function getRefinOptions(convenio, comSeguro) {
+    const rawRates = getRefinRange(convenio, comSeguro);
+    return rawRates.map(rate => {
+        const label = getRefinTableLabel(rate);
+        return {
+            label,
+            rate,
+            value: label
+        };
+    });
+}
+
+// Emulates Excel VBA macro EncontrarTaxaIdeal()
+function findIdealRefinRate(inputs) {
+    const options = getRefinOptions(inputs.convenio, inputs.comSeguro);
+    
+    // Test options from lowest rate to highest rate to find the first/best viable table
+    const sortedOptions = [...options].sort((a, b) => a.rate - b.rate);
+    
+    let bestOption = null;
+    let minDiff = Infinity;
+
+    for (let opt of sortedOptions) {
+        const testInputs = { ...inputs, taxaRefin: opt.rate };
+        const res = simulate(testInputs);
+        
+        if (res.parecer === "Favorável") {
+            const diff = res.taxaPonderada - res.minRate;
+            if (diff >= -1e-9 && diff < minDiff) {
+                minDiff = diff;
+                bestOption = {
+                    ...opt,
+                    simulation: res
+                };
+            }
+        }
+    }
+
+    if (bestOption) {
+        return bestOption;
+    }
+
+    // Fallback: test all options and return the one closest to minRate
+    for (let opt of sortedOptions) {
+        const testInputs = { ...inputs, taxaRefin: opt.rate };
+        const res = simulate(testInputs);
+        const diff = Math.abs(res.taxaPonderada - res.minRate);
+        if (diff < minDiff) {
+            minDiff = diff;
+            bestOption = {
+                ...opt,
+                simulation: res
+            };
+        }
+    }
+
+    return bestOption;
+}
+
 module.exports = {
     days360,
     addMonths,
     xirr,
     simulate,
     getRefinRange,
+    getRefinOptions,
+    getRefinTableLabel,
+    getRefinRateFromLabel,
+    findIdealRefinRate,
     CONVENIO_DE_X_PARA,
     APOIO_RATES,
     COMMISSION_TABLES

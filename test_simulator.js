@@ -113,4 +113,43 @@ console.log(`Troco matches:          ${Math.abs(results4.troco - 55492.04) < 1e-
 console.log(`Parecer matches:        ${results4.parecer === "Favorável" ? "YES" : "NO"}`);
 console.log(`Comissão matches:       ${results4.comissaoTableText === "Tabela 2 de comissionamento" ? "YES" : "NO"}`);
 
+// Test Case 5: INSS (v13 Botão Baseline - Tabela Refin 7 / 1.80%)
+const { findIdealRefinRate, getRefinTableLabel } = require('./simulator.js');
+
+const inputs5 = {
+    convenio: "INSS",
+    produto: "Refin da Port",
+    comSeguro: "Não",
+    dataContrato: "2026-07-26",
+    primeiroVencimento: "2026-08-07",
+    prazoRefin: 120,
+    taxaRefin: "Tabela Refin 7",
+    pmtRefin: 3000,
+    contracts: [
+        { saldo: 100000.0, prazo: 50, pmt: 3000.0 },
+        { saldo: 0.0182, prazo: 97939.92245159789, pmt: 0.0 },
+        { saldo: 0.0, prazo: 0, pmt: 0.0 },
+        { saldo: 0.0, prazo: 0, pmt: 0.0 }
+    ]
+};
+
+console.log("\nRUNNING TEST CASE 5: INSS (v13 Botão Baseline)");
+const results5 = simulate(inputs5);
+console.log(`Refin Label:       ${results5.refinTableLabel}`);
+console.log(`Taxa Ponderada:    ${(results5.taxaPonderada * 100).toFixed(2)}% (${results5.taxaPonderada})`);
+console.log(`Troco Final:       R$ ${results5.troco.toFixed(2)}`);
+console.log(`Parecer:           ${results5.parecer}`);
+console.log(`Comissão Tabela:   ${results5.comissaoTableText || "Nenhuma"}`);
+console.log(`Label matches:          ${results5.refinTableLabel === "Tabela Refin 7" ? "YES" : "NO"}`);
+console.log(`Taxa Ponderada matches: ${Math.abs(results5.taxaPonderada - 0.0179) < 1e-4 ? "YES" : "NO"}`);
+console.log(`Troco matches:          ${Math.abs(results5.troco - 47637.72) < 1e-1 ? "YES" : "NO"}`);
+console.log(`Parecer matches:        ${results5.parecer === "Favorável" ? "YES" : "NO"}`);
+
+console.log("\nRUNNING TEST CASE 6: EncontrarTaxaIdeal Solver Macro");
+const idealResult = findIdealRefinRate(inputs5);
+console.log(`Ideal Table Found: ${idealResult.label} (Rate: ${(idealResult.rate * 100).toFixed(2)}%)`);
+console.log(`Parecer Ideal:     ${idealResult.simulation.parecer}`);
+console.log(`Solver Success:    ${idealResult.simulation.parecer === "Favorável" ? "YES" : "NO"}`);
+
+
 

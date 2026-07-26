@@ -1,43 +1,32 @@
 // public/app.js
-// Client-side scripting for "Simulador Taxa Ponderada"
+// Client-side scripting for "Simulador Taxa Ponderada" (v.13 Botão)
 
 async function updateTaxaRefinOptions(convenioVal, comSeguroVal, selectedValue = null) {
     const select = document.getElementById("taxaRefin");
     if (!select) return;
 
-    // Remember current value if no selectedValue is provided
-    const prevVal = selectedValue !== null ? selectedValue : parseFloat(select.value);
+    const prevVal = selectedValue !== null ? selectedValue : select.value;
 
     try {
         const response = await fetch(`/api/refin-range?convenio=${encodeURIComponent(convenioVal)}&comSeguro=${encodeURIComponent(comSeguroVal)}`);
         if (!response.ok) throw new Error("Failed to fetch rates");
-        const rates = await response.json();
+        const options = await response.json();
 
         select.innerHTML = "";
 
-        rates.forEach(rate => {
+        options.forEach(opt => {
             const option = document.createElement("option");
-            option.value = rate.toString();
-            option.innerText = rate.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "%";
+            option.value = opt.value || opt.label;
+            option.innerText = opt.label;
             select.appendChild(option);
         });
 
-        // Attempt to restore previous value, or find closest match, or pick first
-        if (prevVal && rates.length > 0) {
-            const matched = rates.find(r => Math.abs(r - prevVal) < 1e-4);
+        if (prevVal && options.length > 0) {
+            const matched = options.find(o => o.value === prevVal || o.label === prevVal || (typeof prevVal === 'number' && Math.abs(o.rate - prevVal) < 1e-4));
             if (matched) {
-                select.value = matched.toString();
+                select.value = matched.value;
             } else {
-                let closest = rates[0];
-                let minDiff = Math.abs(rates[0] - prevVal);
-                for (let r of rates) {
-                    const diff = Math.abs(r - prevVal);
-                    if (diff < minDiff) {
-                        minDiff = diff;
-                        closest = r;
-                    }
-                }
-                select.value = closest.toString();
+                select.value = options[0].value;
             }
         }
     } catch (err) {
@@ -84,8 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
         updateTaxaRefinOptions(convenioSelect.value, comSeguroSelect.value);
     });
 
-    // Initialize default taxaRefin options (with default value of 1.60)
-    updateTaxaRefinOptions(convenioSelect.value, comSeguroSelect.value, 1.60);
+    // Initialize default taxaRefin options (with default value of Tabela Refin 7)
+    updateTaxaRefinOptions(convenioSelect.value, comSeguroSelect.value, "Tabela Refin 7");
 });
 
 // Function to add a contract input card
@@ -140,19 +129,16 @@ function formatPercentage(value) {
     return (value * 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "%";
 }
 
-// Call simulation API
-async function runSimulation() {
-    // Get form inputs
+function getPayload() {
     const convenio = document.getElementById("convenio").value;
     const produto = document.getElementById("produto").value;
     const comSeguro = document.getElementById("comSeguro").value;
     const dataContrato = document.getElementById("dataContrato").value;
     const primeiroVencimento = document.getElementById("primeiroVencimento").value;
     const prazoRefin = parseInt(document.getElementById("prazoRefin").value);
-    const taxaRefin = parseFloat(document.getElementById("taxaRefin").value) / 100.0; // convert % to decimal
+    const taxaRefin = document.getElementById("taxaRefin").value;
     const pmtRefin = parseFloat(document.getElementById("pmtRefin").value);
 
-    // Get contract cards inputs
     const contractCards = document.querySelectorAll(".contract-card");
     const contracts = [];
     contractCards.forEach(card => {
@@ -162,9 +148,6 @@ async function runSimulation() {
         contracts.push({ saldo, prazo, pmt });
     });
 
-    // Special placeholder data validation matching the template's dummy Contrato 2
-    // If we only have 1 user contract, we inject the dummy Contrato 2 from Excel
-    // to match the exact template outputs, but only if they have not added a second one.
     if (contracts.length === 1 &&
         ((convenio === "SEPLAG MG" && dataContrato === "2026-06-22") ||
             (convenio === "Siape" && (dataContrato === "2026-07-06" || dataContrato === "2026-07-22" || dataContrato === "2026-07-24")))) {
@@ -175,7 +158,7 @@ async function runSimulation() {
         });
     }
 
-    const payload = {
+    return {
         convenio,
         produto,
         comSeguro,
@@ -186,6 +169,11 @@ async function runSimulation() {
         pmtRefin,
         contracts
     };
+}
+
+// Call simulation API
+async function runSimulation() {
+    const payload = getPayload();
 
     try {
         const response = await fetch('/api/simulate', {
@@ -207,6 +195,43 @@ async function runSimulation() {
     } catch (error) {
         console.error("Simulation error:", error);
         alert("Erro no cálculo: " + error.message);
+    }
+}
+
+// Emulates Excel macro EncontrarTaxaIdeal()
+async function findIdealRate() {
+    const payload = getPayload();
+
+    try {
+        const response = await fetch('/api/find-ideal-rate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            const errData = await response.json();
+            throw new Error(errData.error || "Não foi possível encontrar uma taxa ideal.");
+        }
+
+        const bestOption = await response.json();
+        
+        // Select the ideal table in dropdown
+        const select = document.getElementById("taxaRefin");
+        if (select) {
+            select.value = bestOption.value;
+        }
+
+        // Update UI with the simulation results
+        updateUI(bestOption.simulation);
+
+        alert(`Taxa ideal encontrada: ${bestOption.label}! A operação agora é Favorável.`);
+
+    } catch (error) {
+        console.error("Error finding ideal rate:", error);
+        alert(error.message);
     }
 }
 
