@@ -726,51 +726,58 @@ function getRefinOptions(convenio, comSeguro) {
     });
 }
 
+function getComissaoTier(sim) {
+    if (!sim || sim.parecer !== "Favorável" || !sim.comissaoTableText) return 0;
+    const match = sim.comissaoTableText.match(/Tabela (\d+)/i);
+    if (match) {
+        return parseInt(match[1], 10);
+    }
+    return 0;
+}
+
 // Emulates Excel VBA macro EncontrarTaxaIdeal()
+// Lógica atualizada: menor taxa refin favorável que atinja a MAIOR comissão
 function findIdealRefinRate(inputs) {
     const options = getRefinOptions(inputs.convenio, inputs.comSeguro);
     
-    // Test options from lowest rate to highest rate to find the first/best viable table
-    const sortedOptions = [...options].sort((a, b) => a.rate - b.rate);
-    
-    let bestOption = null;
-    let minDiff = Infinity;
+    const simulatedOptions = [];
 
-    for (let opt of sortedOptions) {
+    for (let opt of options) {
         const testInputs = { ...inputs, taxaRefin: opt.rate };
         const res = simulate(testInputs);
-        
-        if (res.parecer === "Favorável") {
-            const diff = res.taxaPonderada - res.minRate;
-            if (diff >= -1e-9 && diff < minDiff) {
-                minDiff = diff;
-                bestOption = {
-                    ...opt,
-                    simulation: res
-                };
+        simulatedOptions.push({
+            ...opt,
+            simulation: res
+        });
+    }
+
+    // Filtrar apenas opções com Parecer Favorável
+    const favorableOptions = simulatedOptions.filter(opt => opt.simulation.parecer === "Favorável");
+
+    if (favorableOptions.length > 0) {
+        // Ordenar por:
+        // 1. Maior nível de comissionamento (Tabela 6 > Tabela 5 > ... > Tabela 1)
+        // 2. Menor taxa de refinanciamento (rate)
+        favorableOptions.sort((a, b) => {
+            const tierA = getComissaoTier(a.simulation);
+            const tierB = getComissaoTier(b.simulation);
+            if (tierB !== tierA) {
+                return tierB - tierA; // Maior tabela de comissionamento primeiro
             }
-        }
+            return a.rate - b.rate; // Menor taxa refin primeiro
+        });
+
+        return favorableOptions[0];
     }
 
-    if (bestOption) {
-        return bestOption;
-    }
+    // Caso nenhuma opção seja Favorável, retorna a opção mais próxima da taxa mínima
+    simulatedOptions.sort((a, b) => {
+        const diffA = Math.abs(a.simulation.taxaPonderada - a.simulation.minRate);
+        const diffB = Math.abs(b.simulation.taxaPonderada - b.simulation.minRate);
+        return diffA - diffB;
+    });
 
-    // Fallback: test all options and return the one closest to minRate
-    for (let opt of sortedOptions) {
-        const testInputs = { ...inputs, taxaRefin: opt.rate };
-        const res = simulate(testInputs);
-        const diff = Math.abs(res.taxaPonderada - res.minRate);
-        if (diff < minDiff) {
-            minDiff = diff;
-            bestOption = {
-                ...opt,
-                simulation: res
-            };
-        }
-    }
-
-    return bestOption;
+    return simulatedOptions[0] || null;
 }
 
 module.exports = {

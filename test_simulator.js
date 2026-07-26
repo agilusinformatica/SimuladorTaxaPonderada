@@ -145,9 +145,10 @@ console.log(`Taxa Ponderada matches: ${Math.abs(results5.taxaPonderada - 0.0179)
 console.log(`Troco matches:          ${Math.abs(results5.troco - 47637.72) < 1e-1 ? "YES" : "NO"}`);
 console.log(`Parecer matches:        ${results5.parecer === "Favorável" ? "YES" : "NO"}`);
 
-console.log("\nRUNNING TEST CASE 6: EncontrarTaxaIdeal Solver Macro");
+console.log("\nRUNNING TEST CASE 6: EncontrarTaxaIdeal Solver Macro (Maior Comissão + Menor Taxa)");
 const idealResult = findIdealRefinRate(inputs5);
 console.log(`Ideal Table Found: ${idealResult.label} (Rate: ${(idealResult.rate * 100).toFixed(2)}%)`);
+console.log(`Comissão Ideal:    ${idealResult.simulation.comissaoTableText}`);
 console.log(`Parecer Ideal:     ${idealResult.simulation.parecer}`);
 console.log(`Solver Success:    ${idealResult.simulation.parecer === "Favorável" ? "YES" : "NO"}`);
 
