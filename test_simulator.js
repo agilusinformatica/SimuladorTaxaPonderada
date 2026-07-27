@@ -1,4 +1,4 @@
-const { simulate } = require('./simulator.js');
+const { simulate, getRefinOptions, findIdealRefinRate } = require('./simulator.js');
 
 // Test Case 1: SEPLAG MG (v9 baseline, verified on v11)
 const inputs1 = {
@@ -114,7 +114,6 @@ console.log(`Parecer matches:        ${results4.parecer === "Favorável" ? "YES"
 console.log(`Comissão matches:       ${results4.comissaoTableText === "Tabela 2 de comissionamento" ? "YES" : "NO"}`);
 
 // Test Case 5: INSS (v13 Botão Baseline - Tabela Refin 7 / 1.80%)
-const { findIdealRefinRate, getRefinTableLabel } = require('./simulator.js');
 
 const inputs5 = {
     convenio: "INSS",
@@ -151,6 +150,13 @@ console.log(`Ideal Table Found: ${idealResult.label} (Rate: ${(idealResult.rate 
 console.log(`Comissão Ideal:    ${idealResult.simulation.comissaoTableText}`);
 console.log(`Parecer Ideal:     ${idealResult.simulation.parecer}`);
 console.log(`Solver Success:    ${idealResult.simulation.parecer === "Favorável" ? "YES" : "NO"}`);
+
+console.log("\nRUNNING TEST CASE 7: Refin Options with Insurance (comSeguro = 'Sim')");
+const optionsSim = getRefinOptions("INSS", "Sim");
+const optionsNao = getRefinOptions("INSS", "Não");
+console.log(`Options (Sim) count: ${optionsSim.length} | First: ${optionsSim[0].label} (${optionsSim[0].rate})`);
+console.log(`Options (Não) count: ${optionsNao.length} | First: ${optionsNao[0].label} (${optionsNao[0].rate})`);
+console.log(`Options Match:       ${optionsSim.length === optionsNao.length && optionsSim[0].label === optionsNao[0].label ? "YES" : "NO"}`);
 
 
 

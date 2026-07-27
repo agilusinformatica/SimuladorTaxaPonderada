@@ -701,12 +701,10 @@ function getRefinRange(convenio, comSeguro) {
 
     const rates = [];
     let current = maxRate;
-    const hasSeguro = (comSeguro === "Sim" || comSeguro === true);
 
     while (current >= 0.0150 - 1e-9) {
         const rateVal = Math.round(current * 10000) / 10000;
-        const finalRate = hasSeguro ? Math.round((rateVal - 0.0003) * 10000) / 10000 : rateVal;
-        rates.push(finalRate);
+        rates.push(rateVal);
 
         const step = current > 0.0300 + 1e-9 ? 0.0010 : 0.0005;
         current -= step;
