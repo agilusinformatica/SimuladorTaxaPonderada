@@ -156,7 +156,8 @@ const optionsSim = getRefinOptions("INSS", "Sim");
 const optionsNao = getRefinOptions("INSS", "Não");
 console.log(`Options (Sim) count: ${optionsSim.length} | First: ${optionsSim[0].label} (${optionsSim[0].rate})`);
 console.log(`Options (Não) count: ${optionsNao.length} | First: ${optionsNao[0].label} (${optionsNao[0].rate})`);
-console.log(`Options Match:       ${optionsSim.length === optionsNao.length && optionsSim[0].label === optionsNao[0].label ? "YES" : "NO"}`);
+console.log(`Label Match:         ${optionsSim[0].label === "Tabela Refin 8" && optionsNao[0].label === "Tabela Refin 8" ? "YES" : "NO"}`);
+console.log(`Rate Subtraction:    ${optionsSim[0].rate === 0.0182 && optionsNao[0].rate === 0.0185 ? "YES" : "NO"}`);
 
 
 

@@ -374,9 +374,19 @@ function xirr(cashflows, datesStr, guess = 0.1) {
     return (low + high) / 2;
 }
 
+function getBaseRate(rate) {
+    if (typeof rate !== 'number') return rate;
+    const rem = Math.round(rate * 10000) % 5;
+    if (rem === 2 || rem === 7) {
+        return Math.round((rate + 0.0003) * 10000) / 10000;
+    }
+    return rate;
+}
+
 // Rate to Table Name mapping
 function getRefinTableLabel(rate) {
-    const r = Math.round(rate * 10000) / 10000;
+    if (!rate || isNaN(rate)) return "Tabela Refin 1";
+    const r = getBaseRate(rate);
     if (r <= 0.0300 + 1e-9) {
         const idx = Math.round((r - 0.0150) / 0.0005) + 1;
         return `Tabela Refin ${idx}`;
@@ -387,26 +397,40 @@ function getRefinTableLabel(rate) {
 }
 
 // Table Name to Rate mapping
-function getRefinRateFromLabel(label) {
-    if (typeof label === 'number') return label;
-    if (!label) return 0.0150;
+function getRefinRateFromLabel(label, comSeguro) {
+    const hasSeguro = (comSeguro === "Sim" || comSeguro === true);
+    if (typeof label === 'number') {
+        const rem = Math.round(label * 10000) % 5;
+        if (hasSeguro && (rem !== 2 && rem !== 7)) {
+            return Math.round((label - 0.0003) * 10000) / 10000;
+        }
+        return label;
+    }
+    if (!label) return hasSeguro ? 0.0147 : 0.0150;
     
     // If it's a numeric string like "0.018" or "1.8%"
     const labelStr = label.toString().trim();
     if (!isNaN(parseFloat(labelStr)) && !labelStr.includes("Tabela")) {
         let val = parseFloat(labelStr);
         if (val > 1.0) val = val / 100.0;
+        const rem = Math.round(val * 10000) % 5;
+        if (hasSeguro && (rem !== 2 && rem !== 7)) {
+            return Math.round((val - 0.0003) * 10000) / 10000;
+        }
         return val;
     }
     
     const match = labelStr.match(/\d+/);
-    if (!match) return 0.0150;
+    if (!match) return hasSeguro ? 0.0147 : 0.0150;
     const idx = parseInt(match[0]);
+    let baseRate;
     if (idx <= 31) {
-        return Math.round((0.0150 + (idx - 1) * 0.0005) * 10000) / 10000;
+        baseRate = Math.round((0.0150 + (idx - 1) * 0.0005) * 10000) / 10000;
     } else {
-        return Math.round((0.0300 + (idx - 31) * 0.0010) * 10000) / 10000;
+        baseRate = Math.round((0.0300 + (idx - 31) * 0.0010) * 10000) / 10000;
     }
+
+    return hasSeguro ? Math.round((baseRate - 0.0003) * 10000) / 10000 : baseRate;
 }
 
 // Perform the full Excel simulation
@@ -424,7 +448,7 @@ function simulate(inputs) {
     } = inputs;
 
     // Support taxaRefin passed as label (e.g. "Tabela Refin 7") or decimal number
-    const taxaRefinNum = getRefinRateFromLabel(taxaRefin);
+    const taxaRefinNum = getRefinRateFromLabel(taxaRefin, comSeguro);
     const refinTableLabel = getRefinTableLabel(taxaRefinNum);
 
     const carenciaReal = days360(dataContrato, primeiroVencimento);
@@ -494,8 +518,6 @@ function simulate(inputs) {
         trocos.push(troco_k);
         refinFlows.push(ac_k);
     }
-
-    // Consolidated cash flow AN for t >= 1
     const anFlow = [];
     for (let t = 1; t <= totalPeriods; t++) {
         let totalPmtT = 0.0;
@@ -701,10 +723,12 @@ function getRefinRange(convenio, comSeguro) {
 
     const rates = [];
     let current = maxRate;
+    const hasSeguro = (comSeguro === "Sim" || comSeguro === true);
 
     while (current >= 0.0150 - 1e-9) {
         const rateVal = Math.round(current * 10000) / 10000;
-        rates.push(rateVal);
+        const finalRate = hasSeguro ? Math.round((rateVal - 0.0003) * 10000) / 10000 : rateVal;
+        rates.push(finalRate);
 
         const step = current > 0.0300 + 1e-9 ? 0.0010 : 0.0005;
         current -= step;
