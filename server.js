@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { simulate, getRefinRange, getRefinOptions, findIdealRefinRate, getRefinRateFromLabel } = require('./simulator.js');
+const { simulate, getRefinRange, getRefinOptions, findIdealRefinRate, simulateAll, SimulateAll, getRefinRateFromLabel } = require('./simulator.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -58,6 +58,10 @@ function parseSimulationInputs(reqBody) {
         pmt: parseFloat(c.pmt) || 0
     }));
 
+    if (inputs.dataNascimento) {
+        inputs.dataNascimento = String(inputs.dataNascimento).trim();
+    }
+
     return inputs;
 }
 
@@ -76,6 +80,31 @@ app.post('/api/simulate', (req, res) => {
     } catch (error) {
         console.error("Simulation error:", error);
         res.status(500).json({ error: error.message || "Erro interno no cálculo da simulação. Verifique os dados inseridos." });
+    }
+});
+
+// API endpoint for simulating all refin options
+app.post('/api/simulate-all', (req, res) => {
+    try {
+        const inputs = parseSimulationInputs(req.body);
+        const results = simulateAll(inputs);
+
+        const cleanedResults = results.map(item => {
+            const sim = { ...item.simulation };
+            delete sim.theoreticalK3;
+            delete sim.d3;
+            delete sim.trocos;
+            return {
+                ...item,
+                simulation: sim
+            };
+        });
+
+        res.json(cleanedResults);
+
+    } catch (error) {
+        console.error("Simulate all options error:", error);
+        res.status(500).json({ error: error.message || "Erro ao simular todas as opções de refin." });
     }
 });
 

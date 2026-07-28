@@ -444,15 +444,49 @@ function simulate(inputs) {
         prazoRefin,
         taxaRefin,
         pmtRefin,
-        contracts // Array of 4 objects { saldo, prazo, pmt }
+        contracts, // Array of 4 objects { saldo, prazo, pmt }
+        dataNascimento // YYYY-MM-DD (opcional)
     } = inputs;
+
+    // Regra de Idade Máxima:
+    // Com seguro: 79 anos, 11 meses e 30 dias
+    // Sem seguro: 74 anos, 11 meses e 30 dias
+    if (dataNascimento) {
+        const birthDate = new Date(dataNascimento + (typeof dataNascimento === 'string' && !dataNascimento.includes('T') ? 'T00:00:00' : ''));
+        if (!isNaN(birthDate.getTime())) {
+            const hasSeguro = (comSeguro === "Sim" || comSeguro === true);
+            const maxYears = hasSeguro ? 79 : 74;
+
+            const limitDate = new Date(birthDate);
+            limitDate.setFullYear(limitDate.getFullYear() + maxYears);
+            limitDate.setMonth(limitDate.getMonth() + 11);
+            limitDate.setDate(limitDate.getDate() + 30);
+
+            let currentPrazo = prazoRefin;
+            while (currentPrazo > 0) {
+                // Data no final do contrato (dataContrato + prazo em meses)
+                const contractEndDateStr = addMonths(dataContrato, currentPrazo);
+                const contractEndDate = new Date(contractEndDateStr + 'T00:00:00');
+                if (contractEndDate <= limitDate) {
+                    break;
+                }
+                currentPrazo--;
+            }
+            prazoRefin = currentPrazo;
+        }
+    }
+
+    const safeContracts = [...(contracts || [])];
+    while (safeContracts.length < 4) {
+        safeContracts.push({ saldo: 0, prazo: 0, pmt: 0 });
+    }
 
     // Support taxaRefin passed as label (e.g. "Tabela Refin 7") or decimal number
     const taxaRefinNum = getRefinRateFromLabel(taxaRefin, comSeguro);
     const refinTableLabel = getRefinTableLabel(taxaRefinNum);
 
     const carenciaReal = days360(dataContrato, primeiroVencimento);
-    const activeContracts = contracts.filter(c => c.saldo > 0);
+    const activeContracts = safeContracts.filter(c => c.saldo > 0);
     const hasOtherContracts = activeContracts.length > 1; // Excel: E23>0 or E28>0 or E33>0 (Contratos 2,3,4 active)
 
     const totalPeriods = prazoRefin;
@@ -477,7 +511,7 @@ function simulate(inputs) {
     const taxaRefinAnnualized = Math.pow(1 + taxaRefinNum, 12) - 1;
 
     for (let k = 0; k < 4; k++) {
-        const c = contracts[k];
+        const c = safeContracts[k];
         const ac_k = [];
 
         if (k === 0) {
@@ -522,7 +556,7 @@ function simulate(inputs) {
     for (let t = 1; t <= totalPeriods; t++) {
         let totalPmtT = 0.0;
         for (let k = 0; k < 4; k++) {
-            const c = contracts[k];
+            const c = safeContracts[k];
             const ab_k_t = (c.saldo > 0 && t <= c.prazo) ? c.pmt : 0.0;
             const ac_k_t = refinFlows[k][t - 1];
             totalPmtT += ab_k_t + ac_k_t;
@@ -533,8 +567,8 @@ function simulate(inputs) {
     // t=0 cash flow
     let anT0 = 0.0;
     for (let k = 0; k < 4; k++) {
-        if (contracts[k].saldo > 0 || k === 0) {
-            anT0 += -contracts[k].saldo - trocos[k];
+        if (safeContracts[k].saldo > 0 || k === 0) {
+            anT0 += -safeContracts[k].saldo - trocos[k];
         }
     }
 
@@ -554,7 +588,7 @@ function simulate(inputs) {
     const pmtFactor = ratePonderadaRaw / (1 - termRate);
     const theoreticalK3 = (pmtConsolidada / pmtFactor) / Math.pow(1 + ratePonderadaRaw, (carenciaReal - 30) / 30.0);
 
-    const refinsNormais = contracts.reduce((sum, c) => sum + c.saldo, 0);
+    const refinsNormais = safeContracts.reduce((sum, c) => sum + c.saldo, 0);
     const d3 = theoreticalK3 - refinsNormais;
 
     const j20 = pmtFactor * d3 * Math.pow(1 + ratePonderadaRaw, (carenciaReal - 30) / 30.0);
@@ -584,7 +618,7 @@ function simulate(inputs) {
     const totalIof = iofList.reduce((sum, x) => sum + x, 0);
 
     // --- INSURANCE WATERFALL ---
-    const k14 = contracts.reduce((sum, c, idx) => {
+    const k14 = safeContracts.reduce((sum, c, idx) => {
         if (c.saldo > 0 || idx === 0) {
             return sum + c.saldo + trocos[idx];
         }
@@ -648,6 +682,8 @@ function simulate(inputs) {
     let parecer = "";
     if (isMilitary && hasSeguro) {
         parecer = "Não Favorável - Seguro não disponível";
+    } else if (prazoRefin <= 0) {
+        parecer = "Não Favorável - Idade máxima excedida";
     } else {
         parecer = parecerFavoravel ? "Favorável" : "Não Favorável";
     }
@@ -706,6 +742,7 @@ function simulate(inputs) {
         parecer,
         comissaoTableText,
         comissaoRate,
+        prazoRefin,
         // Detailed breakdown vectors for UI representation
         dates
     };
@@ -757,15 +794,19 @@ function getComissaoTier(sim) {
     return 0;
 }
 
-// Emulates Excel VBA macro EncontrarTaxaIdeal()
-// Lógica atualizada: menor taxa refin favorável que atinja a MAIOR comissão
-function findIdealRefinRate(inputs) {
-    const options = getRefinOptions(inputs.convenio, inputs.comSeguro);
-    
+// Executa simulações para todas as opções retornadas por getRefinOptions
+// e ordena por:
+// 1. Tabela de comissionamento (mais altas primeiro)
+// 2. Taxa de refin utilizada (mais baixas primeiro)
+function simulateAll(inputs) {
+    if (!inputs) return [];
+    const inputObj = (typeof inputs === 'string') ? { convenio: inputs } : inputs;
+    const options = getRefinOptions(inputObj.convenio, inputObj.comSeguro);
+
     const simulatedOptions = [];
 
     for (let opt of options) {
-        const testInputs = { ...inputs, taxaRefin: opt.rate };
+        const testInputs = { ...inputObj, taxaRefin: opt.rate };
         const res = simulate(testInputs);
         simulatedOptions.push({
             ...opt,
@@ -773,33 +814,41 @@ function findIdealRefinRate(inputs) {
         });
     }
 
+    simulatedOptions.sort((a, b) => {
+        const tierA = getComissaoTier(a.simulation);
+        const tierB = getComissaoTier(b.simulation);
+        if (tierB !== tierA) {
+            return tierB - tierA; // Maior tabela de comissionamento primeiro
+        }
+        return a.rate - b.rate; // Menor taxa refin primeiro
+    });
+
+    return simulatedOptions;
+}
+
+const SimulateAll = simulateAll;
+
+// Emulates Excel VBA macro EncontrarTaxaIdeal()
+// Lógica atualizada: menor taxa refin favorável que atinja a MAIOR comissão
+function findIdealRefinRate(inputs) {
+    const simulatedOptions = simulateAll(inputs);
+
     // Filtrar apenas opções com Parecer Favorável
     const favorableOptions = simulatedOptions.filter(opt => opt.simulation.parecer === "Favorável");
 
     if (favorableOptions.length > 0) {
-        // Ordenar por:
-        // 1. Maior nível de comissionamento (Tabela 6 > Tabela 5 > ... > Tabela 1)
-        // 2. Menor taxa de refinanciamento (rate)
-        favorableOptions.sort((a, b) => {
-            const tierA = getComissaoTier(a.simulation);
-            const tierB = getComissaoTier(b.simulation);
-            if (tierB !== tierA) {
-                return tierB - tierA; // Maior tabela de comissionamento primeiro
-            }
-            return a.rate - b.rate; // Menor taxa refin primeiro
-        });
-
         return favorableOptions[0];
     }
 
     // Caso nenhuma opção seja Favorável, retorna a opção mais próxima da taxa mínima
-    simulatedOptions.sort((a, b) => {
+    const copy = [...simulatedOptions];
+    copy.sort((a, b) => {
         const diffA = Math.abs(a.simulation.taxaPonderada - a.simulation.minRate);
         const diffB = Math.abs(b.simulation.taxaPonderada - b.simulation.minRate);
         return diffA - diffB;
     });
 
-    return simulatedOptions[0] || null;
+    return copy[0] || null;
 }
 
 module.exports = {
@@ -812,6 +861,8 @@ module.exports = {
     getRefinTableLabel,
     getRefinRateFromLabel,
     findIdealRefinRate,
+    simulateAll,
+    SimulateAll,
     CONVENIO_DE_X_PARA,
     APOIO_RATES,
     COMMISSION_TABLES

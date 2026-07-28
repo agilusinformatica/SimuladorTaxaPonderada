@@ -92,6 +92,7 @@ function run() {
             comSeguro: options.comSeguro || "Não",
             dataContrato: options.dataContrato || new Date().toISOString().slice(0, 10),
             prazoRefin: parseInt(options.prazoRefin) || 120,
+            dataNascimento: options.dataNascimento || undefined,
             taxaRefin: parseFloat(options.taxaRefin) || 0.0225,
             pmtRefin: parseFloat(options.pmtRefin) || 3000,
             contracts: [

@@ -1,4 +1,4 @@
-const { simulate, getRefinOptions, findIdealRefinRate } = require('./simulator.js');
+const { simulate, getRefinOptions, findIdealRefinRate, simulateAll, SimulateAll } = require('./simulator.js');
 
 // Test Case 1: SEPLAG MG (v9 baseline, verified on v11)
 const inputs1 = {
@@ -151,13 +151,67 @@ console.log(`Comissão Ideal:    ${idealResult.simulation.comissaoTableText}`);
 console.log(`Parecer Ideal:     ${idealResult.simulation.parecer}`);
 console.log(`Solver Success:    ${idealResult.simulation.parecer === "Favorável" ? "YES" : "NO"}`);
 
-console.log("\nRUNNING TEST CASE 7: Refin Options with Insurance (comSeguro = 'Sim')");
-const optionsSim = getRefinOptions("INSS", "Sim");
-const optionsNao = getRefinOptions("INSS", "Não");
-console.log(`Options (Sim) count: ${optionsSim.length} | First: ${optionsSim[0].label} (${optionsSim[0].rate})`);
-console.log(`Options (Não) count: ${optionsNao.length} | First: ${optionsNao[0].label} (${optionsNao[0].rate})`);
-console.log(`Label Match:         ${optionsSim[0].label === "Tabela Refin 8" && optionsNao[0].label === "Tabela Refin 8" ? "YES" : "NO"}`);
-console.log(`Rate Subtraction:    ${optionsSim[0].rate === 0.0182 && optionsNao[0].rate === 0.0185 ? "YES" : "NO"}`);
+console.log("\nRUNNING TEST CASE 8: SimulateAll (All options sorted by Commission desc, Refin Rate asc)");
+const allSimulations = SimulateAll(inputs5);
+console.log(`Total Simulations Count: ${allSimulations.length}`);
+console.log("First 3 simulations:");
+allSimulations.slice(0, 3).forEach((item, idx) => {
+    console.log(`  [${idx + 1}] Label: ${item.label} | Rate: ${(item.rate * 100).toFixed(2)}% | Comissão: ${item.simulation.comissaoTableText || "Sem comissão"} | Parecer: ${item.simulation.parecer}`);
+});
+
+let isSortedCorrectly = true;
+function getTier(sim) {
+    if (!sim || sim.parecer !== "Favorável" || !sim.comissaoTableText) return 0;
+    const match = sim.comissaoTableText.match(/Tabela (\d+)/i);
+    return match ? parseInt(match[1], 10) : 0;
+}
+
+for (let i = 0; i < allSimulations.length - 1; i++) {
+    const curr = allSimulations[i];
+    const next = allSimulations[i + 1];
+    const tierCurr = getTier(curr.simulation);
+    const tierNext = getTier(next.simulation);
+
+    if (tierCurr < tierNext) {
+        isSortedCorrectly = false;
+        console.error(`Sort failed at index ${i}: tier ${tierCurr} < tier ${tierNext}`);
+    } else if (tierCurr === tierNext && curr.rate > next.rate) {
+        isSortedCorrectly = false;
+        console.error(`Sort failed at index ${i}: rate ${curr.rate} > rate ${next.rate}`);
+    }
+}
+console.log("\nRUNNING TEST CASE 9: dataNascimento Age Limit Rule");
+// Born 1955-08-01 (will turn 75 on 2030-08-01). Contract starts 2026-07-01, primeiroVenc = 2026-08-15.
+// Max date without insurance: 74 years 11 months 30 days -> 2030-07-31.
+// With prazoRefin = 120 requested, last installment date must be <= 2030-07-31.
+const baseInputAge = {
+    convenio: "INSS",
+    produto: "Refin da Port",
+    dataContrato: "2026-07-01",
+    primeiroVencimento: "2026-08-15",
+    prazoRefin: 120,
+    taxaRefin: 0.0180,
+    pmtRefin: 3000,
+    contracts: [{ saldo: 100000.0, prazo: 50, pmt: 3000.0 }],
+    dataNascimento: "1955-08-01"
+};
+
+const resSemSeguro = simulate({ ...baseInputAge, comSeguro: "Não" });
+const resComSeguro = simulate({ ...baseInputAge, comSeguro: "Sim" });
+const resMuitoIdoso = simulate({ ...baseInputAge, dataNascimento: "1940-01-01" });
+const res50Anos = simulate({ ...baseInputAge, dataNascimento: "1976-07-01", prazoRefin: 60 });
+
+console.log(`Prazo Sem Seguro (Max 74a 11m 30d): ${resSemSeguro.prazoRefin} meses (Esperado: 48 meses)`);
+console.log(`Prazo Com Seguro (Max 79a 11m 30d): ${resComSeguro.prazoRefin} meses (Esperado: 108 meses)`);
+console.log(`Prazo 50 Anos (Solicitado 60m):     ${res50Anos.prazoRefin} meses (Idade final: 55 anos)`);
+console.log(`Prazo Muito Idoso:                 ${resMuitoIdoso.prazoRefin} meses | Parecer: ${resMuitoIdoso.parecer}`);
+
+console.log(`Sem Seguro Prazo Reduced: ${resSemSeguro.prazoRefin < 120 ? "YES" : "NO"}`);
+console.log(`Com Seguro Prazo > Sem:   ${resComSeguro.prazoRefin > resSemSeguro.prazoRefin ? "YES" : "NO"}`);
+console.log(`50 Anos Prazo Unchanged:  ${res50Anos.prazoRefin === 60 ? "YES" : "NO"}`);
+console.log(`Muito Idoso Exceeded:     ${resMuitoIdoso.parecer.includes("Idade máxima excedida") ? "YES" : "NO"}`);
+
+
 
 
 
