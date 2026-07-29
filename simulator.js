@@ -397,8 +397,8 @@ function getRefinTableLabel(rate) {
 }
 
 // Table Name to Rate mapping
-function getRefinRateFromLabel(label, comSeguro) {
-    const hasSeguro = (comSeguro === "Sim" || comSeguro === true);
+function getRefinRateFromLabel(label, comSeguro, convenio) {
+    const hasSeguro = (convenio !== "Siape") && (comSeguro === "Sim" || comSeguro === true);
     if (typeof label === 'number') {
         const rem = Math.round(label * 10000) % 5;
         if (hasSeguro && (rem !== 2 && rem !== 7)) {
@@ -482,7 +482,7 @@ function simulate(inputs) {
     }
 
     // Support taxaRefin passed as label (e.g. "Tabela Refin 7") or decimal number
-    const taxaRefinNum = getRefinRateFromLabel(taxaRefin, comSeguro);
+    const taxaRefinNum = getRefinRateFromLabel(taxaRefin, comSeguro, convenio);
     const refinTableLabel = getRefinTableLabel(taxaRefinNum);
 
     const carenciaReal = days360(dataContrato, primeiroVencimento);
@@ -760,7 +760,7 @@ function getRefinRange(convenio, comSeguro) {
 
     const rates = [];
     let current = maxRate;
-    const hasSeguro = (comSeguro === "Sim" || comSeguro === true);
+    const hasSeguro = (convenio !== "Siape") && (comSeguro === "Sim" || comSeguro === true);
 
     while (current >= 0.0150 - 1e-9) {
         const rateVal = Math.round(current * 10000) / 10000;

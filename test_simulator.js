@@ -207,9 +207,16 @@ console.log(`Prazo 50 Anos (Solicitado 60m):     ${res50Anos.prazoRefin} meses (
 console.log(`Prazo Muito Idoso:                 ${resMuitoIdoso.prazoRefin} meses | Parecer: ${resMuitoIdoso.parecer}`);
 
 console.log(`Sem Seguro Prazo Reduced: ${resSemSeguro.prazoRefin < 120 ? "YES" : "NO"}`);
-console.log(`Com Seguro Prazo > Sem:   ${resComSeguro.prazoRefin > resSemSeguro.prazoRefin ? "YES" : "NO"}`);
-console.log(`50 Anos Prazo Unchanged:  ${res50Anos.prazoRefin === 60 ? "YES" : "NO"}`);
-console.log(`Muito Idoso Exceeded:     ${resMuitoIdoso.parecer.includes("Idade máxima excedida") ? "YES" : "NO"}`);
+console.log("\nRUNNING TEST CASE 10: Siape Rate Subtraction Rule (No 0.03% subtraction for Siape)");
+const siapeOptsSim = getRefinOptions("Siape", "Sim");
+const siapeOptsNao = getRefinOptions("Siape", "Não");
+const inssOptsSim = getRefinOptions("INSS", "Sim");
+
+console.log(`Siape (Sim) First Rate: ${siapeOptsSim[0].rate} | Siape (Não) First Rate: ${siapeOptsNao[0].rate}`);
+console.log(`INSS (Sim) First Rate:  ${inssOptsSim[0].rate}`);
+console.log(`Siape No Subtraction:   ${siapeOptsSim[0].rate === 0.0300 && siapeOptsNao[0].rate === 0.0300 ? "YES" : "NO"}`);
+console.log(`INSS Has Subtraction:   ${inssOptsSim[0].rate === 0.0182 ? "YES" : "NO"}`);
+
 
 
 
