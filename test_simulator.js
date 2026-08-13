@@ -1,4 +1,4 @@
-const { simulate, getRefinOptions, findIdealRefinRate, simulateAll, SimulateAll } = require('./simulator.js');
+const { simulate, getRefinOptions, findIdealRefinRate, simulateAll } = require('./simulator.js');
 
 // Test Case 1: SEPLAG MG (v9 baseline, verified on v11)
 const inputs1 = {
@@ -151,8 +151,8 @@ console.log(`Comissão Ideal:    ${idealResult.simulation.comissaoTableText}`);
 console.log(`Parecer Ideal:     ${idealResult.simulation.parecer}`);
 console.log(`Solver Success:    ${idealResult.simulation.parecer === "Favorável" ? "YES" : "NO"}`);
 
-console.log("\nRUNNING TEST CASE 8: SimulateAll (All options sorted by Commission desc, Refin Rate asc)");
-const allSimulations = SimulateAll(inputs5);
+console.log("\nRUNNING TEST CASE 8: simulateAll (All options sorted by Commission desc, Refin Rate asc)");
+const allSimulations = simulateAll(inputs5);
 console.log(`Total Simulations Count: ${allSimulations.length}`);
 console.log("First 3 simulations:");
 allSimulations.slice(0, 3).forEach((item, idx) => {

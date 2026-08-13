@@ -26,7 +26,7 @@ const CONVENIO_DE_X_PARA = {
     "Tribunais Federais": "Tribunais Federais"
 };
 
-const APOIO_RATES = {
+let APOIO_RATES = {
     "Bombeiros MG": {
         "min": 0.0225,
         "max": 0.05
@@ -264,6 +264,8 @@ const COMMISSION_TABLES = {
     ]
 };
 
+const MIN_REFIN_RATE = 0.0150;
+
 // DAYS360 US NASD Method (equivalent to Excel DAYS360)
 function days360(date1, date2) {
     const d1 = new Date(date1 + 'T00:00:00');
@@ -377,18 +379,21 @@ function xirr(cashflows, datesStr, guess = 0.1) {
 function getBaseRate(rate) {
     if (typeof rate !== 'number') return rate;
     const rem = Math.round(rate * 10000) % 5;
-    if (rem === 2 || rem === 7) {
+    if (rem === 2 || rem === 7) { // significa que é uma taxa de seguro
         return Math.round((rate + 0.0003) * 10000) / 10000;
     }
     return rate;
 }
 
 // Rate to Table Name mapping
-function getRefinTableLabel(rate) {
+function getRefinTableLabel(rate, minRefinRate) {
+    if (!minRefinRate) {
+        minRefinRate = MIN_REFIN_RATE;
+    }
     if (!rate || isNaN(rate)) return "Tabela Refin 1";
     const r = getBaseRate(rate);
     if (r <= 0.0300 + 1e-9) {
-        const idx = Math.round((r - 0.0150) / 0.0005) + 1;
+        const idx = Math.round((r - minRefinRate) / 0.0005) + 1;
         return `Tabela Refin ${idx}`;
     } else {
         const idx = 31 + Math.round((r - 0.0300) / 0.0010);
@@ -406,8 +411,8 @@ function getRefinRateFromLabel(label, comSeguro, convenio) {
         }
         return label;
     }
-    if (!label) return hasSeguro ? 0.0147 : 0.0150;
-    
+    if (!label) return hasSeguro ? MIN_REFIN_RATE - 0.0003 : MIN_REFIN_RATE;
+
     // If it's a numeric string like "0.018" or "1.8%"
     const labelStr = label.toString().trim();
     if (!isNaN(parseFloat(labelStr)) && !labelStr.includes("Tabela")) {
@@ -419,13 +424,13 @@ function getRefinRateFromLabel(label, comSeguro, convenio) {
         }
         return val;
     }
-    
+
     const match = labelStr.match(/\d+/);
-    if (!match) return hasSeguro ? 0.0147 : 0.0150;
+    if (!match) return hasSeguro ? MIN_REFIN_RATE - 0.0003 : MIN_REFIN_RATE;
     const idx = parseInt(match[0]);
     let baseRate;
     if (idx <= 31) {
-        baseRate = Math.round((0.0150 + (idx - 1) * 0.0005) * 10000) / 10000;
+        baseRate = Math.round((MIN_REFIN_RATE + (idx - 1) * 0.0005) * 10000) / 10000;
     } else {
         baseRate = Math.round((0.0300 + (idx - 31) * 0.0010) * 10000) / 10000;
     }
@@ -445,8 +450,24 @@ function simulate(inputs) {
         taxaRefin,
         pmtRefin,
         contracts, // Array of 4 objects { saldo, prazo, pmt }
-        dataNascimento // YYYY-MM-DD (opcional)
+        dataNascimento, // YYYY-MM-DD (opcional)
+        alternativeRates, // object of objects {"Siape": {min: 0.0150, max: 0.0180}}
+        comissionsAdded // object of objects {"Siape": [{"limit_s_seg": 0.0150, "limit_c_seg": 0.0150, "table": "Tabela 1", "rate": 0.005}]
     } = inputs;
+
+    // permite a substituição de taxas de convênios 
+    if (alternativeRates) {
+        Object.keys(alternativeRates).forEach(convenio => {
+            APOIO_RATES[convenio] = alternativeRates[convenio];
+        });
+    }
+
+    // permite acrescentar novas faixas de comissão por convênio
+    if (comissionsAdded) {
+        Object.keys(comissionsAdded).forEach(convenio => {
+            COMMISSION_TABLES[convenio] = COMMISSION_TABLES[convenio].concat(comissionsAdded[convenio]);
+        });
+    }
 
     // Regra de Idade Máxima:
     // Com seguro: 79 anos, 11 meses e 30 dias
@@ -677,7 +698,7 @@ function simulate(inputs) {
     }
 
     const parecerFavoravel = (taxaPonderada >= minRate && taxaPonderada <= maxRate);
-    
+
     const isMilitary = ["Marinha", "Exército", "Aeronáutica"].includes(convenio);
     let parecer = "";
     if (isMilitary && hasSeguro) {
@@ -748,10 +769,10 @@ function simulate(inputs) {
     };
 }
 
-function getRefinRange(convenio, comSeguro) {
+function getRefinRange(convenio, comSeguro, minRefinRate) {
     let maxRate;
     if (convenio === "Siape") {
-        maxRate = 0.0300; // Updated in v13_botao to 3.00%
+        maxRate = 0.0300;
     } else if (convenio === "INSS") {
         maxRate = 0.0185;
     } else {
@@ -762,7 +783,11 @@ function getRefinRange(convenio, comSeguro) {
     let current = maxRate;
     const hasSeguro = (convenio !== "Siape") && (comSeguro === "Sim" || comSeguro === true);
 
-    while (current >= 0.0150 - 1e-9) {
+    if (!minRefinRate) {
+        minRefinRate = MIN_REFIN_RATE;
+    }
+
+    while (current >= minRefinRate - 1e-9) {
         const rateVal = Math.round(current * 10000) / 10000;
         const finalRate = hasSeguro ? Math.round((rateVal - 0.0003) * 10000) / 10000 : rateVal;
         rates.push(finalRate);
@@ -773,10 +798,13 @@ function getRefinRange(convenio, comSeguro) {
     return rates;
 }
 
-function getRefinOptions(convenio, comSeguro) {
-    const rawRates = getRefinRange(convenio, comSeguro);
+function getRefinOptions(convenio, comSeguro, minRefinRate) {
+    if (!minRefinRate) {
+        minRefinRate = MIN_REFIN_RATE;
+    }
+    const rawRates = getRefinRange(convenio, comSeguro, minRefinRate);
     return rawRates.map(rate => {
-        const label = getRefinTableLabel(rate);
+        const label = getRefinTableLabel(rate, minRefinRate);
         return {
             label,
             rate,
@@ -826,8 +854,6 @@ function simulateAll(inputs) {
     return simulatedOptions;
 }
 
-const SimulateAll = simulateAll;
-
 // Emulates Excel VBA macro EncontrarTaxaIdeal()
 // Lógica atualizada: menor taxa refin favorável que atinja a MAIOR comissão
 function findIdealRefinRate(inputs) {
@@ -862,7 +888,6 @@ module.exports = {
     getRefinRateFromLabel,
     findIdealRefinRate,
     simulateAll,
-    SimulateAll,
     CONVENIO_DE_X_PARA,
     APOIO_RATES,
     COMMISSION_TABLES

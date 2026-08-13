@@ -1,21 +1,24 @@
 const express = require('express');
 const path = require('path');
-const { simulate, getRefinRange, getRefinOptions, findIdealRefinRate, simulateAll, SimulateAll, getRefinRateFromLabel } = require('./simulator.js');
+const cors = require('cors');
+const { simulate, getRefinOptions, findIdealRefinRate, simulateAll } = require('./simulator.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // API endpoint for getting refin range rates & table options
 app.get('/api/refin-range', (req, res) => {
     try {
+        //let minRefinRate = 0.0080;
         const { convenio, comSeguro } = req.query;
         if (!convenio) {
             return res.status(400).json({ error: "Missing required parameter: convenio" });
         }
-        const options = getRefinOptions(convenio, comSeguro);
+        const options = getRefinOptions(convenio, comSeguro/*, minRefinRate*/);
         res.json(options);
     } catch (error) {
         console.error("Error fetching refin range:", error);
@@ -69,6 +72,10 @@ function parseSimulationInputs(reqBody) {
 app.post('/api/simulate', (req, res) => {
     try {
         const inputs = parseSimulationInputs(req.body);
+
+        // inputs.alternativeRates = { "Siape": { min: 0.0150, max: 0.018 } }
+        // inputs.comissionsAdded = { "Siape": [{ "limit_s_seg": 0.0150, "limit_c_seg": 0.0150, "table": "Tabela 1", "rate": 0.005 }] }
+
         const results = simulate(inputs);
 
         delete results.theoreticalK3;
