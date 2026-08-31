@@ -223,12 +223,12 @@ const COMMISSION_TABLES = {
         { "limit_s_seg": 0.0199, "limit_c_seg": 0.0199, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Siape": [
-        { "limit_s_seg": 0.0163, "limit_c_seg": 0.0163, "table": "Tabela 1", "rate": 0.005 },
-        { "limit_s_seg": 0.0165, "limit_c_seg": 0.0165, "table": "Tabela 2", "rate": 0.01 },
-        { "limit_s_seg": 0.0166, "limit_c_seg": 0.0166, "table": "Tabela 3", "rate": 0.015 },
-        { "limit_s_seg": 0.0167, "limit_c_seg": 0.0167, "table": "Tabela 4", "rate": 0.02 },
-        { "limit_s_seg": 0.0168, "limit_c_seg": 0.0168, "table": "Tabela 5", "rate": 0.025 },
-        { "limit_s_seg": 0.0169, "limit_c_seg": 0.0169, "table": "Tabela 6", "rate": 0.03 }
+        { "limit_s_seg": 0.0163, "limit_c_seg": 0.0160, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0165, "limit_c_seg": 0.0162, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0166, "limit_c_seg": 0.0163, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0167, "limit_c_seg": 0.0164, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0168, "limit_c_seg": 0.0165, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0169, "limit_c_seg": 0.0166, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Aeronáutica": [
         { "limit_s_seg": 0.0185, "limit_c_seg": 0.0185, "table": "Tabela 1", "rate": 0.005 },
