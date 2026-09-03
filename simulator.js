@@ -598,7 +598,7 @@ function simulate(inputs) {
     // Compute IRR (Taxa Ponderada)
     const xirrAnnual = xirr(consolidatedCashFlows, dates);
     const ratePonderadaRaw = Math.pow(1 + xirrAnnual, 1 / 12.0) - 1;
-    const taxaPonderada = Number(ratePonderadaRaw.toFixed(4)); // ROUND(..., 4)
+    const taxaPonderada = Math.trunc(ratePonderadaRaw * 10000 + 1e-9) / 10000; // TRUNC(..., 4)
 
     // --- AMORTIZATION AND IOF ---
     const pmtConsolidada = activeContracts.length > 0
