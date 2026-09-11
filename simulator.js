@@ -471,12 +471,12 @@ function simulate(inputs) {
 
     // Regra de Idade Máxima:
     // Com seguro: 79 anos, 11 meses e 30 dias
-    // Sem seguro: 74 anos, 11 meses e 30 dias
+    // Sem seguro: 75 anos, 11 meses e 30 dias
     if (dataNascimento) {
         const birthDate = new Date(dataNascimento + (typeof dataNascimento === 'string' && !dataNascimento.includes('T') ? 'T00:00:00' : ''));
         if (!isNaN(birthDate.getTime())) {
             const hasSeguro = (comSeguro === "Sim" || comSeguro === true);
-            const maxYears = hasSeguro ? 79 : 74;
+            const maxYears = hasSeguro ? 79 : 75;
 
             const limitDate = new Date(birthDate);
             limitDate.setFullYear(limitDate.getFullYear() + maxYears);
