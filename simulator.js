@@ -266,6 +266,44 @@ const COMMISSION_TABLES = {
 
 const MIN_REFIN_RATE = 0.0150;
 
+const copyArray = function (array) {
+    let copy = []
+    if (array) {
+        array.forEach(e => {
+            let objTarget = Object.assign({}, e)
+            for (let property in objTarget) {
+                if (Array.isArray(objTarget[property])) {
+                    objTarget[property] = copyArray(objTarget[property])
+                }
+                else if (objTarget[property] instanceof Date) {
+                    objTarget[property] = objTarget[property]
+                }
+                else if (objTarget[property] && typeof objTarget[property] === 'object') {
+                    objTarget[property] = copyObject(objTarget[property])
+                }
+            }
+            copy.push(objTarget)
+        })
+    }
+    return copy
+}
+
+const copyObject = function (original) {
+    let copy = Object.assign({}, original)
+    for (let property in copy) {
+        if (Array.isArray(copy[property])) {
+            copy[property] = copyArray(copy[property])
+        }
+        else if (copy[property] instanceof Date) {
+            copy[property] = original[property]
+        }
+        else if (copy[property] && typeof copy[property] === 'object') {
+            copy[property] = copyObject(copy[property])
+        }
+    }
+    return copy
+}
+
 // DAYS360 US NASD Method (equivalent to Excel DAYS360)
 function days360(date1, date2) {
     const d1 = new Date(date1 + 'T00:00:00');
@@ -455,17 +493,20 @@ function simulate(inputs) {
         comissionsAdded // object of objects {"Siape": [{"limit_s_seg": 0.0150, "limit_c_seg": 0.0150, "table": "Tabela 1", "rate": 0.005}]
     } = inputs;
 
+    const RATES = copyObject(APOIO_RATES)
+    const COMISSIONS = copyObject(COMMISSION_TABLES)
+
     // permite a substituição de taxas de convênios 
     if (alternativeRates) {
         Object.keys(alternativeRates).forEach(convenio => {
-            APOIO_RATES[convenio] = alternativeRates[convenio];
+            RATES[convenio] = alternativeRates[convenio];
         });
     }
 
     // permite acrescentar novas faixas de comissão por convênio
     if (comissionsAdded) {
         Object.keys(comissionsAdded).forEach(convenio => {
-            COMMISSION_TABLES[convenio] = COMMISSION_TABLES[convenio].concat(comissionsAdded[convenio]);
+            COMISSIONS[convenio] = COMISSIONS[convenio].concat(comissionsAdded[convenio]);
         });
     }
 
@@ -687,7 +728,7 @@ function simulate(inputs) {
     const troco = trocos.reduce((s, x) => s + x, 0) - (totalIof + totalSeguro);
 
     // Lookups in Apoio
-    const rateLimits = APOIO_RATES[convenio] || { min: 0.0225, max: 0.05 };
+    const rateLimits = RATES[convenio] || { min: 0.0225, max: 0.05 };
     let minRate = rateLimits.min;
     let maxRate = rateLimits.max;
 
@@ -715,7 +756,7 @@ function simulate(inputs) {
     let comissaoRate = 0.0;
 
     if (parecer === "Favorável" && mappedGroup) {
-        const table = COMMISSION_TABLES[mappedGroup];
+        const table = COMISSIONS[mappedGroup];
         if (table && table.length > 0) {
             const getLimit = (entry) => hasSeguro ? entry.limit_c_seg : entry.limit_s_seg;
             const validEntries = table.filter(entry => getLimit(entry) !== null && getLimit(entry) !== undefined);
