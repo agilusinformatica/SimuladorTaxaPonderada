@@ -865,16 +865,7 @@ function findIdealRefinRate(inputs) {
     if (favorableOptions.length > 0) {
         return favorableOptions[0];
     }
-
-    // Caso nenhuma opção seja Favorável, retorna a opção mais próxima da taxa mínima
-    const copy = [...simulatedOptions];
-    copy.sort((a, b) => {
-        const diffA = Math.abs(a.simulation.taxaPonderada - a.simulation.minRate);
-        const diffB = Math.abs(b.simulation.taxaPonderada - b.simulation.minRate);
-        return diffA - diffB;
-    });
-
-    return copy[0] || null;
+    return null; // se nenhuma for favorável
 }
 
 module.exports = {
