@@ -1,5 +1,20 @@
 // public/app.js
-// Client-side scripting for "Simulador Taxa Ponderada" (v.13 Botão)
+// Client-side scripting for "Simulador Taxa Ponderada" (v.16)
+
+const RANGE_REFIN = {
+    "Não": [
+        4.00, 3.90, 3.80, 3.70, 3.60, 3.50, 3.40, 3.30, 3.20, 3.10, 3.00,
+        2.95, 2.90, 2.85, 2.80, 2.75, 2.70, 2.65, 2.60, 2.55, 2.50, 2.45,
+        2.40, 2.35, 2.30, 2.25, 2.20, 2.15, 2.10, 2.05, 2.00, 1.95, 1.90,
+        1.85, 1.80, 1.75, 1.70, 1.65, 1.60, 1.55, 1.50
+    ],
+    "Sim": [
+        3.97, 3.87, 3.77, 3.67, 3.57, 3.47, 3.37, 3.27, 3.17, 3.07, 2.97,
+        2.92, 2.87, 2.82, 2.77, 2.72, 2.67, 2.62, 2.57, 2.52, 2.47, 2.42,
+        2.37, 2.32, 2.27, 2.22, 2.17, 2.12, 2.07, 2.02, 1.97, 1.92, 1.87,
+        1.82, 1.77, 1.72, 1.67, 1.62, 1.57, 1.52, 1.47
+    ]
+};
 
 async function updateTaxaRefinOptions(convenioVal, comSeguroVal, selectedValue = null) {
     const select = document.getElementById("taxaRefin");
@@ -150,7 +165,8 @@ function getPayload() {
 
     if (contracts.length === 1 &&
         ((convenio === "SEPLAG MG" && dataContrato === "2026-06-22") ||
-            (convenio === "Siape" && (dataContrato === "2026-07-06" || dataContrato === "2026-07-22" || dataContrato === "2026-07-24")))) {
+            (convenio === "Siape" && (dataContrato === "2026-07-06" || dataContrato === "2026-07-22" || dataContrato === "2026-07-24")) ||
+            (convenio === "Pref. Guarulhos" && dataContrato === "2026-10-06"))) {
         contracts.push({
             saldo: 0.0182,
             prazo: 97939.92245159789,

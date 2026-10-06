@@ -151,6 +151,35 @@ console.log(`Comissão Ideal:    ${idealResult.simulation.comissaoTableText}`);
 console.log(`Parecer Ideal:     ${idealResult.simulation.parecer}`);
 console.log(`Solver Success:    ${idealResult.simulation.parecer === "Favorável" ? "YES" : "NO"}`);
 
+// Test Case 7: Pref. Guarulhos (v16 default baseline)
+const inputs7 = {
+    convenio: "Pref. Guarulhos",
+    produto: "Refin da Port",
+    comSeguro: "Não",
+    dataContrato: "2026-10-06",
+    primeiroVencimento: "2026-12-07",
+    prazoRefin: 120,
+    taxaRefin: "Tabela Refin 15",
+    pmtRefin: 3000,
+    contracts: [
+        { saldo: 100000.0, prazo: 50, pmt: 3000.0 },
+        { saldo: 0.0182, prazo: 97939.92245159789, pmt: 0.0 },
+        { saldo: 0.0, prazo: 0, pmt: 0.0 },
+        { saldo: 0.0, prazo: 0, pmt: 0.0 }
+    ]
+};
+
+console.log("\nRUNNING TEST CASE 7: Pref. Guarulhos (v16 Default)");
+const results7 = simulate(inputs7);
+console.log(`Taxa Ponderada:    ${(results7.taxaPonderada * 100).toFixed(2)}% (${results7.taxaPonderada})`);
+console.log(`Troco Final:       R$ ${results7.troco.toFixed(2)}`);
+console.log(`Parecer:           ${results7.parecer}`);
+console.log(`Comissão Tabela:   ${results7.comissaoTableText || "Nenhuma"}`);
+console.log(`Taxa Ponderada matches: ${Math.abs(results7.taxaPonderada - 0.0196) < 1e-4 ? "YES" : "NO"}`);
+console.log(`Troco matches:          ${Math.abs(results7.troco - 33929.52) < 1e-1 ? "YES" : "NO"}`);
+console.log(`Parecer matches:        ${results7.parecer === "Favorável" ? "YES" : "NO"}`);
+console.log(`Comissão matches:       ${results7.comissaoTableText === "Tabela 1 de comissionamento" ? "YES" : "NO"}`);
+
 console.log("\nRUNNING TEST CASE 8: simulateAll (All options sorted by Commission desc, Refin Rate asc)");
 const allSimulations = simulateAll(inputs5);
 console.log(`Total Simulations Count: ${allSimulations.length}`);
@@ -216,6 +245,34 @@ console.log(`Siape (Sim) First Rate: ${siapeOptsSim[0].rate} | Siape (Não) Firs
 console.log(`INSS (Sim) First Rate:  ${inssOptsSim[0].rate}`);
 console.log(`Siape No Subtraction:   ${siapeOptsSim[0].rate === 0.0300 && siapeOptsNao[0].rate === 0.0300 ? "YES" : "NO"}`);
 console.log(`INSS Has Subtraction:   ${inssOptsSim[0].rate === 0.0182 ? "YES" : "NO"}`);
+
+console.log("\nRUNNING TEST CASE 11: Novos Convênios v16 (Pref. Salvador & IPREM SP)");
+const resSalvador = simulate({
+    convenio: "Pref. Salvador",
+    produto: "Refin da Port",
+    comSeguro: "Não",
+    dataContrato: "2026-10-06",
+    primeiroVencimento: "2026-11-20",
+    prazoRefin: 120,
+    taxaRefin: 0.0220,
+    pmtRefin: 3000,
+    contracts: [{ saldo: 100000, prazo: 50, pmt: 3000 }]
+});
+const resIprem = simulate({
+    convenio: "IPREM SP",
+    produto: "Refin da Port",
+    comSeguro: "Não",
+    dataContrato: "2026-10-06",
+    primeiroVencimento: "2026-11-20",
+    prazoRefin: 120,
+    taxaRefin: 0.0220,
+    pmtRefin: 3000,
+    contracts: [{ saldo: 100000, prazo: 50, pmt: 3000 }]
+});
+console.log(`Pref. Salvador Parecer: ${resSalvador.parecer} | Comissão: ${resSalvador.comissaoTableText}`);
+console.log(`IPREM SP Parecer:       ${resIprem.parecer} | Comissão: ${resIprem.comissaoTableText}`);
+console.log(`Novos Convênios Sucesso: ${resSalvador.parecer === "Favorável" && resIprem.parecer === "Favorável" ? "YES" : "NO"}`);
+
 
 
 
