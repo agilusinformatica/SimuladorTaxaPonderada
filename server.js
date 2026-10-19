@@ -81,6 +81,7 @@ app.post('/api/simulate', (req, res) => {
         delete results.theoreticalK3;
         delete results.d3;
         delete results.trocos;
+        delete results.dates;
 
         res.json(results);
 
@@ -101,6 +102,7 @@ app.post('/api/simulate-all', (req, res) => {
             delete sim.theoreticalK3;
             delete sim.d3;
             delete sim.trocos;
+            delete sim.dates;
             return {
                 ...item,
                 simulation: sim
