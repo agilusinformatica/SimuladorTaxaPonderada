@@ -573,7 +573,7 @@ function simulate(inputs) {
                 }
                 currentPrazo--;
             }
-            prazoRefin = currentPrazo;
+            prazoRefin = currentPrazo - 1;
         }
     }
 
