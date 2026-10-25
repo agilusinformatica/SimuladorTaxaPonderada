@@ -568,7 +568,7 @@ function simulate(inputs) {
                 // Data no final do contrato (dataContrato + prazo em meses)
                 const contractEndDateStr = addMonths(dataContrato, currentPrazo);
                 const contractEndDate = new Date(contractEndDateStr + 'T00:00:00');
-                if (contractEndDate <= limitDate) {
+                if (contractEndDate < limitDate) {
                     break;
                 }
                 currentPrazo--;
