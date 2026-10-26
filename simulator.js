@@ -380,6 +380,36 @@ function days360(date1, date2) {
     return (y2 - y1) * 360 + (m2 - m1) * 30 + (dt2 - dt1);
 }
 
+function ehDataValida(valor) {
+    return valor instanceof Date && !isNaN(valor.getTime());
+}
+
+function diferencaAbsolutaMeses(dataStr1, dataStr2) {
+    let d1, d2
+    if (ehDataValida(dataStr1))
+        d1 = dataStr1;
+    else
+        d1 = new Date(dataStr1.substring(0, 10) + 'T00:00:00Z');
+
+    if (ehDataValida(dataStr2))
+        d2 = dataStr2;
+    else
+        d2 = new Date(dataStr2.substring(0, 10) + 'T00:00:00Z');
+
+    const anos = d2.getUTCFullYear() - d1.getUTCFullYear();
+    const meses = d2.getUTCMonth() - d1.getUTCMonth();
+
+    let diferenca = anos * 12 + meses;
+
+    if (d1.getMonth() > d2.getMonth()) {
+        if (d1.getDate() < d2.getDate()) {
+            diferenca += 1
+        }
+    }
+
+    return diferenca
+}
+
 // Add months preserving date (Excel EDATE behavior)
 function addMonths(startDateStr, months) {
     const d = new Date(startDateStr + 'T00:00:00');
@@ -553,27 +583,11 @@ function simulate(inputs) {
     // Com seguro: 79 anos, 11 meses e 30 dias
     // Sem seguro: 75 anos, 11 meses e 30 dias
     if (dataNascimento) {
-        const birthDate = new Date(dataNascimento + (typeof dataNascimento === 'string' && !dataNascimento.includes('T') ? 'T00:00:00' : ''));
-        if (!isNaN(birthDate.getTime())) {
-            const hasSeguro = (comSeguro === "Sim" || comSeguro === true);
-            const maxYears = hasSeguro ? 79 : 75;
-
-            const limitDate = new Date(birthDate);
-            limitDate.setFullYear(limitDate.getFullYear() + maxYears);
-            limitDate.setMonth(limitDate.getMonth() + 11);
-            limitDate.setDate(limitDate.getDate() + 30);
-
-            let currentPrazo = prazoRefin;
-            while (currentPrazo > 0) {
-                // Data no final do contrato (dataContrato + prazo em meses)
-                const contractEndDateStr = addMonths(dataContrato, currentPrazo);
-                const contractEndDate = new Date(contractEndDateStr + 'T00:00:00');
-                if (contractEndDate < limitDate) {
-                    break;
-                }
-                currentPrazo--;
-            }
-            prazoRefin = currentPrazo;
+        const hasSeguro = (comSeguro === "Sim" || comSeguro === true);
+        const maxMonths = hasSeguro ? 960 : 912; // 80 anos ou 76 anos
+        const diferencaMeses = maxMonths - diferencaAbsolutaMeses(dataNascimento, dataContrato) - 1;
+        if (diferencaMeses < prazoRefin) {
+            prazoRefin = diferencaMeses;
         }
     }
 
