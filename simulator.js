@@ -99,7 +99,7 @@ let APOIO_RATES = {
         "max": 0.05
     },
     "Siape": {
-        "min": 0.0163,
+        "min": 0.018, // 0.0163,
         "max": 0.018
     },
     "Aeronáutica": {
@@ -787,7 +787,7 @@ function simulate(inputs) {
     let maxRate = rateLimits.max;
 
     const hasSeguro = (comSeguro === "Sim" || comSeguro === true);
-    if (hasSeguro) {
+    if (hasSeguro && convenio !== 'Siape') {
         minRate = Math.max(0, minRate - 0.0003);
         maxRate = Math.max(0, maxRate - 0.0003);
     }
