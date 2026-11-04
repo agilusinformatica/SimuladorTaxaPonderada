@@ -102,7 +102,7 @@ const inputs4 = {
     ]
 };
 
-console.log("\nRUNNING TEST CASE 4: Siape (v13 Default)");
+console.log("\nRUNNING TEST CASE 4: Siape (v13 Default with v16b 1.80% floor)");
 const results4 = simulate(inputs4);
 console.log(`Taxa Ponderada:    ${(results4.taxaPonderada * 100).toFixed(2)}% (${results4.taxaPonderada})`);
 console.log(`Troco Final:       R$ ${results4.troco.toFixed(2)}`);
@@ -110,11 +110,9 @@ console.log(`Parecer:           ${results4.parecer}`);
 console.log(`Comissão Tabela:   ${results4.comissaoTableText || "Nenhuma"}`);
 console.log(`Taxa Ponderada matches: ${Math.abs(results4.taxaPonderada - 0.0165) < 1e-4 ? "YES" : "NO"}`);
 console.log(`Troco matches:          ${Math.abs(results4.troco - 55492.04) < 1e-1 ? "YES" : "NO"}`);
-console.log(`Parecer matches:        ${results4.parecer === "Favorável" ? "YES" : "NO"}`);
-console.log(`Comissão matches:       ${results4.comissaoTableText === "Tabela 2 de comissionamento" ? "YES" : "NO"}`);
+console.log(`Parecer matches:        ${results4.parecer === "Não Favorável" ? "YES" : "NO"}`);
 
-// Test Case 5: INSS (v13 Botão Baseline - Tabela Refin 7 / 1.80%)
-
+// Test Case 5: INSS (v13 Botão Baseline - Tabela Refin 7 / 1.80% -> 1.78% pond < 1.79% min in v16b)
 const inputs5 = {
     convenio: "INSS",
     produto: "Refin da Port",
@@ -132,7 +130,7 @@ const inputs5 = {
     ]
 };
 
-console.log("\nRUNNING TEST CASE 5: INSS (v13 Botão Baseline)");
+console.log("\nRUNNING TEST CASE 5: INSS (v13 Botão Baseline in v16b)");
 const results5 = simulate(inputs5);
 console.log(`Refin Label:       ${results5.refinTableLabel}`);
 console.log(`Taxa Ponderada:    ${(results5.taxaPonderada * 100).toFixed(2)}% (${results5.taxaPonderada})`);
@@ -140,9 +138,9 @@ console.log(`Troco Final:       R$ ${results5.troco.toFixed(2)}`);
 console.log(`Parecer:           ${results5.parecer}`);
 console.log(`Comissão Tabela:   ${results5.comissaoTableText || "Nenhuma"}`);
 console.log(`Label matches:          ${results5.refinTableLabel === "Tabela Refin 7" ? "YES" : "NO"}`);
-console.log(`Taxa Ponderada matches: ${Math.abs(results5.taxaPonderada - 0.0179) < 1e-4 ? "YES" : "NO"}`);
+console.log(`Taxa Ponderada matches: ${Math.abs(results5.taxaPonderada - 0.0178) < 1e-4 ? "YES" : "NO"}`);
 console.log(`Troco matches:          ${Math.abs(results5.troco - 47637.72) < 1e-1 ? "YES" : "NO"}`);
-console.log(`Parecer matches:        ${results5.parecer === "Favorável" ? "YES" : "NO"}`);
+console.log(`Parecer matches:        ${results5.parecer === "Não Favorável" ? "YES" : "NO"}`);
 
 console.log("\nRUNNING TEST CASE 6: EncontrarTaxaIdeal Solver Macro (Maior Comissão + Menor Taxa)");
 const idealResult = findIdealRefinRate(inputs5);
@@ -209,10 +207,9 @@ for (let i = 0; i < allSimulations.length - 1; i++) {
         console.error(`Sort failed at index ${i}: rate ${curr.rate} > rate ${next.rate}`);
     }
 }
+console.log(`Sort verified: ${isSortedCorrectly ? "YES" : "NO"}`);
+
 console.log("\nRUNNING TEST CASE 9: dataNascimento Age Limit Rule");
-// Born 1955-08-01 (will turn 75 on 2030-08-01). Contract starts 2026-07-01, primeiroVenc = 2026-08-15.
-// Max date without insurance: 74 years 11 months 30 days -> 2030-07-31.
-// With prazoRefin = 120 requested, last installment date must be <= 2030-07-31.
 const baseInputAge = {
     convenio: "INSS",
     produto: "Refin da Port",
@@ -230,21 +227,22 @@ const resComSeguro = simulate({ ...baseInputAge, comSeguro: "Sim" });
 const resMuitoIdoso = simulate({ ...baseInputAge, dataNascimento: "1940-01-01" });
 const res50Anos = simulate({ ...baseInputAge, dataNascimento: "1976-07-01", prazoRefin: 60 });
 
-console.log(`Prazo Sem Seguro (Max 74a 11m 30d): ${resSemSeguro.prazoRefin} meses (Esperado: 48 meses)`);
+console.log(`Prazo Sem Seguro (Max 75a 11m 30d): ${resSemSeguro.prazoRefin} meses (Esperado: 60 meses)`);
 console.log(`Prazo Com Seguro (Max 79a 11m 30d): ${resComSeguro.prazoRefin} meses (Esperado: 108 meses)`);
 console.log(`Prazo 50 Anos (Solicitado 60m):     ${res50Anos.prazoRefin} meses (Idade final: 55 anos)`);
 console.log(`Prazo Muito Idoso:                 ${resMuitoIdoso.prazoRefin} meses | Parecer: ${resMuitoIdoso.parecer}`);
 
 console.log(`Sem Seguro Prazo Reduced: ${resSemSeguro.prazoRefin < 120 ? "YES" : "NO"}`);
-console.log("\nRUNNING TEST CASE 10: Siape Rate Subtraction Rule (No 0.03% subtraction for Siape)");
+console.log("\nRUNNING TEST CASE 10: Siape & INSS Rate Subtraction Rule (v16b INSS max 2.20%)");
 const siapeOptsSim = getRefinOptions("Siape", "Sim");
 const siapeOptsNao = getRefinOptions("Siape", "Não");
 const inssOptsSim = getRefinOptions("INSS", "Sim");
+const inssOptsNao = getRefinOptions("INSS", "Não");
 
 console.log(`Siape (Sim) First Rate: ${siapeOptsSim[0].rate} | Siape (Não) First Rate: ${siapeOptsNao[0].rate}`);
-console.log(`INSS (Sim) First Rate:  ${inssOptsSim[0].rate}`);
+console.log(`INSS (Não) First Rate:  ${inssOptsNao[0].rate} | INSS (Sim) First Rate:  ${inssOptsSim[0].rate}`);
 console.log(`Siape No Subtraction:   ${siapeOptsSim[0].rate === 0.0300 && siapeOptsNao[0].rate === 0.0300 ? "YES" : "NO"}`);
-console.log(`INSS Has Subtraction:   ${inssOptsSim[0].rate === 0.0182 ? "YES" : "NO"}`);
+console.log(`INSS Has Subtraction:   ${inssOptsNao[0].rate === 0.0220 && inssOptsSim[0].rate === 0.0217 ? "YES" : "NO"}`);
 
 console.log("\nRUNNING TEST CASE 11: Novos Convênios v16 (Pref. Salvador & IPREM SP)");
 const resSalvador = simulate({
@@ -272,6 +270,29 @@ const resIprem = simulate({
 console.log(`Pref. Salvador Parecer: ${resSalvador.parecer} | Comissão: ${resSalvador.comissaoTableText}`);
 console.log(`IPREM SP Parecer:       ${resIprem.parecer} | Comissão: ${resIprem.comissaoTableText}`);
 console.log(`Novos Convênios Sucesso: ${resSalvador.parecer === "Favorável" && resIprem.parecer === "Favorável" ? "YES" : "NO"}`);
+
+console.log("\nRUNNING TEST CASE 12: Atualizações v16b (INSS c/ Seguro, Aeronáutica, Exército, Estado MS, Pref. Goiânia, Pref. SP, SPPrev)");
+const resInssComSeg = simulate({
+    ...inputs5,
+    comSeguro: "Sim",
+    taxaRefin: "Tabela Refin 8"
+});
+console.log(`INSS Com Seguro Parecer: ${resInssComSeg.parecer} | Comissão: "${resInssComSeg.comissaoTableText}" (Esperado vazio)`);
+console.log(`INSS Com Seguro Sem Comissão: ${resInssComSeg.parecer === "Favorável" && resInssComSeg.comissaoTableText === "" ? "YES" : "NO"}`);
+
+const resAero = simulate({
+    convenio: "Aeronáutica",
+    produto: "Refin da Port",
+    comSeguro: "Não",
+    dataContrato: "2026-10-06",
+    primeiroVencimento: "2026-11-20",
+    prazoRefin: 120,
+    taxaRefin: 0.0250,
+    pmtRefin: 3000,
+    contracts: [{ saldo: 100000, prazo: 50, pmt: 3000 }]
+});
+console.log(`Aeronáutica (Max Tabela 2): ${resAero.parecer} | Comissão: ${resAero.comissaoTableText}`);
+console.log(`Aeronáutica Tabela 2 Match: ${resAero.comissaoTableText === "Tabela 2 de comissionamento" ? "YES" : "NO"}`);
 
 
 

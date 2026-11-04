@@ -43,7 +43,7 @@ let APOIO_RATES = {
         "max": 0.05
     },
     "Estado MS": {
-        "min": 0.0173,
+        "min": 0.0189,
         "max": 0.05
     },
     "Estado SC": {
@@ -59,7 +59,7 @@ let APOIO_RATES = {
         "max": 0.05
     },
     "INSS": {
-        "min": 0.0178,
+        "min": 0.0179,
         "max": 0.0185
     },
     "IPSEMG": {
@@ -75,11 +75,11 @@ let APOIO_RATES = {
         "max": 0.05
     },
     "Pref. Goiânia": {
-        "min": 0.0204,
+        "min": 0.0179,
         "max": 0.05
     },
     "Pref. SP": {
-        "min": 0.0176,
+        "min": 0.0184,
         "max": 0.05
     },
     "SEPLAG MG": {
@@ -91,7 +91,7 @@ let APOIO_RATES = {
         "max": 0.05
     },
     "SPPrev": {
-        "min": 0.0174,
+        "min": 0.0184,
         "max": 0.05
     },
     "PMMG": {
@@ -103,7 +103,7 @@ let APOIO_RATES = {
         "max": 0.018
     },
     "Aeronáutica": {
-        "min": 0.0185,
+        "min": 0.0203,
         "max": 0.05
     },
     "Marinha": {
@@ -111,7 +111,7 @@ let APOIO_RATES = {
         "max": 0.0204
     },
     "Exército": {
-        "min": 0.017,
+        "min": 0.0179,
         "max": 0.0204
     },
     "Tribunais Federais": {
@@ -150,12 +150,12 @@ const COMMISSION_TABLES = {
         { "limit_s_seg": 0.022, "limit_c_seg": 0.022, "table": "Tabela 6", "rate": 0.03 }
     ],
     "INSS": [
-        { "limit_s_seg": 0.0178, "limit_c_seg": 0.0178, "table": "Tabela 1", "rate": 0.005 },
-        { "limit_s_seg": 0.0179, "limit_c_seg": 0.0179, "table": "Tabela 2", "rate": 0.01 },
-        { "limit_s_seg": 0.0181, "limit_c_seg": 0.0181, "table": "Tabela 3", "rate": 0.015 },
-        { "limit_s_seg": 0.0182, "limit_c_seg": 0.0182, "table": "Tabela 4", "rate": 0.02 },
-        { "limit_s_seg": 0.0183, "limit_c_seg": 0.0183, "table": "Tabela 5", "rate": 0.025 },
-        { "limit_s_seg": 0.0185, "limit_c_seg": 0.0185, "table": "Tabela 6", "rate": 0.03 }
+        { "limit_s_seg": 0.0179, "limit_c_seg": null, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.018, "limit_c_seg": null, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0182, "limit_c_seg": null, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0183, "limit_c_seg": null, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0184, "limit_c_seg": null, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0185, "limit_c_seg": null, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Pref. Contagem": [
         { "limit_s_seg": 0.0179, "limit_c_seg": 0.0179, "table": "Tabela 1", "rate": 0.005 },
@@ -166,36 +166,36 @@ const COMMISSION_TABLES = {
         { "limit_s_seg": 0.0184, "limit_c_seg": 0.0184, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Pref. Goiânia": [
-        { "limit_s_seg": 0.0204, "limit_c_seg": 0.0204, "table": "Tabela 1", "rate": 0.005 },
-        { "limit_s_seg": 0.0206, "limit_c_seg": 0.0206, "table": "Tabela 2", "rate": 0.01 },
-        { "limit_s_seg": 0.0208, "limit_c_seg": 0.0208, "table": "Tabela 3", "rate": 0.015 },
-        { "limit_s_seg": 0.0209, "limit_c_seg": 0.0209, "table": "Tabela 4", "rate": 0.02 },
-        { "limit_s_seg": 0.0211, "limit_c_seg": 0.0211, "table": "Tabela 5", "rate": 0.025 },
-        { "limit_s_seg": 0.0213, "limit_c_seg": 0.0213, "table": "Tabela 6", "rate": 0.03 }
+        { "limit_s_seg": 0.0179, "limit_c_seg": 0.0179, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.018, "limit_c_seg": 0.018, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0181, "limit_c_seg": 0.0181, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0182, "limit_c_seg": 0.0182, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0183, "limit_c_seg": 0.0183, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0184, "limit_c_seg": 0.0184, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Pref. SP": [
-        { "limit_s_seg": 0.0176, "limit_c_seg": 0.0176, "table": "Tabela 1", "rate": 0.005 },
-        { "limit_s_seg": 0.0177, "limit_c_seg": 0.0177, "table": "Tabela 2", "rate": 0.01 },
-        { "limit_s_seg": 0.0179, "limit_c_seg": 0.0179, "table": "Tabela 3", "rate": 0.015 },
-        { "limit_s_seg": 0.018, "limit_c_seg": 0.018, "table": "Tabela 4", "rate": 0.02 },
-        { "limit_s_seg": 0.0182, "limit_c_seg": 0.0182, "table": "Tabela 5", "rate": 0.025 },
-        { "limit_s_seg": 0.0183, "limit_c_seg": 0.0183, "table": "Tabela 6", "rate": 0.03 }
+        { "limit_s_seg": 0.0184, "limit_c_seg": 0.0184, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0186, "limit_c_seg": 0.0186, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0187, "limit_c_seg": 0.0187, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0189, "limit_c_seg": 0.0189, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0191, "limit_c_seg": 0.0191, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0193, "limit_c_seg": 0.0193, "table": "Tabela 6", "rate": 0.03 }
     ],
     "SPPrev": [
-        { "limit_s_seg": 0.0174, "limit_c_seg": 0.0174, "table": "Tabela 1", "rate": 0.005 },
-        { "limit_s_seg": 0.0175, "limit_c_seg": 0.0175, "table": "Tabela 2", "rate": 0.01 },
-        { "limit_s_seg": 0.0177, "limit_c_seg": 0.0177, "table": "Tabela 3", "rate": 0.015 },
-        { "limit_s_seg": 0.0178, "limit_c_seg": 0.0178, "table": "Tabela 4", "rate": 0.02 },
-        { "limit_s_seg": 0.0179, "limit_c_seg": 0.0179, "table": "Tabela 5", "rate": 0.025 },
-        { "limit_s_seg": 0.0181, "limit_c_seg": 0.0181, "table": "Tabela 6", "rate": 0.03 }
+        { "limit_s_seg": 0.0184, "limit_c_seg": 0.0184, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0185, "limit_c_seg": 0.0185, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0187, "limit_c_seg": 0.0187, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0188, "limit_c_seg": 0.0188, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0189, "limit_c_seg": 0.0189, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0191, "limit_c_seg": 0.0191, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Estado MS": [
-        { "limit_s_seg": 0.0173, "limit_c_seg": 0.0173, "table": "Tabela 1", "rate": 0.005 },
-        { "limit_s_seg": 0.0174, "limit_c_seg": 0.0174, "table": "Tabela 2", "rate": 0.01 },
-        { "limit_s_seg": 0.0175, "limit_c_seg": 0.0175, "table": "Tabela 3", "rate": 0.015 },
-        { "limit_s_seg": 0.0176, "limit_c_seg": 0.0176, "table": "Tabela 4", "rate": 0.02 },
-        { "limit_s_seg": 0.0177, "limit_c_seg": 0.0177, "table": "Tabela 5", "rate": 0.025 },
-        { "limit_s_seg": 0.0178, "limit_c_seg": 0.0178, "table": "Tabela 6", "rate": 0.03 }
+        { "limit_s_seg": 0.0189, "limit_c_seg": 0.0189, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0191, "limit_c_seg": 0.0191, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0193, "limit_c_seg": 0.0193, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0194, "limit_c_seg": 0.0194, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0196, "limit_c_seg": 0.0196, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.0198, "limit_c_seg": 0.0198, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Estado BA": [
         { "limit_s_seg": 0.0191, "limit_c_seg": 0.0191, "table": "Tabela 1", "rate": 0.005 },
@@ -247,12 +247,8 @@ const COMMISSION_TABLES = {
         { "limit_s_seg": 0.018, "limit_c_seg": 0.018, "table": "Tabela 1", "rate": 0.005 },
     ],
     "Aeronáutica": [
-        { "limit_s_seg": 0.0185, "limit_c_seg": 0.0185, "table": "Tabela 1", "rate": 0.005 },
-        { "limit_s_seg": 0.0186, "limit_c_seg": 0.0186, "table": "Tabela 2", "rate": 0.01 },
-        { "limit_s_seg": 0.0188, "limit_c_seg": 0.0188, "table": "Tabela 3", "rate": 0.015 },
-        { "limit_s_seg": 0.0189, "limit_c_seg": 0.0189, "table": "Tabela 4", "rate": 0.02 },
-        { "limit_s_seg": 0.0191, "limit_c_seg": 0.0191, "table": "Tabela 5", "rate": 0.025 },
-        { "limit_s_seg": 0.0192, "limit_c_seg": 0.0192, "table": "Tabela 6", "rate": 0.03 }
+        { "limit_s_seg": 0.0203, "limit_c_seg": 0.0203, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0204, "limit_c_seg": 0.0204, "table": "Tabela 2", "rate": 0.01 }
     ],
     "Marinha": [
         { "limit_s_seg": 0.0189, "limit_c_seg": 0.0189, "table": "Tabela 1", "rate": 0.005 },
@@ -263,12 +259,12 @@ const COMMISSION_TABLES = {
         { "limit_s_seg": 0.0199, "limit_c_seg": 0.0199, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Exército": [
-        { "limit_s_seg": 0.017, "limit_c_seg": 0.017, "table": "Tabela 1", "rate": 0.005 },
-        { "limit_s_seg": 0.0171, "limit_c_seg": 0.0171, "table": "Tabela 2", "rate": 0.01 },
-        { "limit_s_seg": 0.0173, "limit_c_seg": 0.0173, "table": "Tabela 3", "rate": 0.015 },
-        { "limit_s_seg": 0.0174, "limit_c_seg": 0.0174, "table": "Tabela 4", "rate": 0.02 },
-        { "limit_s_seg": 0.0176, "limit_c_seg": 0.0176, "table": "Tabela 5", "rate": 0.025 },
-        { "limit_s_seg": 0.0177, "limit_c_seg": 0.0177, "table": "Tabela 6", "rate": 0.03 }
+        { "limit_s_seg": 0.0179, "limit_c_seg": 0.0179, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0181, "limit_c_seg": 0.0181, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0183, "limit_c_seg": 0.0183, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0185, "limit_c_seg": 0.0185, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0187, "limit_c_seg": 0.0187, "table": "Tabela 5", "rate": 0.025 },
+        { "limit_s_seg": 0.019, "limit_c_seg": 0.019, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Tribunais Federais": [
         { "limit_s_seg": 0.0201, "limit_c_seg": 0.0201, "table": "Tabela 1", "rate": 0.005 },
@@ -284,7 +280,7 @@ const COMMISSION_TABLES = {
         { "limit_s_seg": 0.0194, "limit_c_seg": 0.0194, "table": "Tabela 3", "rate": 0.015 },
         { "limit_s_seg": 0.0195, "limit_c_seg": 0.0195, "table": "Tabela 4", "rate": 0.02 },
         { "limit_s_seg": 0.0196, "limit_c_seg": 0.0196, "table": "Tabela 5", "rate": 0.025 },
-        { "limit_s_seg": 0.0198, "limit_c_seg": 0.0198, "table": "Tabela 6", "rate": 0.03 }
+        { "limit_s_seg": 0.0197, "limit_c_seg": 0.0197, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Pref. Guarulhos": [
         { "limit_s_seg": 0.0196, "limit_c_seg": 0.0196, "table": "Tabela 1", "rate": 0.005 },
@@ -816,26 +812,28 @@ function simulate(inputs) {
             const validEntries = table.filter(entry => getLimit(entry) !== null && getLimit(entry) !== undefined);
             const sorted = [...validEntries].sort((a, b) => getLimit(a) - getLimit(b));
 
-            let matchedEntry = null;
-            for (let entry of sorted) {
-                const limit = getLimit(entry);
-                if (taxaPonderada <= limit + 1e-9) {
-                    matchedEntry = entry;
-                    break;
+            if (sorted.length > 0) {
+                let matchedEntry = null;
+                for (let entry of sorted) {
+                    const limit = getLimit(entry);
+                    if (taxaPonderada <= limit + 1e-9) {
+                        matchedEntry = entry;
+                        break;
+                    }
                 }
-            }
 
-            if (matchedEntry) {
-                comissaoTableText = `${matchedEntry.table} de comissionamento`;
-                comissaoRate = matchedEntry.rate;
-            } else {
-                const lastEntry = sorted[sorted.length - 1];
-                if (taxaPonderada <= maxRate + 1e-9) {
-                    comissaoTableText = `${lastEntry.table} de comissionamento`;
-                    comissaoRate = lastEntry.rate;
+                if (matchedEntry) {
+                    comissaoTableText = `${matchedEntry.table} de comissionamento`;
+                    comissaoRate = matchedEntry.rate;
                 } else {
-                    comissaoTableText = "Taxa ponderada acima do range da tabela de comissionamento";
-                    comissaoRate = 0.0;
+                    const lastEntry = sorted[sorted.length - 1];
+                    if (taxaPonderada <= maxRate + 1e-9) {
+                        comissaoTableText = `${lastEntry.table} de comissionamento`;
+                        comissaoRate = lastEntry.rate;
+                    } else {
+                        comissaoTableText = "Taxa ponderada acima do range da tabela de comissionamento";
+                        comissaoRate = 0.0;
+                    }
                 }
             }
         }
@@ -869,7 +867,7 @@ function getRefinRange(convenio, comSeguro, minRefinRate) {
     if (convenio === "Siape") {
         maxRate = 0.0300;
     } else if (convenio === "INSS") {
-        maxRate = 0.0185;
+        maxRate = 0.0220;
     } else {
         maxRate = 0.0400;
     }

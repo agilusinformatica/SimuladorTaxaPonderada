@@ -1,5 +1,5 @@
 // public/app.js
-// Client-side scripting for "Simulador Taxa Ponderada" (v.16)
+// Client-side scripting for "Simulador Taxa Ponderada" (v.16b)
 
 const RANGE_REFIN = {
     "Não": [
