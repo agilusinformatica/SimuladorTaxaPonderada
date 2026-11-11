@@ -167,7 +167,7 @@ const inputs7 = {
     ]
 };
 
-console.log("\nRUNNING TEST CASE 7: Pref. Guarulhos (v16 Default)");
+console.log("\nRUNNING TEST CASE 7: Pref. Guarulhos (v16 Default in v16c)");
 const results7 = simulate(inputs7);
 console.log(`Taxa Ponderada:    ${(results7.taxaPonderada * 100).toFixed(2)}% (${results7.taxaPonderada})`);
 console.log(`Troco Final:       R$ ${results7.troco.toFixed(2)}`);
@@ -175,8 +175,8 @@ console.log(`Parecer:           ${results7.parecer}`);
 console.log(`Comissão Tabela:   ${results7.comissaoTableText || "Nenhuma"}`);
 console.log(`Taxa Ponderada matches: ${Math.abs(results7.taxaPonderada - 0.0196) < 1e-4 ? "YES" : "NO"}`);
 console.log(`Troco matches:          ${Math.abs(results7.troco - 33929.52) < 1e-1 ? "YES" : "NO"}`);
-console.log(`Parecer matches:        ${results7.parecer === "Favorável" ? "YES" : "NO"}`);
-console.log(`Comissão matches:       ${results7.comissaoTableText === "Tabela 1 de comissionamento" ? "YES" : "NO"}`);
+console.log(`Parecer matches:        ${results7.parecer === "Não Favorável" ? "YES" : "NO"}`);
+console.log(`Comissão matches:       ${results7.comissaoTableText === "" ? "YES" : "NO"}`);
 
 console.log("\nRUNNING TEST CASE 8: simulateAll (All options sorted by Commission desc, Refin Rate asc)");
 const allSimulations = simulateAll(inputs5);
@@ -244,9 +244,20 @@ console.log(`INSS (Não) First Rate:  ${inssOptsNao[0].rate} | INSS (Sim) First 
 console.log(`Siape No Subtraction:   ${siapeOptsSim[0].rate === 0.0300 && siapeOptsNao[0].rate === 0.0300 ? "YES" : "NO"}`);
 console.log(`INSS Has Subtraction:   ${inssOptsNao[0].rate === 0.0220 && inssOptsSim[0].rate === 0.0217 ? "YES" : "NO"}`);
 
-console.log("\nRUNNING TEST CASE 11: Novos Convênios v16 (Pref. Salvador & IPREM SP)");
+console.log("\nRUNNING TEST CASE 11: Novos Convênios v16/v16c (Pref. Salvador & IPREM / IPREM SP)");
 const resSalvador = simulate({
     convenio: "Pref. Salvador",
+    produto: "Refin da Port",
+    comSeguro: "Não",
+    dataContrato: "2026-10-06",
+    primeiroVencimento: "2026-11-20",
+    prazoRefin: 120,
+    taxaRefin: 0.0235,
+    pmtRefin: 3000,
+    contracts: [{ saldo: 100000, prazo: 50, pmt: 3000 }]
+});
+const resIprem = simulate({
+    convenio: "IPREM",
     produto: "Refin da Port",
     comSeguro: "Não",
     dataContrato: "2026-10-06",
@@ -256,7 +267,7 @@ const resSalvador = simulate({
     pmtRefin: 3000,
     contracts: [{ saldo: 100000, prazo: 50, pmt: 3000 }]
 });
-const resIprem = simulate({
+const resIpremSp = simulate({
     convenio: "IPREM SP",
     produto: "Refin da Port",
     comSeguro: "Não",
@@ -268,8 +279,9 @@ const resIprem = simulate({
     contracts: [{ saldo: 100000, prazo: 50, pmt: 3000 }]
 });
 console.log(`Pref. Salvador Parecer: ${resSalvador.parecer} | Comissão: ${resSalvador.comissaoTableText}`);
-console.log(`IPREM SP Parecer:       ${resIprem.parecer} | Comissão: ${resIprem.comissaoTableText}`);
-console.log(`Novos Convênios Sucesso: ${resSalvador.parecer === "Favorável" && resIprem.parecer === "Favorável" ? "YES" : "NO"}`);
+console.log(`IPREM Parecer:          ${resIprem.parecer} | Comissão: ${resIprem.comissaoTableText}`);
+console.log(`IPREM SP Parecer:       ${resIpremSp.parecer} | Comissão: ${resIpremSp.comissaoTableText}`);
+console.log(`Novos Convênios Sucesso: ${resSalvador.parecer === "Favorável" && resIprem.parecer === "Favorável" && resIpremSp.parecer === "Favorável" ? "YES" : "NO"}`);
 
 console.log("\nRUNNING TEST CASE 12: Atualizações v16b (INSS c/ Seguro, Aeronáutica, Exército, Estado MS, Pref. Goiânia, Pref. SP, SPPrev)");
 const resInssComSeg = simulate({
@@ -293,6 +305,29 @@ const resAero = simulate({
 });
 console.log(`Aeronáutica (Max Tabela 2): ${resAero.parecer} | Comissão: ${resAero.comissaoTableText}`);
 console.log(`Aeronáutica Tabela 2 Match: ${resAero.comissaoTableText === "Tabela 2 de comissionamento" ? "YES" : "NO"}`);
+
+console.log("\nRUNNING TEST CASE 13: Atualizações v16c (Estado SC, Estado MG, Pref. Goiânia, Pref. Guarulhos, Tribunais Federais)");
+const resEstadoSC = simulate({
+    convenio: "Estado SC",
+    produto: "Refin da Port",
+    comSeguro: "Não",
+    dataContrato: "2026-10-06",
+    primeiroVencimento: "2026-11-20",
+    prazoRefin: 120,
+    taxaRefin: 0.0250,
+    pmtRefin: 3000,
+    contracts: [{ saldo: 100000, prazo: 50, pmt: 3000 }]
+});
+console.log(`Estado SC (Max Tabela 2 em v16c): ${resEstadoSC.parecer} | Comissão: ${resEstadoSC.comissaoTableText}`);
+console.log(`Estado SC Tabela 2 Match: ${resEstadoSC.parecer === "Favorável" && resEstadoSC.comissaoTableText === "Tabela 2 de comissionamento" ? "YES" : "NO"}`);
+
+const resGuarulhosV16c = simulate({
+    ...inputs7,
+    taxaRefin: "Tabela Refin 21" // 2.50% -> Taxa Ponderada 2.09%
+});
+console.log(`Pref. Guarulhos (v16c min 2.09%): Taxa Ponderada ${(resGuarulhosV16c.taxaPonderada * 100).toFixed(2)}% | Parecer: ${resGuarulhosV16c.parecer} | Comissão: ${resGuarulhosV16c.comissaoTableText}`);
+console.log(`Pref. Guarulhos v16c Match: ${resGuarulhosV16c.parecer === "Favorável" && resGuarulhosV16c.comissaoTableText === "Tabela 2 de comissionamento" ? "YES" : "NO"}`);
+
 
 
 

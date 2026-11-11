@@ -1,5 +1,5 @@
 // public/app.js
-// Client-side scripting for "Simulador Taxa Ponderada" (v.16b)
+// Client-side scripting for "Simulador Taxa Ponderada" (v.16c)
 
 const RANGE_REFIN = {
     "Não": [
@@ -233,7 +233,7 @@ async function findIdealRate() {
         }
 
         const bestOption = await response.json();
-        
+
         // Select the ideal table in dropdown
         const select = document.getElementById("taxaRefin");
         if (select) {
