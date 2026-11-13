@@ -25,7 +25,6 @@ const CONVENIO_DE_X_PARA = {
     "Exército": "Exército",
     "Tribunais Federais": "Tribunais Federais",
     "IPREM": "IPREM",
-    "IPREM SP": "IPREM",
     "Pref. Salvador": "Pref. Salvador",
     "Pref. Guarulhos": "Pref. Guarulhos"
 };
@@ -120,10 +119,6 @@ let APOIO_RATES = {
         "max": 0.05
     },
     "IPREM": {
-        "min": 0.0184,
-        "max": 0.05
-    },
-    "IPREM SP": {
         "min": 0.0184,
         "max": 0.05
     },
@@ -292,14 +287,6 @@ const COMMISSION_TABLES = {
         { "limit_s_seg": 0.0216, "limit_c_seg": 0.0216, "table": "Tabela 6", "rate": 0.03 }
     ],
     "IPREM": [
-        { "limit_s_seg": 0.0184, "limit_c_seg": 0.0184, "table": "Tabela 1", "rate": 0.005 },
-        { "limit_s_seg": 0.0186, "limit_c_seg": 0.0186, "table": "Tabela 2", "rate": 0.01 },
-        { "limit_s_seg": 0.0187, "limit_c_seg": 0.0187, "table": "Tabela 3", "rate": 0.015 },
-        { "limit_s_seg": 0.0189, "limit_c_seg": 0.0189, "table": "Tabela 4", "rate": 0.02 },
-        { "limit_s_seg": 0.019, "limit_c_seg": 0.019, "table": "Tabela 5", "rate": 0.025 },
-        { "limit_s_seg": 0.0192, "limit_c_seg": 0.0192, "table": "Tabela 6", "rate": 0.03 }
-    ],
-    "IPREM SP": [
         { "limit_s_seg": 0.0184, "limit_c_seg": 0.0184, "table": "Tabela 1", "rate": 0.005 },
         { "limit_s_seg": 0.0186, "limit_c_seg": 0.0186, "table": "Tabela 2", "rate": 0.01 },
         { "limit_s_seg": 0.0187, "limit_c_seg": 0.0187, "table": "Tabela 3", "rate": 0.015 },
@@ -799,7 +786,7 @@ function simulate(inputs) {
 
     const parecerFavoravel = (taxaPonderada >= minRate && taxaPonderada <= maxRate);
 
-    const isMilitary = ["Marinha", "Exército", "Aeronáutica"].includes(convenio);
+    const isMilitary = ["Marinha", "Exército"].includes(convenio);
     let parecer = "";
     if (isMilitary && hasSeguro) {
         parecer = "Não Favorável - Seguro não disponível";

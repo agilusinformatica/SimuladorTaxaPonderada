@@ -244,7 +244,7 @@ console.log(`INSS (Não) First Rate:  ${inssOptsNao[0].rate} | INSS (Sim) First 
 console.log(`Siape No Subtraction:   ${siapeOptsSim[0].rate === 0.0300 && siapeOptsNao[0].rate === 0.0300 ? "YES" : "NO"}`);
 console.log(`INSS Has Subtraction:   ${inssOptsNao[0].rate === 0.0220 && inssOptsSim[0].rate === 0.0217 ? "YES" : "NO"}`);
 
-console.log("\nRUNNING TEST CASE 11: Novos Convênios v16/v16c (Pref. Salvador & IPREM / IPREM SP)");
+console.log("\nRUNNING TEST CASE 11: Novos Convênios v16/v16c (Pref. Salvador & IPREM)");
 const resSalvador = simulate({
     convenio: "Pref. Salvador",
     produto: "Refin da Port",
@@ -267,21 +267,9 @@ const resIprem = simulate({
     pmtRefin: 3000,
     contracts: [{ saldo: 100000, prazo: 50, pmt: 3000 }]
 });
-const resIpremSp = simulate({
-    convenio: "IPREM SP",
-    produto: "Refin da Port",
-    comSeguro: "Não",
-    dataContrato: "2026-10-06",
-    primeiroVencimento: "2026-11-20",
-    prazoRefin: 120,
-    taxaRefin: 0.0220,
-    pmtRefin: 3000,
-    contracts: [{ saldo: 100000, prazo: 50, pmt: 3000 }]
-});
 console.log(`Pref. Salvador Parecer: ${resSalvador.parecer} | Comissão: ${resSalvador.comissaoTableText}`);
 console.log(`IPREM Parecer:          ${resIprem.parecer} | Comissão: ${resIprem.comissaoTableText}`);
-console.log(`IPREM SP Parecer:       ${resIpremSp.parecer} | Comissão: ${resIpremSp.comissaoTableText}`);
-console.log(`Novos Convênios Sucesso: ${resSalvador.parecer === "Favorável" && resIprem.parecer === "Favorável" && resIpremSp.parecer === "Favorável" ? "YES" : "NO"}`);
+console.log(`Novos Convênios Sucesso: ${resSalvador.parecer === "Favorável" && resIprem.parecer === "Favorável" ? "YES" : "NO"}`);
 
 console.log("\nRUNNING TEST CASE 12: Atualizações v16b (INSS c/ Seguro, Aeronáutica, Exército, Estado MS, Pref. Goiânia, Pref. SP, SPPrev)");
 const resInssComSeg = simulate({
