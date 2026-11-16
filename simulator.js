@@ -576,7 +576,7 @@ function simulate(inputs) {
     // Com seguro: 79 anos, 11 meses e 30 dias
     // Sem seguro: 75 anos, 11 meses e 30 dias
     if (dataNascimento) {
-        const hasSeguro = (comSeguro === "Sim" || comSeguro === true);
+        const hasSeguro = (comSeguro === "Sim" || comSeguro === true || convenio === "INSS");
         const maxMonths = hasSeguro ? 960 : 912; // 80 anos ou 76 anos
         const diferencaMeses = maxMonths - diferencaAbsolutaMeses(dataNascimento, dataContrato) - 1;
         if (diferencaMeses < prazoRefin) {
