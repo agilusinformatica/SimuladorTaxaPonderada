@@ -316,6 +316,16 @@ const resGuarulhosV16c = simulate({
 console.log(`Pref. Guarulhos (v16c min 2.09%): Taxa Ponderada ${(resGuarulhosV16c.taxaPonderada * 100).toFixed(2)}% | Parecer: ${resGuarulhosV16c.parecer} | Comissão: ${resGuarulhosV16c.comissaoTableText}`);
 console.log(`Pref. Guarulhos v16c Match: ${resGuarulhosV16c.parecer === "Favorável" && resGuarulhosV16c.comissaoTableText === "Tabela 2 de comissionamento" ? "YES" : "NO"}`);
 
+console.log("\nRUNNING TEST CASE 14: Faixa de Comissão Intermediária (Arredondamento para Faixa de Baixo)");
+const resInssIntermediario = simulate({
+    ...inputs5,
+    comSeguro: "Não",
+    taxaRefin: "Tabela Refin 8" // 1.85% -> Taxa Ponderada 1.81% (entre Tabela 2 [1.80%] e Tabela 3 [1.82%])
+});
+console.log(`INSS Taxa Ponderada: ${(resInssIntermediario.taxaPonderada * 100).toFixed(2)}% | Comissão: ${resInssIntermediario.comissaoTableText} (Esperado: Tabela 2 de comissionamento)`);
+console.log(`Faixa de Baixo Match: ${resInssIntermediario.comissaoTableText === "Tabela 2 de comissionamento" && resInssIntermediario.comissaoRate === 0.01 ? "YES" : "NO"}`);
+
+
 
 
 

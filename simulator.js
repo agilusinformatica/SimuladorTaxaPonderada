@@ -812,20 +812,17 @@ function simulate(inputs) {
                 let matchedEntry = null;
                 for (let entry of sorted) {
                     const limit = getLimit(entry);
-                    if (taxaPonderada <= limit + 1e-9) {
+                    if (taxaPonderada + 1e-9 >= limit) {
                         matchedEntry = entry;
+                    } else {
                         break;
                     }
                 }
 
                 if (matchedEntry) {
-                    comissaoTableText = `${matchedEntry.table} de comissionamento`;
-                    comissaoRate = matchedEntry.rate;
-                } else {
-                    const lastEntry = sorted[sorted.length - 1];
                     if (taxaPonderada <= maxRate + 1e-9) {
-                        comissaoTableText = `${lastEntry.table} de comissionamento`;
-                        comissaoRate = lastEntry.rate;
+                        comissaoTableText = `${matchedEntry.table} de comissionamento`;
+                        comissaoRate = matchedEntry.rate;
                     } else {
                         comissaoTableText = "Taxa ponderada acima do range da tabela de comissionamento";
                         comissaoRate = 0.0;
