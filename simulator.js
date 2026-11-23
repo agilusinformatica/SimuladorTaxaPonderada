@@ -132,6 +132,109 @@ let APOIO_RATES = {
     }
 };
 
+let APOIO_RATES_DS = {
+    "Bombeiros MG": {
+        "min": 0.0204,
+        "max": 0.03
+    },
+    "Def. Pública MG": {
+        "min": 0.0204,
+        "max": 0.03
+    },
+    "Estado BA": {
+        "min": 0.0196,
+        "max": 0.03
+    },
+    "Estado MS": {
+        "min": 0.0175,
+        "max": 0.03
+    },
+    "Estado SC": {
+        "min": 0.0200,
+        "max": 0.03
+    },
+    "Grupo I Governos": {
+        "min": 0.0220,
+        "max": 0.03
+    },
+    "Grupo II Prefeituras": {
+        "min": 0.0204,
+        "max": 0.03
+    },
+    "INSS": {
+        "min": 0.0167,
+        "max": 0.0185
+    },
+    "IPSEMG": {
+        "min": 0.0204,
+        "max": 0.03
+    },
+    "IPSM": {
+        "min": 0.0204,
+        "max": 0.03
+    },
+    "Pref. Contagem": {
+        "min": 0.0191,
+        "max": 0.0235
+    },
+    "Pref. Goiânia": {
+        "min": 0.0195,
+        "max": 0.03
+    },
+    "Pref. SP": {
+        "min": 0.0172,
+        "max": 0.0250
+    },
+    "SEPLAG MG": {
+        "min": 0.0204,
+        "max": 0.03
+    },
+    "Tribunais Estaduais": {
+        "min": 0.0192,
+        "max": 0.03
+    },
+    "SPPrev": {
+        "min": 0.0175,
+        "max": 0.03
+    },
+    "PMMG": {
+        "min": 0.0203,
+        "max": 0.03
+    },
+    "Siape": {
+        "min": 0.0164,
+        "max": 0.018
+    },
+    "Aeronáutica": {
+        "min": 0.0192,
+        "max": 0.03
+    },
+    "Marinha": {
+        "min": 0.0193,
+        "max": 0.0204
+    },
+    "Exército": {
+        "min": 0.0174,
+        "max": 0.0204
+    },
+    "Tribunais Federais": {
+        "min": 0.0206,
+        "max": 0.03
+    },
+    "IPREM": {
+        "min": 0.0178,
+        "max": 0.0250
+    },
+    "Pref. Salvador": {
+        "min": 0.0183,
+        "max": 0.03
+    },
+    "Pref. Guarulhos": {
+        "min": 0.0195,
+        "max": 0.03
+    }
+};
+
 const COMMISSION_TABLES = {
     "Estado MG": [
         { "limit_s_seg": 0.0206, "limit_c_seg": 0.0206, "table": "Tabela 1", "rate": 0.005 },
@@ -294,6 +397,11 @@ const COMMISSION_TABLES = {
         { "limit_s_seg": 0.0192, "limit_c_seg": 0.0192, "table": "Tabela 6", "rate": 0.03 }
     ]
 };
+
+let COMISSION_TABLES_DS = copyArray(COMISSION_TABLES)
+for (const key in COMISSION_TABLES_DS) {
+    COMISSION_TABLES_DS[key] = [{ "limit_s_seg": 0.01, "limit_c_seg": 0.09, "table": "Tabela 1", "rate": 0.00 }]
+}
 
 const MIN_REFIN_RATE = 0.0150;
 
@@ -551,11 +659,17 @@ function simulate(inputs) {
         contracts, // Array of 4 objects { saldo, prazo, pmt }
         dataNascimento, // YYYY-MM-DD (opcional)
         alternativeRates, // object of objects {"Siape": {min: 0.0150, max: 0.0180}}
-        comissionsAdded // object of objects {"Siape": [{"limit_s_seg": 0.0150, "limit_c_seg": 0.0150, "table": "Tabela 1", "rate": 0.005}]
+        comissionsAdded, // object of objects {"Siape": [{"limit_s_seg": 0.0150, "limit_c_seg": 0.0150, "table": "Tabela 1", "rate": 0.005}]
+        canal
     } = inputs;
 
-    const RATES = copyObject(APOIO_RATES)
-    const COMISSIONS = copyObject(COMMISSION_TABLES)
+    let RATES = copyObject(APOIO_RATES)
+    let COMISSIONS = copyObject(COMMISSION_TABLES)
+
+    if (canal?.toUpperCase === 'DS') {
+        RATES = copyObject(APOIO_RATES_DS)
+        COMISSIONS = copyObject(COMMISSION_TABLES_DS)
+    }
 
     // permite a substituição de taxas de convênios 
     if (alternativeRates) {
