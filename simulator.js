@@ -438,7 +438,7 @@ const COMMISSION_TABLES = {
 
 let COMMISSION_TABLES_DS = copyObject(COMMISSION_TABLES)
 for (const key in COMMISSION_TABLES_DS) {
-    COMMISSION_TABLES_DS[key] = [{ "limit_s_seg": 0.01, "limit_c_seg": 0.09, "table": "Tabela 1", "rate": 0.00 }]
+    COMMISSION_TABLES_DS[key] = [{ "limit_s_seg": 0.0001, "limit_c_seg": 0.0001, "table": "Tabela 1", "rate": 0.001 }]
 }
 
 const MIN_REFIN_RATE = 0.0150;
