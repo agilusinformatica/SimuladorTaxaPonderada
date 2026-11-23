@@ -1,6 +1,44 @@
 // simulator.js
 // Core calculation module for "Simulador Taxa Ponderada"
 
+const copyArray = function (array) {
+    let copy = []
+    if (array) {
+        array.forEach(e => {
+            let objTarget = Object.assign({}, e)
+            for (let property in objTarget) {
+                if (Array.isArray(objTarget[property])) {
+                    objTarget[property] = copyArray(objTarget[property])
+                }
+                else if (objTarget[property] instanceof Date) {
+                    objTarget[property] = objTarget[property]
+                }
+                else if (objTarget[property] && typeof objTarget[property] === 'object') {
+                    objTarget[property] = copyObject(objTarget[property])
+                }
+            }
+            copy.push(objTarget)
+        })
+    }
+    return copy
+}
+
+const copyObject = function (original) {
+    let copy = Object.assign({}, original)
+    for (let property in copy) {
+        if (Array.isArray(copy[property])) {
+            copy[property] = copyArray(copy[property])
+        }
+        else if (copy[property] instanceof Date) {
+            copy[property] = original[property]
+        }
+        else if (copy[property] && typeof copy[property] === 'object') {
+            copy[property] = copyObject(copy[property])
+        }
+    }
+    return copy
+}
+
 const CONVENIO_DE_X_PARA = {
     "Bombeiros MG": "Estado MG",
     "Def. Pública MG": "Estado MG",
@@ -398,50 +436,12 @@ const COMMISSION_TABLES = {
     ]
 };
 
-// let COMISSION_TABLES_DS = copyArray(COMISSION_TABLES)
-// for (const key in COMISSION_TABLES_DS) {
-//     COMISSION_TABLES_DS[key] = [{ "limit_s_seg": 0.01, "limit_c_seg": 0.09, "table": "Tabela 1", "rate": 0.00 }]
-// }
+let COMMISSION_TABLES_DS = copyObject(COMMISSION_TABLES)
+for (const key in COMMISSION_TABLES_DS) {
+    COMMISSION_TABLES_DS[key] = [{ "limit_s_seg": 0.01, "limit_c_seg": 0.09, "table": "Tabela 1", "rate": 0.00 }]
+}
 
 const MIN_REFIN_RATE = 0.0150;
-
-const copyArray = function (array) {
-    let copy = []
-    if (array) {
-        array.forEach(e => {
-            let objTarget = Object.assign({}, e)
-            for (let property in objTarget) {
-                if (Array.isArray(objTarget[property])) {
-                    objTarget[property] = copyArray(objTarget[property])
-                }
-                else if (objTarget[property] instanceof Date) {
-                    objTarget[property] = objTarget[property]
-                }
-                else if (objTarget[property] && typeof objTarget[property] === 'object') {
-                    objTarget[property] = copyObject(objTarget[property])
-                }
-            }
-            copy.push(objTarget)
-        })
-    }
-    return copy
-}
-
-const copyObject = function (original) {
-    let copy = Object.assign({}, original)
-    for (let property in copy) {
-        if (Array.isArray(copy[property])) {
-            copy[property] = copyArray(copy[property])
-        }
-        else if (copy[property] instanceof Date) {
-            copy[property] = original[property]
-        }
-        else if (copy[property] && typeof copy[property] === 'object') {
-            copy[property] = copyObject(copy[property])
-        }
-    }
-    return copy
-}
 
 // DAYS360 US NASD Method (equivalent to Excel DAYS360)
 function days360(date1, date2) {
@@ -666,10 +666,10 @@ function simulate(inputs) {
     let RATES = copyObject(APOIO_RATES)
     let COMISSIONS = copyObject(COMMISSION_TABLES)
 
-    // if (canal?.toUpperCase() === 'DS') {
-    //     RATES = copyObject(APOIO_RATES_DS)
-    //     COMISSIONS = copyObject(COMMISSION_TABLES_DS)
-    // }
+    if (canal?.toUpperCase() === 'DS') {
+        RATES = copyObject(APOIO_RATES_DS)
+        COMISSIONS = copyObject(COMMISSION_TABLES_DS)
+    }
 
     // permite a substituição de taxas de convênios 
     if (alternativeRates) {
