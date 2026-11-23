@@ -398,10 +398,10 @@ const COMMISSION_TABLES = {
     ]
 };
 
-let COMISSION_TABLES_DS = copyArray(COMISSION_TABLES)
-for (const key in COMISSION_TABLES_DS) {
-    COMISSION_TABLES_DS[key] = [{ "limit_s_seg": 0.01, "limit_c_seg": 0.09, "table": "Tabela 1", "rate": 0.00 }]
-}
+// let COMISSION_TABLES_DS = copyArray(COMISSION_TABLES)
+// for (const key in COMISSION_TABLES_DS) {
+//     COMISSION_TABLES_DS[key] = [{ "limit_s_seg": 0.01, "limit_c_seg": 0.09, "table": "Tabela 1", "rate": 0.00 }]
+// }
 
 const MIN_REFIN_RATE = 0.0150;
 
