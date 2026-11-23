@@ -666,10 +666,10 @@ function simulate(inputs) {
     let RATES = copyObject(APOIO_RATES)
     let COMISSIONS = copyObject(COMMISSION_TABLES)
 
-    if (canal?.toUpperCase() === 'DS') {
-        RATES = copyObject(APOIO_RATES_DS)
-        COMISSIONS = copyObject(COMMISSION_TABLES_DS)
-    }
+    // if (canal?.toUpperCase() === 'DS') {
+    //     RATES = copyObject(APOIO_RATES_DS)
+    //     COMISSIONS = copyObject(COMMISSION_TABLES_DS)
+    // }
 
     // permite a substituição de taxas de convênios 
     if (alternativeRates) {
