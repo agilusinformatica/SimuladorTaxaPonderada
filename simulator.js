@@ -375,10 +375,10 @@ const COMMISSION_TABLES = {
         { "limit_s_seg": 0.0209, "limit_c_seg": 0.0209, "table": "Tabela 6", "rate": 0.03 }
     ],
     "Siape": [
-        { "limit_s_seg": 0.0173, "limit_c_seg": 0.0173, "table": "Tabela 1", "rate": 0.005 },
-        { "limit_s_seg": 0.0174, "limit_c_seg": 0.0174, "table": "Tabela 2", "rate": 0.01 },
-        { "limit_s_seg": 0.0175, "limit_c_seg": 0.0175, "table": "Tabela 3", "rate": 0.015 },
-        { "limit_s_seg": 0.0176, "limit_c_seg": 0.0176, "table": "Tabela 4", "rate": 0.02 },
+        { "limit_s_seg": 0.0173, "limit_c_seg": 0.0170, "table": "Tabela 1", "rate": 0.005 },
+        { "limit_s_seg": 0.0174, "limit_c_seg": 0.0171, "table": "Tabela 2", "rate": 0.01 },
+        { "limit_s_seg": 0.0175, "limit_c_seg": 0.0172, "table": "Tabela 3", "rate": 0.015 },
+        { "limit_s_seg": 0.0176, "limit_c_seg": 0.0173, "table": "Tabela 4", "rate": 0.02 },
         // { "limit_s_seg": 0.0168, "limit_c_seg": 0.0165, "table": "Tabela 5", "rate": 0.025 },
         // { "limit_s_seg": 0.0169, "limit_c_seg": 0.0166, "table": "Tabela 6", "rate": 0.03 }
     ],
@@ -971,7 +971,7 @@ function simulate(inputs) {
 function getRefinRange(convenio, comSeguro, minRefinRate) {
     let maxRate;
     if (convenio === "Siape") {
-        maxRate = 0.0300;
+        maxRate = 0.0310;
     } else if (convenio === "INSS") {
         maxRate = 0.0220;
     } else {
