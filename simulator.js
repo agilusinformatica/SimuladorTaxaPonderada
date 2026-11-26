@@ -240,7 +240,7 @@ let APOIO_RATES_DS = {
         "max": 0.03
     },
     "Siape": {
-        "min": 0.0176,
+        "min": 0.0170,
         "max": 0.018
     },
     "Aeronáutica": {
